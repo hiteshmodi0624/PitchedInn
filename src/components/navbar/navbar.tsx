@@ -10,10 +10,10 @@ function Navbar() {
     return (
         <nav className="sm:h-screen w-screen justify-center sm:w-full bg-black text-white border-seperator 
                         border-r-[1px] p flex flex-row sm:flex-col p-4 sm:justify-start">
-            <Link to="/home" className="hidden xl:block">
+            <Link to="/home" className="hidden xl:block mb-6 my-2">
                 <img src="logo.svg" alt={brand} className="w-9/12" />
             </Link>
-            <Link to="/home" className="hidden sm:block xl:hidden">
+            <Link to="/home" className="hidden sm:block xl:hidden mb-6 my-2">
                 <img src="favicon.ico" alt={brand} className="w-12" />
             </Link>
             <ul className="flex sm:flex-col justify-around w-full sm:justify-normal flex-row h-full">

@@ -1,1 +1,1 @@
-export const brand="SharkWave"
+export const brand="PitchedInn"

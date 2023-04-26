@@ -1,8 +1,8 @@
+import Feed from "../components/feed/feed";
+
 function Home() {
     return (
-      <div className="">
-        
-      </div>
+        <Feed />
     );
   }
   

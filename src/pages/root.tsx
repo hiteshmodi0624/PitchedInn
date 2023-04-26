@@ -1,13 +1,19 @@
-import Content from "../components/root/content";
-import Navbar from "../components/root/navbar";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/navbar/navbar";
+import Sidebar from "../components/sidebar/sidebar";
 
-function Root() {
+const Root = () => {
     return (
-      <div className="grid grid-cols-[244px_1fr] bg-primary">
-        <Navbar/>
-        <Content/>
-      </div>
+        <div className="grid grid-cols-[288px_1fr_366px] bg-black h-screen px-20 overflow-scroll">
+            <header className="sticky top-0">
+                <Navbar />
+            </header>
+            <main className="text-white justify-center flex flex-row h-auto">
+                <Outlet />
+            </main>
+            <Sidebar />
+        </div>
     );
-  }
-  
+};
+
 export default Root;

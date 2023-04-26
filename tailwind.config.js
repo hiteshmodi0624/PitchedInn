@@ -7,7 +7,10 @@ module.exports = {
     extend: {
       colors:{
         seperator:"rgb(38,38,38)",
-        primary:"#121212"
+        gray:"#121212",
+        gray2:"#1E1E1E",
+        grey:"#71767A",
+        primary:"#0023FF",
       },
     },
   },

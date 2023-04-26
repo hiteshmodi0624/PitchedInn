@@ -1,5 +1,5 @@
-import { FC, useRef } from "react";
-import Label from "./label";
+import { FC } from "react";
+import Label from "./label/label";
 
 const InteractionIcon: FC<{
     icon1: JSX.Element;
@@ -11,7 +11,6 @@ const InteractionIcon: FC<{
     count?: number;
     color?:string
 }> = ({ icon1, icon2, onClick, state, className, title, count, color }) => {
-    const triggerRef=useRef(null);
     return (
         <Label label={title}>
             <button
@@ -19,7 +18,6 @@ const InteractionIcon: FC<{
                 className={`active:scale-150 active:duration-500 ${className} relative flex items-center space-x-2 hover:scale-110
             }`}
                 style={{ color: state ? color : "white" }}
-                ref={triggerRef}
             >
                 {state ? icon2 : icon1}
                 <p className="text-sm">{count}</p>

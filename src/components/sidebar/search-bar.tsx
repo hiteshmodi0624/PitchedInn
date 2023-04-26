@@ -11,14 +11,14 @@ function SearchBar() {
         setValue("");
     };
     return (
-        <div className="text-grey group bg-black">
+        <div className="w-full text-grey group bg-black relative">
             <form className="z-30 relative">
                 <label className="absolute text-2xl z-10 top-5 pt-0.5 left-8 group-focus-within:text-primary">
                     <AiOutlineSearch />
                 </label>
                 <input
                     type="text"
-                    className="w-full p-3 m-2 bg-gray h-max rounded-full pl-14 border-[1px] pr-12
+                    className="w-full p-3 my-2 bg-gray h-max rounded-full pl-14 border-[1px] pr-12
                  focus:outline-none focus:border-primary border-black placeholder:text-grey placeholder:font-light text-white"
                     placeholder="Search Startups or Collections"
                     onChange={onInputChange}

@@ -39,7 +39,7 @@ export const dummyPosts:post[]=[{
         following:true
     },
     post:{
-        id:"1",
+        id:"2",
         data:{
             postMedia:"favicon.ico",
             mediaType:"image",
@@ -63,13 +63,13 @@ export const dummyPosts:post[]=[{
 },{
     profile:{
         name:"Business 2",
-        username:"new-user",
+        username:"new-user2",
         type:"Business Type",
         profilePic:"favicon.ico",
         following:true
     },
     post:{
-        id:"1",
+        id:"3",
         data:{
             postMedia:"favicon.ico",
             mediaType:"image",
@@ -93,13 +93,13 @@ export const dummyPosts:post[]=[{
 },{
     profile:{
         name:"Business 2",
-        username:"new-user",
+        username:"new-user3",
         type:"Business Type",
         profilePic:"favicon.ico",
         following:true
     },
     post:{
-        id:"1",
+        id:"4",
         data:{
             postMedia:"favicon.ico",
             mediaType:"image",

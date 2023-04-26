@@ -22,7 +22,7 @@ const Interactions:FC<{interactions:interactions}>=({interactions}) =>{
         setSaved((prev) => !prev);
     };
     return (
-        <div className="text-2xl flex justify-between">
+        <div className="text-2xl flex justify-between w-full">
             <InteractionIcon
                 icon1={<AiOutlineHeart />}
                 onClick={onLikeClick}

@@ -22,7 +22,7 @@ const HiddenMenuItem: FC<
             className={`border-b-2 border-seperator last:border-b-0 hover:bg-gray ${className}`}
         >
             {to ? (
-                <Link to={to}>{title?text:element}</Link>
+                title?<Link to={to}>{text}</Link>:element
             ) : (
                 <button onClick={onClickHandler}>{title?text:element}</button>
             )}

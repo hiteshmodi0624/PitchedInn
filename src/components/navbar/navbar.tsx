@@ -3,17 +3,24 @@ import NavButton from "./nav-button";
 import {AiFillHome, AiOutlineMessage, AiOutlineMore, AiOutlineNotification, AiOutlinePlusSquare, AiOutlineSearch, AiOutlineUser, AiOutlineVideoCamera} from "react-icons/ai"
 import MoreMenu from "./more-menu";
 import MenuToggler from "../ui/hidden-menu/menu-toggler";
+import { brand } from "../../data/data";
 function Navbar() {
+    const width = window.innerWidth;
+    const breakpoint = 640;
     return (
-        <nav className="h-screen w-full bg-black text-white border-seperator  border-r-[1px] p flex flex-col p-4 justify-start">
-            <Link to="/home">
-                <img src="logo.svg" alt="SharkWave" className="w-9/12" />
+        <nav className="sm:h-screen w-screen justify-center sm:w-full bg-black text-white border-seperator 
+                        border-r-[1px] p flex flex-row sm:flex-col p-4 sm:justify-start">
+            <Link to="/home" className="hidden xl:block">
+                <img src="logo.svg" alt={brand} className="w-9/12" />
             </Link>
-            <ul className="flex flex-col h-full">
-                <NavButton name="Home" icon={<AiFillHome />} />
+            <Link to="/home" className="hidden sm:block xl:hidden">
+                <img src="favicon.ico" alt={brand} className="w-12" />
+            </Link>
+            <ul className="flex sm:flex-col justify-around w-full sm:justify-normal flex-row h-full">
+                <NavButton name="Home" icon={<AiFillHome />} className=""/>
                 <NavButton name="Explore" icon={<AiOutlineSearch />} />
                 <NavButton name="Pitches" icon={<AiOutlineVideoCamera />} />
-                <NavButton name="Messages" icon={<AiOutlineMessage />} />
+                <NavButton name="Messages" icon={<AiOutlineMessage />} className="hidden sm:block"/>
                 <NavButton
                     name="Notifications"
                     icon={<AiOutlineNotification />}
@@ -30,6 +37,7 @@ function Navbar() {
                     />
                 }
                 menu={<MoreMenu />}
+                className="hidden sm:block"
             />
         </nav>
     );

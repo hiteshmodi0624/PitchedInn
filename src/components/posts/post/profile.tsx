@@ -2,7 +2,7 @@ import { AiOutlineMore } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import InteractionIcon from "../../ui/interaction-icon";
 import { FC } from "react";
-import PostHiddenMenu from "./post-more-menu";
+import PostHiddenMenu from "./post-hidden-menu";
 import post from "../../../../modals/post";
 import MenuToggler from "../../ui/hidden-menu/menu-toggler";
 

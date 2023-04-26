@@ -5,7 +5,7 @@ import Heading from "../ui/heading";
 import { Link } from "react-router-dom";
 const FollowList:FC<{listType:string}> = ({listType}) => {
     return (
-        <div className="m-6 my-3 rounded-3xl bg-gray z-10 w-full overflow-hidden pt-3">
+        <div className="my-3 rounded-3xl bg-gray z-10 w-full overflow-hidden pt-3">
             <Heading
                 text={
                     listType === "startups"

@@ -11,8 +11,7 @@ const HiddenMenu: FC<
     return (
         <ul
             className={`mx-3 border-seperator border-2 rounded-lg absolute z-20 bg-black overflow-hidden cursor-pointer 
-                ${ menuDirection === "down" ? "top-full" : "bottom-full"} ${className}
-            `}
+                        ${menuDirection} ${className} `}
             ref={triggerRef}
         >
             {children}

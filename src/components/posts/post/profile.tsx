@@ -17,7 +17,7 @@ const Profile:FC<{post:post}>=({post})=>{
             >
                 <div>
                     <h2 className="font-bold text-sm">{profile.name}</h2>
-                    <h3 className="text-xs">{profile.type}</h3>
+                    <h3 className="text-xs">{profile.details.type}</h3>
                 </div>
                 <div className="self-start text-grey">
                     <h2 className="text-sm">@{profile.username}</h2>

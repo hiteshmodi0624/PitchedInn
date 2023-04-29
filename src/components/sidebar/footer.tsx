@@ -1,13 +1,13 @@
 import { brand } from "../../data/data";
-import FooterItem from "./footer-item";
+import HorizontalListItem from "../ui/horizontal-list/horizontal-list-item";
 
 function Footer() {
     return (
         <footer className="flex flex-wrap text-grey text-sm font-extralight p-3">
-            <FooterItem title="Help" link="help"/>
-            <FooterItem title="Privacy Pollicy" link="privacy"/>
-            <FooterItem title="Terms of Service" link="terms"/>
-            <FooterItem title={`© ${new Date().getFullYear()} ${brand}`}/>
+            <HorizontalListItem title="Help" link="help"/>
+            <HorizontalListItem title="Privacy Pollicy" link="privacy"/>
+            <HorizontalListItem title="Terms of Service" link="terms"/>
+            <HorizontalListItem title={`© ${new Date().getFullYear()} ${brand}`}/>
         </footer>
     );
   }

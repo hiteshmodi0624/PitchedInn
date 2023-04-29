@@ -1,8 +1,8 @@
+import Profile from "../../components/profile/profile";
+
 function UserProfile() {
     return (
-      <div className="">
-        
-      </div>
+      <Profile/>
     );
   }
   

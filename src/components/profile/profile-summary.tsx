@@ -2,7 +2,7 @@ import { FC } from "react";
 import profile from "../../../modals/profile";
 import ProfilePicture from "../ui/profile-picture";
 import { Link } from "react-router-dom";
-import FollowButton from "../ui/follow-button";
+import FollowButton from "../ui/buttons/follow-button";
 
 const ProfileSummary: FC<{
     profile: profile;
@@ -21,7 +21,7 @@ const ProfileSummary: FC<{
                         </h2>
                     )}
                 </div>
-                <h3 className="text-xs text-grey">{profile.type}</h3>
+                <h3 className="text-xs text-grey">{profile.details.type}</h3>
             </div>
             {showFollowingButton && (
                 <FollowButton following={profile.following} />

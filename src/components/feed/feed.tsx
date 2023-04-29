@@ -10,7 +10,7 @@ function Feed() {
         setMode(mode);
     }
     return (
-        <div className="h-screen grid">
+        <div className="h-screen grid w-full">
             <Card className="w-full sticky top-0 bg-black z-50">
                 <Heading text="Home" />
                 <Modes setMode={setFeedMode} mode={feedMode} modes={["All Posts","Entrepreneur"]}/>

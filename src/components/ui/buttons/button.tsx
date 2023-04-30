@@ -10,9 +10,9 @@ const Button: FC<{
     iconClasses?: string;
     nameClasses?: string;
     labelClasses?: string;
-    light?: boolean;
     buttonClasses?:string;
-}> = ({ name, icon, onClickHandler, className, nameClasses , iconClasses, labelClasses, light, buttonClasses }) => {
+    link?:string
+}> = ({ name, icon, onClickHandler, className, nameClasses , iconClasses, labelClasses, link, buttonClasses }) => {
     const children = (
         <>
             <div className={` font-bold group-hover:scale-105 duration-200 ${iconClasses}`}>
@@ -32,7 +32,7 @@ const Button: FC<{
                         {children}
                     </button>
                 ) : (
-                    <Link to={name.toLowerCase()} className={`${classes}`}>
+                    <Link to={link?link:name.toLowerCase()} className={`${classes}`}>
                         {children}
                     </Link>
                 )}

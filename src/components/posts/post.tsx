@@ -17,7 +17,7 @@ const Post:FC<{post:post}>=({post})=>{
                     <Content content={post.post.data.content} />
                     <PostMedia data={post.post.data} />
                     <div className="py-4 sm:pr-10 w-full">
-                        <Interactions interactions={post.post.interactions} />
+                        <Interactions interactions={post.post.interactions} postId={post.post.id}/>
                     </div>
                 </div>
             </div>

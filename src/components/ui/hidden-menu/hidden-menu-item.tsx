@@ -5,7 +5,7 @@ const HiddenMenuItem: FC<
     PropsWithChildren<{
         className?: string;
         to?: string;
-        onClickHandler?: () => void;
+        onClickHandler?: (...args: any[]) => void;
         title?:string;
         icon?:JSX.Element
     }>

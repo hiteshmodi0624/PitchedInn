@@ -5,31 +5,30 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
 import InteractionIcon from "../../ui/interaction-icon";
 import { interactions } from "../../../../modals/post";
+import {
+    collectHandler,
+    likeHandler,
+    saveHandler,
+} from "../../../services/post";
 
-const Interactions:FC<{interactions:interactions}>=({interactions}) =>{
+const Interactions: FC<{ postId: string; interactions: interactions }> = ({
+    interactions,
+    postId,
+}) => {
     const [liked, setLiked] = useState<boolean>(false);
     const [saved, setSaved] = useState<boolean>(false);
-    const [collected, onCollected] = useState<boolean>(false);
-    const onLikeClick = () => {
-        setLiked((prev) => !prev);
-    };
+    const [collected, setCollected] = useState<boolean>(false);
     const onComment = () => {};
     const onForward = () => {};
-    const onCollect = () => {
-        onCollected((prev) => !prev);
-    };
-    const onSave = () => {
-        setSaved((prev) => !prev);
-    };
     return (
         <div className="text-2xl flex justify-between w-full">
             <InteractionIcon
                 icon1={<AiOutlineHeart />}
-                onClick={onLikeClick}
+                onClick={likeHandler.bind(null, postId, setLiked)}
                 state={liked}
                 icon2={<AiFillHeart color="red" />}
                 title="Like"
-                count={interactions.likes+ (+liked)}
+                count={interactions.likes + +liked}
                 color="red"
             />
             <InteractionIcon
@@ -41,20 +40,20 @@ const Interactions:FC<{interactions:interactions}>=({interactions}) =>{
             />
             <InteractionIcon
                 icon1={<MdOutlineAddBox />}
-                onClick={onCollect}
+                onClick={collectHandler.bind(null, postId, setCollected)}
                 state={collected}
-                icon2={<MdAddBox color="green"/>}
+                icon2={<MdAddBox color="green" />}
                 title="Collect"
-                count={interactions.collected+ (+collected)}
+                count={interactions.collected + +collected}
                 color="green"
             />
             <InteractionIcon
                 icon1={<BsBookmark />}
-                onClick={onSave}
+                onClick={saveHandler.bind(null, postId, setSaved)}
                 state={saved}
-                icon2={<BsBookmarkFill color="DodgerBlue"/>}
+                icon2={<BsBookmarkFill color="DodgerBlue" />}
                 title="Save"
-                count={interactions.saved+ (+saved)}
+                count={interactions.saved + +saved}
                 color="DodgerBlue"
             />
             <InteractionIcon
@@ -65,6 +64,6 @@ const Interactions:FC<{interactions:interactions}>=({interactions}) =>{
             />
         </div>
     );
-}
+};
 
 export default Interactions;

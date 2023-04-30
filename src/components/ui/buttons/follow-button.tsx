@@ -1,17 +1,13 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC, useState } from "react";
 import Button from "./button";
+import { followHandler } from "../../../services/profile";
 
-const FollowButton:FC<{following:boolean,className?:string}> = ({following,className}) => {
-    const [followState,changeState]=useState<boolean>(following);
-    const onClickHandler=(event:MouseEvent<HTMLButtonElement>)=>{
-        event.preventDefault();
-        changeState(prev=>!prev);
-    }
+const FollowButton:FC<{className?:string,username:string}> = ({className,username}) => {
+    const [followState,changeState]=useState<boolean>(false);
     return (
         <Button
-            onClickHandler={onClickHandler} 
+            onClickHandler={followHandler.bind(null,username,changeState)}
             name={followState? "Follow" : "Unfollow"}
-            light={true}
             className={className}
             buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
         />

@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+      },
       colors:{
         seperator:"rgb(38,38,38)",
         gray:"#121212",

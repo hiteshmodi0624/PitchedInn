@@ -1,10 +1,11 @@
 import { FC } from "react";
+import Image from "../../ui/image";
 
 const ProfileCover: FC<{
     name: string;
     image: string
 }> = ({ name,image }) => {
-    return <img src={image} alt={name} className="w-full " />;
+    return <Image src={image} alt={name} className="w-full " />;
 };
 
 export default ProfileCover;

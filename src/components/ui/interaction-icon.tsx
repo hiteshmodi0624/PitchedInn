@@ -4,7 +4,7 @@ import Label from "./label/label";
 const InteractionIcon: FC<{
     icon1: JSX.Element;
     icon2?: JSX.Element;
-    onClick: () => void;
+    onClick: (...args: any[]) => void
     state?: boolean;
     className?: string;
     title: string;

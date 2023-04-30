@@ -18,8 +18,8 @@ const ProfileDetails: FC<{
                 <p>{profile.bio}</p>
             </div>
             <div className="text-sm text-grey flex flex-wrap font-extralight p-3">
-                {profile.details.birthDate && (
-                    <HorizontalListItem title={profile.details.birthDate} />
+                {profile.details.foundedDate && (
+                    <HorizontalListItem title={profile.details.foundedDate} />
                 )}
                 {profile.details.location && (
                     <HorizontalListItem title={profile.details.location} />

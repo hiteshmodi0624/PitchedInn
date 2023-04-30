@@ -3,14 +3,11 @@ import Home from "./pages/home";
 import Signup from "./pages/auth/signup";
 import Login from "./pages/auth/login";
 import Root from "./pages/root";
-import Search from "./pages/user/search";
-import Explore from "./pages/user/explore";
-import Pitches from "./pages/user/pithces";
-import Messages from "./pages/user/messages";
-import Notifications from "./pages/user/notifications";
-import UserProfile from "./pages/user/user-profile";
-import Create from "./pages/user/create";
-import More from "./pages/user/more";
+import UserRoot from "./pages/user/user-root";
+import UserPosts from "./pages/user/user-posts";
+import UserPitches from "./pages/user/user-pitches";
+import UserSaved from "./pages/user/user-saved";
+import UserAbout from "./pages/user/user-about";
 
 const router = createBrowserRouter([
   {
@@ -26,14 +23,13 @@ const router = createBrowserRouter([
                   { path: "login", element: <Login /> },
               ],
           },
-          { path:"search", element:<Search/>},
-          { path:"explore", element:<Explore/>},
-          { path:"pitches", element:<Pitches/>},
-          { path:"messages", element:<Messages/>},
-          { path:"notifications", element:<Notifications/>},
-          { path:"create", element:<Create/>},
-          { path:":userId", element:<UserProfile/>},
-          { path:"more", element:<More/>},
+          { path:":username", element:<UserRoot/>,children:[
+            { index:true, element:<UserPosts/>},
+            { path:"posts", element:<UserPosts/>},
+            { path:"pitches", element:<UserPitches/>},
+            { path:"saved", element:<UserSaved/>},
+            { path:"about", element:<UserAbout/>},
+          ]},
       ],
   },
 ]);

@@ -4,14 +4,13 @@ export const dummyPosts: post[] = [
     {
         profile: {
             name: "Business 1",
-            username: "username",
+            username: "username-1",
             profilePic: "favicon.ico",
-            following: false,
             backgroundImage: "back.jpeg",
             bio: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim fugit temporibus ipsa magni vero corrupti quasi nisi odit quia delectus a corporis aspernatur",
             details: {
                 type: "Business Type",
-                birthDate: "06/24/2001",
+                foundedDate: "06/24/2001",
                 location: "Guwahati",
                 website: "www.hiteshmodi.in",
             },
@@ -41,21 +40,20 @@ export const dummyPosts: post[] = [
     },
     {
         profile: {
-            name: "Business 1",
-            username: "username",
+            name: "Business 2",
+            username: "username-2",
             profilePic: "favicon.ico",
-            following: false,
             backgroundImage: "back.jpeg",
             bio: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim fugit temporibus ipsa magni vero corrupti quasi nisi odit quia delectus a corporis aspernatur",
             details: {
                 type: "Business Type",
-                birthDate: "06/24/2001",
+                foundedDate: "06/24/2001",
                 location: "Guwahati",
                 website: "www.hiteshmodi.in",
             },
         },
         post: {
-            id: "1",
+            id: "2",
             data: {
                 postMedia: "favicon.ico",
                 mediaType: "image",
@@ -79,24 +77,23 @@ export const dummyPosts: post[] = [
     },
     {
         profile: {
-            name: "Business 1",
-            username: "username",
+            name: "Business 3",
+            username: "username-3",
             profilePic: "favicon.ico",
-            following: false,
             backgroundImage: "back.jpeg",
             bio: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim fugit temporibus ipsa magni vero corrupti quasi nisi odit quia delectus a corporis aspernatur",
             details: {
                 type: "Business Type",
-                birthDate: "06/24/2001",
+                foundedDate: "06/24/2001",
                 location: "Guwahati",
                 website: "www.hiteshmodi.in",
             },
         },
         post: {
-            id: "1",
+            id: "3",
             data: {
                 postMedia: "favicon.ico",
-                mediaType: "image",
+                mediaType: "video",
                 content: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
             Enim fugit temporibus ipsa magni vero corrupti quasi nisi odit quia delectus a corporis aspernatur
              tempora pariatur incidunt, nihil facilis. Omnis, maiores! Lorem, ipsum dolor sit amet consectetur adipisicing elit. 

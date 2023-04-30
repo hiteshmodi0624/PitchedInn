@@ -15,7 +15,7 @@ const ProfileSummary: FC<{
                 <h2 className="font-bold text-sm text-white">{profile.name}</h2>
                 <div className="flex text-grey">
                     <h2 className="text-sm">@{profile.username}</h2>
-                    {!showFollowingButton && profile.following && (
+                    {!showFollowingButton && profile && (
                         <h2 className="text-sm">
                             <span className="mx-2">·</span>Following
                         </h2>
@@ -24,7 +24,9 @@ const ProfileSummary: FC<{
                 <h3 className="text-xs text-grey">{profile.details.type}</h3>
             </div>
             {showFollowingButton && (
-                <FollowButton following={profile.following} />
+                <FollowButton
+                    username={profile.backgroundImage}
+                />
             )}
             <div></div>
         </Link>

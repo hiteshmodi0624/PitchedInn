@@ -17,8 +17,6 @@ export interface socialLinks{
 
 export interface BusinessContactInfo {
     contactEmail: string;
-    industry?: string;
-    location?: string;
     website?: string;
     socialLinks?:socialLinks
 }
@@ -45,14 +43,15 @@ export interface ExtendedBusinessInfo {
 
 export interface BusinessProfileDetails {
     niche: string;
+    industry: string;
     businessDescription: string;
+    location?: string;
     BusinessContactInfo:BusinessContactInfo;
     FundingInfo?:FundingInfo;
     ExtendedBusinessInfo?:ExtendedBusinessInfo;
   }
 
 export interface BusinessProfile {
-    title: string;
     companyName: string;
-    businessDetails?: BusinessProfileDetails;
+    businessDetails: BusinessProfileDetails;
   }

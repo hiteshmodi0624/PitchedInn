@@ -24,7 +24,7 @@ const Button: FC<{
             </h3>
         </>
     );
-    const classes = `p-2 px-4 hover:bg-gray rounded-full flex items-center w-full group ${buttonClasses}`;
+    const classes = `p-2 px-4 hover:bg-gray rounded-full flex items-center group ${buttonClasses}`;
     return (
         <div className={className}>
             <Label label={name} className={`${labelClasses}`}>

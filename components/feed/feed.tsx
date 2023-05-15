@@ -1,23 +1,19 @@
 'use client';
 import { useState } from "react";
 import Posts from "./posts/posts";
-import Heading from "../ui/heading";
-import Card from "../ui/card";
 import Modes from "../shared/mode/modes";
+import ContentLayout from "../shared/content-layout/content-layout";
 
-function Feed() {
+function Feed({page}:{page:string}) {
     const [feedMode,setMode]=useState("All Posts");
     const setFeedMode=(mode:string)=>{
         setMode(mode);
     }
+    const modes=<Modes setMode={setFeedMode} mode={feedMode} modes={["All Posts","Entrepreneur"]}/>
     return (
-        <div className="h-screen grid w-full">
-            <Card className="w-full sticky top-0 bg-black z-50">
-                <Heading text="Home" />
-                <Modes setMode={setFeedMode} mode={feedMode} modes={["All Posts","Entrepreneur"]}/>
-            </Card>
-            {feedMode==="All Posts"&&<Posts />}
-        </div>
+        <ContentLayout page={page} headerContent={modes}>
+            {feedMode === "All Posts" && <Posts />}
+        </ContentLayout>
     );
   }
   

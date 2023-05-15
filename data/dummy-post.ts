@@ -18,7 +18,7 @@ export const dummyPosts: post[] = [
         post: {
             id: "1",
             data: {
-                postMedia: "favicon.ico",
+                postMedia: "logo.png",
                 mediaType: "image",
                 content: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
             Enim fugit temporibus ipsa magni vero corrupti quasi nisi odit quia delectus a corporis aspernatur

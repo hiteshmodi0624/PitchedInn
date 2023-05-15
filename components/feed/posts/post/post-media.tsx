@@ -1,13 +1,13 @@
 import { FC } from "react";
-import Card from "../../../ui/card";
-import Image from "../../../ui/image";
-import { data } from "../../../../modals/post";
+import Card from "@/components/ui/card";
+import { data } from "@/modals/post";
+import SmallImage from "@/components/ui/small-image";
 
 const PostMedia:FC<{data:data}>=({data})=>{
     return (
-        <Card className="rounded-xl max-h-96 w-full flex justify-center bg-gray">
+        <Card className="rounded-xl w-full flex justify-center bg-gray">
             {data.mediaType === "image" && (
-                <Image src={data.postMedia} alt="logo" className="max-h-full p-2 max-w-full" />
+                <SmallImage src={data.postMedia} alt="logo" className="max-h-min max-w-full overflow-hidden p-6" />
             )}
         </Card>
     );

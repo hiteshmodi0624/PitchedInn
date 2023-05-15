@@ -7,7 +7,7 @@ const LabelText: FC<{ label: string, className?:string }> = ({ label, className 
     const menuDirection = useMenuDirection(triggerRef);
     return (
         <div
-            className={`absolute p-2 bg-gray2 text-white py-1 my-1 text-xs rounded z-20 ${menuDirection} ${className}`}
+            className={`absolute p-2 bg-gray2 text-white py-1 my-1 text-xs rounded z-20 whitespace-pre-line ${menuDirection} ${className}`}
             ref={triggerRef}
         >
             {label}

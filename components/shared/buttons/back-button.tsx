@@ -1,7 +1,7 @@
 "use client"
 import { BiArrowBack } from "react-icons/bi";
 import Button from "../../ui/button";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const BackButton = () => {
     const router=useRouter()

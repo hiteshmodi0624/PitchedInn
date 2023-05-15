@@ -20,6 +20,7 @@ module.exports = {
         gray2:"#1E1E1E",
         grey:"#71767A",
         primary:"#0023FF",
+        primary2:"#006AFF"
       },
     },
   },

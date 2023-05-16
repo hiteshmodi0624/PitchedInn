@@ -1,25 +1,29 @@
-import profile from "./profile";
-
-export interface data {
-    postMedia: string;
+export interface Media {
+    mediaUrl: string;
     mediaType: string;
+  }
+  
+  export interface Comment {
+    id: string;
+    userId: string;
     content: string;
-}
-
-export interface interactions {
+    date: string;
+  }
+  
+  export interface Interactions {
     likes: number;
-    comments: number;
+    comments: Comment[];
     collected: number;
     saved: number;
     shared: number;
-}
-
-export default interface post {
-    profile: profile;
-    post: {
-        id:string;
-        data:data;
-        date: string;
-        interactions:interactions
-    };
-}
+  }
+  
+  export interface Post {
+    id: string;
+    media: Media[];
+    caption: string;
+    date: string;
+    interactions: Interactions;
+    userId: string;
+  }
+  

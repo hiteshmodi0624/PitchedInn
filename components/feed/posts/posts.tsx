@@ -1,4 +1,4 @@
-import { getPosts } from "../../../services/post";
+import { getPosts } from "../../../util/post";
 import Post from "./post";
 
 const Posts=()=>{
@@ -6,7 +6,7 @@ const Posts=()=>{
     return (
         <ul className="pb-16 mt-6 space-y-6">
             {posts.map((post) => (
-                <li key={post.post.id}>
+                <li key={post.id}>
                     <Post post={post} />
                 </li>
             ))}

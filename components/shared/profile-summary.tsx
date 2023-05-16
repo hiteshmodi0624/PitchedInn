@@ -2,7 +2,7 @@
 import { FC } from "react";
 import ProfilePicture from "./profile-picture";
 import FollowButton from "./buttons/follow-button";
-import profile from "../../modals/profile";
+import profile from "../../modals/profile/profile";
 import Link from "next/link";
 
 const ProfileSummary: FC<{
@@ -22,7 +22,7 @@ const ProfileSummary: FC<{
                         </h2>
                     )}
                 </div>
-                <h3 className="text-xs text-grey">{profile.details.type}</h3>
+                <h3 className="text-xs text-grey">{profile.userType}</h3>
             </div>
             {showFollowingButton && (
                 <FollowButton

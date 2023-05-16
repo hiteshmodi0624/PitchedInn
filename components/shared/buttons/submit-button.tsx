@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import Button from "../../ui/button";
-import { followHandler } from "../../../services/profile";
+import { followHandler } from "../../../util/profile";
 
 const SubmitButton: FC<{
     className?: string;

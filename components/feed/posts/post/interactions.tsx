@@ -3,15 +3,15 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineSend } from "react-icons/ai";
 import { BiMessageRounded } from "react-icons/bi";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
-import InteractionIcon from "../../../shared/interaction-icon";
-import { interactions } from "../../../../modals/post";
+import InteractionIcon from "@/components/shared/interaction-icon";
+import { Interactions } from "@/modals/post";
 import {
     collectHandler,
     likeHandler,
     saveHandler,
-} from "../../../../services/post";
+} from "@/util/post";
 
-const Interactions: FC<{ postId: string; interactions: interactions }> = ({
+const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
     interactions,
     postId,
 }) => {
@@ -35,7 +35,7 @@ const Interactions: FC<{ postId: string; interactions: interactions }> = ({
                 icon1={<BiMessageRounded />}
                 onClick={onComment}
                 title="Message"
-                count={interactions.comments}
+                count={interactions.comments.length}
                 color="DodgerBlue"
             />
             <InteractionIcon

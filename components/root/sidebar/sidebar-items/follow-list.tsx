@@ -2,7 +2,7 @@
 import { FC } from "react";
 import ProfileSummary from "@/components/shared/profile-summary";
 import Heading from "@/components/ui/heading";
-import { getFollowList } from "@/services/lists";
+import { getFollowList } from "@/util/lists";
 import Link from "next/link";
 const FollowList: FC<{ listType: string }> = ({ listType }) => {
     const followList = getFollowList(listType, 2);
@@ -10,8 +10,8 @@ const FollowList: FC<{ listType: string }> = ({ listType }) => {
         <div className="my-3 rounded-3xl bg-gray z-10 w-full overflow-hidden pt-3">
             <Heading
                 text={
-                    listType === "startups"
-                        ? "Trending Startups"
+                    listType === "business"
+                        ? "Trending Businesses"
                         : "Trending Collections"
                 }
                 className="px-6"

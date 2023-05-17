@@ -1,10 +1,10 @@
 "use client"
 import { FC } from "react";
-import ProfileSummary from "@/components/shared/profile-summary";
+import ProfileSummary from "@/components/shared/account/profile-summary";
 import Heading from "@/components/ui/heading";
 import { getFollowList } from "@/util/lists";
 import Link from "next/link";
-const FollowList: FC<{ listType: string }> = ({ listType }) => {
+const FollowList: FC<{ listType: "collector"|"business" }> = ({ listType }) => {
     const followList = getFollowList(listType, 2);
     return (
         <div className="my-3 rounded-3xl bg-gray z-10 w-full overflow-hidden pt-3">
@@ -29,7 +29,7 @@ const FollowList: FC<{ listType: string }> = ({ listType }) => {
                     </li>
                 ))}
             </ul>
-            <Link href={`/explore/${listType}`} className="text-primary">
+            <Link href={`/explore/${listType==="business"?"businesses":"collections"}`} className="text-primary">
                 <div className="hover:bg-gray2 p-2.5 px-6">Show More</div>
             </Link>
         </div>

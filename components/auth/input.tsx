@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef, Dispatch, ChangeEvent, ChangeEventHandler } from 'react';
+import React, {  useRef, Dispatch,  ChangeEventHandler } from 'react';
 import { ActionType } from './signup/signup-reducers';
 
 interface InputProps {

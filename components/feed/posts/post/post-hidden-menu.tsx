@@ -1,5 +1,5 @@
-import HiddenMenu from "../../../shared/hidden-menu/hidden-menu";
-import HiddenMenuItem from "../../../shared/hidden-menu/hidden-menu-item";
+import HiddenMenu from "@/components/shared/hidden-menu/hidden-menu";
+import HiddenMenuItem from "@/components/shared/hidden-menu/hidden-menu-item";
 import { FC } from "react";
 const PostHiddenMenu:FC<{userId:string}>=({userId})=>{
     return (

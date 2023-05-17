@@ -14,7 +14,7 @@ function ContentLayout({
     className?: string;
 }>) {
     return (
-        <div className={`h-screen flex w-full flex-col mx-6 ${className}`}>
+        <div className={`flex w-full flex-col ${className}`}>
             <Card className="w-full sticky top-0 bg-black z-50 h-max">
                 {page&&<Heading text={page} className="first-letter:uppercase" />}
                 {headerContent}

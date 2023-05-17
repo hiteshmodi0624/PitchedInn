@@ -1,5 +1,3 @@
-import { Post } from "@/modals/post";
-
 export const dummyPosts: Post[] = [
     {
         id: "post1",
@@ -61,7 +59,7 @@ export const dummyPosts: Post[] = [
         media: [
             {
                 mediaUrl:"logo.png",
-                mediaType: "video",
+                mediaType: "image",
             },
         ],
         date: "2023-05-13",

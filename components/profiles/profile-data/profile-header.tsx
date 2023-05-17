@@ -1,15 +1,14 @@
 import { FC } from "react";
-import ProfilePicture from "@/components/shared/profile-picture";
+import ProfilePicture from "@/components/shared/account/profile-picture";
 import FollowButton from "@/components/shared/buttons/follow-button";
 import Button from "@/components/ui/button";
 import { AiOutlineMore } from "react-icons/ai";
 import MenuToggler from "@/components/shared/hidden-menu/menu-toggler";
-import profile from "@/modals/profile/profile";
 import ProfileHiddenMenu from "./profile-hidden-menu";
 import { useParams } from "next/navigation";
 
 const ProfileHeader: FC<{
-    profile: profile;
+    profile: Profile;
 }> = ({ profile }) => {
     const params=useParams();
     return (

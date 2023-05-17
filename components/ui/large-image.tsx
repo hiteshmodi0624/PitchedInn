@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { FC } from "react";
 
-const LargeImage:FC<{className?:string,alt:string,src:string}>=({className,alt,src})=>{
+const LargeImage=({className,alt,src}:{className?:string,alt:string,src:string})=>{
     return (
         <span className={`relative ${className}`}>
             <Image

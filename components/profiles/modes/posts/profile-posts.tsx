@@ -1,6 +1,5 @@
 import { FC } from "react";
 import ProfilePost from "./profile-post";
-import { Post } from "@/modals/post";
 
 const ProfilePosts:FC<{posts:Post[]}>=({posts})=>{
     return (

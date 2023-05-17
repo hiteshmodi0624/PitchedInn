@@ -2,11 +2,10 @@
 import { FC } from "react";
 import ProfilePicture from "./profile-picture";
 import FollowButton from "./buttons/follow-button";
-import profile from "../../modals/profile/profile";
 import Link from "next/link";
 
 const ProfileSummary: FC<{
-    profile: profile;
+    profile: Profile;
     showFollowingButton: boolean;
 }> = ({ profile, showFollowingButton }) => {
     return (

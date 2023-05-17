@@ -2,8 +2,6 @@ import React from "react";
 import Item from "../util/item";
 import Accordian from "@/components/ui/accordian/accordian";
 import AboutCard from "../util/about-card";
-import { FundingInfo } from "@/modals/profile/business";
-import { InvestmentCriteria } from "@/modals/profile/investor";
 
 const InvestmentCriteria: React.FC<{ investmentCriteria: InvestmentCriteria }> = ({
     investmentCriteria,

@@ -1,4 +1,3 @@
-import { PortfolioItem } from "@/modals/profile/investor";
 import AboutCard from "../util/about-card";
 import Accordian from "@/components/ui/accordian/accordian";
 

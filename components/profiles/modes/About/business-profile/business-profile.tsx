@@ -2,12 +2,11 @@ import React from "react";
 import SocialLinks from "../util/social-links";
 import FundingInfo from "./funding-info";
 import ExtendedBusinessInfo from "./extended-business-info";
-import { BusinessDetails, BusinessInfo } from "@/modals/profile/business";
 
 const BusinessProfile = ({ details }: { details: BusinessInfo }) => {
     const { companyName, businessDetails } = details;
     return (
-        <div className="mx-4 px-4 text-grey my-8">
+        <div className="mx-4 px-4 text-grey my-2">
             <h2 className="text-3xl font-semibold mb-4 text-white">
                 {companyName}
             </h2>

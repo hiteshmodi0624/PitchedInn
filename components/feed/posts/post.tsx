@@ -4,7 +4,6 @@ import PostMedia from "./post/post-media";
 import Profile from "./post/profile";
 import Content from "./post/content";
 import { FC } from "react";
-import { Post } from "@/modals/post";
 
 const Post:FC<{post:Post}>=({post})=>{
     return (

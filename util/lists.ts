@@ -1,7 +1,6 @@
 import { profiles } from "@/data/dummy-profiles";
-import { profile } from "console";
 
-export const getFollowList=(listType:string,limit?:number)=>{
+export const getFollowList=(listType:"collector"|"business",limit?:number)=>{
     if(limit)
         return profiles.filter((profile)=>profile.userType===listType).slice(0,limit)
      else   

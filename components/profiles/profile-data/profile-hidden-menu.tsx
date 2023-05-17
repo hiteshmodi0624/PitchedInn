@@ -1,9 +1,8 @@
 import HiddenMenu from "@/components/shared/hidden-menu/hidden-menu";
 import HiddenMenuItem from "@/components/shared/hidden-menu/hidden-menu-item";
 import { FC } from "react";
-import profile from "@/modals/profile/profile";
 import { blockHandler, muteHandler, reportHandler } from "@/util/profile";
-const ProfileHiddenMenu:FC<{profile:profile}>=({profile})=>{
+const ProfileHiddenMenu:FC<{profile:Profile}>=({profile})=>{
     
     return (
         <HiddenMenu className="right-0 text-sm min-w-max w-48 z-20">

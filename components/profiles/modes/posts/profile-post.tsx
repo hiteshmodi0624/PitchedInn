@@ -2,7 +2,6 @@ import Card from "@/components/ui/card";
 import { FC } from "react";
 import Image from "@/components/ui/large-image";
 import Link from "next/link";
-import { Post } from "@/modals/post";
 
 const ProfilePost:FC<{post:Post}>=({post})=>{
     return (

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Card from "@/components/ui/card";
 import SmallImage from "@/components/ui/small-image";
-import { Media } from "@/modals/post";
 
 const PostMedia:FC<{data:Media}>=({data})=>{
     return (

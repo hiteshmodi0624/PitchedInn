@@ -2,7 +2,7 @@
 import { FC } from "react";
 import HiddenMenu from "@/components/shared/hidden-menu/hidden-menu";
 import HiddenMenuItem from "@/components/shared/hidden-menu/hidden-menu-item";
-import ProfileSummary from "@/components/shared/profile-summary";
+import ProfileSummary from "@/components/shared/account/profile-summary";
 import { getSearchList } from "@/util/lists";
 
 const SearchList: FC<{ search: string }> = ({ search }) => {

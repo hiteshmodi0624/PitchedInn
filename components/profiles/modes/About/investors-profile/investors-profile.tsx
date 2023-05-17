@@ -1,9 +1,6 @@
 import React from "react";
-import { InvestorInfo } from "@/modals/profile/investor";
 import SocialLinks from "../util/social-links";
 import Portfolio from "./portfolio";
-import Accordian from "@/components/ui/accordian/accordian";
-import AboutCard from "../util/about-card";
 import InvestmentCriteria from "./investment-criteria";
 
 const InvestorsProfile = ({ details }: { details: InvestorInfo }) => {

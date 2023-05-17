@@ -1,6 +1,6 @@
 import ProfileHeader from "./profile-header";
-import Profile from "@/modals/profile/profile";
 import LargeImage from "@/components/ui/large-image";
+import Link from "next/link";
 
 const ProfileData = ({profile}:{profile:Profile}) => {
     return (
@@ -18,18 +18,18 @@ const ProfileData = ({profile}:{profile:Profile}) => {
                     </h2>
                     <h2 className="text-sm text-grey">@{profile.username}</h2>
                     <div className=" flex space-x-6 my-3">
-                        <h2>
+                        <Link href={`${profile.username}/followers`}>
                             <span className="text-lg font-bold">
                                 {profile.followers.length.toString()}
                             </span>{" "}
                             followers
-                        </h2>
-                        <h2>
+                        </Link>
+                        <Link href={`${profile.username}/following` }>
                             <span className="text-lg font-bold">
                                 {profile.following.length.toString()}
                             </span>{" "}
                             following
-                        </h2>
+                        </Link>
                     </div>
                     <div className="text-sm mt-4 space-y-1">
                         <p>{profile.bio}</p>

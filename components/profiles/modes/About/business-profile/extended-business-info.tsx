@@ -1,6 +1,5 @@
 import React from "react";
 import Accordian from "@/components/ui/accordian/accordian";
-import { ExtendedBusinessInfo } from "@/modals/profile/business";
 import AboutCard from "../util/about-card";
 import Item from "../util/item";
 

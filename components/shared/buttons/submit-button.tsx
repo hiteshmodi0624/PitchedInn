@@ -1,13 +1,12 @@
-"use client";
-import { FC, useState } from "react";
-import Button from "../../ui/button";
-import { followHandler } from "../../../util/profile";
-
-const SubmitButton: FC<{
+const SubmitButton = ({
+    className,
+    name,
+    disabled,
+}: {
     className?: string;
     name: string;
-    disabled: boolean
-}> = ({ className , name , disabled}) => {
+    disabled: boolean;
+}) => {
     return (
         <button
             type="submit"

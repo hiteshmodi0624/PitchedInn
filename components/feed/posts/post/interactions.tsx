@@ -4,7 +4,6 @@ import { BiMessageRounded } from "react-icons/bi";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
 import InteractionIcon from "@/components/shared/interaction-icon";
-import { Interactions } from "@/modals/post";
 import {
     collectHandler,
     likeHandler,

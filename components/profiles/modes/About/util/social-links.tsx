@@ -1,5 +1,4 @@
 "use client"
-import { BusinessContactInfo } from "@/modals/profile/business";
 import React, { FC } from "react";
 import { IconContext } from "react-icons";
 import {

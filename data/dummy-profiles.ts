@@ -1,5 +1,3 @@
-import Profile, { ProfileMap } from "@/modals/profile/profile";
-
 export const businessProfiles: ProfileMap<"business">[] = [
     {
         userId: "abccompany",
@@ -197,6 +195,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "janesmith",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "Jane Smith",
         username: "janesmith",
         backgroundImage: "back.jpeg",
@@ -208,6 +207,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "robertjohnson",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "Robert Johnson",
         username: "robertjohnson",
         backgroundImage: "back.jpeg",
@@ -219,6 +219,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "abccompany",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "ABC Company",
         username: "abccompany",
         backgroundImage: "back.jpeg",
@@ -234,7 +235,7 @@ export const profiles: Profile[] = [
         username: "sarahthompson",
         backgroundImage: "back.jpeg",
         profilePic:"logo.png",
-        bio: "Passionate about art and creativity!",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         userType: "common",
         followers: [],
         following: [], 
@@ -242,6 +243,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "markdavis",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "Mark Davis",
         username: "markdavis",
         backgroundImage: "back.jpeg",
@@ -253,6 +255,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "xyzinvestments",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "XYZ Investments",
         username: "xyzinvestments",
         backgroundImage: "back.jpeg",
@@ -264,6 +267,7 @@ export const profiles: Profile[] = [
     },
     {
         id: "pqrenterprises",
+        bio: "Welcome to my profile! I am passionate about art and creativity!",
         name: "PQR Enterprises",
         username: "pqrenterprises",
         backgroundImage: "back.jpeg",

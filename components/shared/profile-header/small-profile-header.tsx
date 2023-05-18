@@ -1,5 +1,5 @@
-import BackButton from "@/components/shared/buttons/back-button";
-import ProfilePicture from "@/components/shared/account/profile-picture";
+import BackButton from "components/shared/buttons/back-button";
+import ProfilePicture from "components/shared/account/profile-picture";
 import Link from "next/link";
 
 const SmallProfileHeader = ({profile}:{profile:Profile}) => {

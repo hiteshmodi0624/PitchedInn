@@ -50,3 +50,5 @@ type InvestmentCriteria = {
     maximumInvestmentSize?: number;
     investmentStage?: string 
   }
+
+  

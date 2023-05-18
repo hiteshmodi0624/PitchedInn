@@ -1,7 +1,7 @@
 'use client';
 import { FC, useState } from "react";
 import Button from "../../ui/button";
-import { followHandler } from "../../../util/profile";
+import { followHandler } from "../../../src/util/profile";
 
 const FollowButton:FC<{className?:string,username:string}> = ({className,username}) => {
     const [followState,changeState]=useState<boolean>(false);

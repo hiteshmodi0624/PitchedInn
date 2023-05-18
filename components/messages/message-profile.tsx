@@ -1,7 +1,7 @@
 'use client';
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import ProfilePicture from "@/components/shared/account/profile-picture";
+import ProfilePicture from "components/shared/account/profile-picture";
 
 const MessageProfiles: FC<{
     profile: Profile;

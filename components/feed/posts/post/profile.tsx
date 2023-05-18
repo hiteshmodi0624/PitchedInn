@@ -4,8 +4,8 @@ import { FC } from "react";
 import PostHiddenMenu from "./post-hidden-menu";
 import MenuToggler from "../../../shared/hidden-menu/menu-toggler";
 import Link from "next/link";
-import ProfilePicture from "@/components/shared/account/profile-picture";
-import { getProfileData } from "@/util/profile";
+import ProfilePicture from "components/shared/account/profile-picture";
+import { getProfileData } from "src/util/profile";
 
 const Profile: FC<{ userId: string, date:string }> = ({ userId,date }) => {
     const profile:Profile=getProfileData(userId);

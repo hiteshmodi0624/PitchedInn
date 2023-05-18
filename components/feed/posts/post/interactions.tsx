@@ -3,12 +3,12 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineSend } from "react-icons/ai";
 import { BiMessageRounded } from "react-icons/bi";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
-import InteractionIcon from "@/components/shared/interaction-icon";
+import InteractionIcon from "components/shared/interaction-icon";
 import {
     collectHandler,
     likeHandler,
     saveHandler,
-} from "@/util/post";
+} from "src/util/post";
 
 const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
     interactions,

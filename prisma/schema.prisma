@@ -17,12 +17,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? 
-  access_token      String? 
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? 
+  id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  profiles      Profile[]
 }
 
 model VerificationToken {
@@ -54,4 +55,174 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+//Profiles
+
+enum profileType {
+  COLLECTOR
+  BUSINESS
+  INVESTOR
+}
+
+model Profile {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  username    String      @unique
+  coverImage  String
+  displayPic  String
+  bio         String?
+  profileType profileType
+  savedPosts  String[]
+  followers   String[]
+  following   String[]
+  userId      String?     @db.ObjectId
+  User        User?       @relation(fields: [userId], references: [id])
+  collector   Collector?
+  investor    Investor?
+  business    Business?
+
+  @@unique([userId, username])
+}
+
+model Collector {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  collectedPosts String[]
+  userId         String   @unique @db.ObjectId
+  profileId      String   @db.ObjectId
+
+  profile Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Investor
+model Investor {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String          @unique @db.ObjectId
+  investorName    String
+  investorDetails InvestorDetails
+  investments     String[]
+  profile         Profile         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Business {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String          @unique @db.ObjectId
+  companyName     String
+  businessDetails BusinessDetails
+  posts           String[]
+
+  profile Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type InvestorDetails {
+  investmentFocus     String
+  investorDescription String?
+  location            String?
+  contactInfo         InvestorContactInfo?
+  portfolio           PortfolioItem[]
+  investmentCriteria  InvestmentCriteria?
+}
+
+type InvestorContactInfo {
+  contactEmail String?
+  website      String?
+  socialLinks  SocialLinks?
+}
+
+type PortfolioItem {
+  companyName String
+  industry    String
+  description String?
+  website     String?
+}
+
+type InvestmentCriteria {
+  industries            String[]
+  geographicFocus       String[]
+  minimumInvestmentSize Int?
+  maximumInvestmentSize Int?
+  investmentStage       String?
+}
+
+type BusinessDetails {
+  niche                String
+  industry             String
+  businessDescription  String
+  location             String
+  businessContactInfo  BusinessContactInfo
+  fundingInfo          FundingInfo
+  extendedBusinessInfo ExtendedBusinessInfo
+}
+
+type BusinessContactInfo {
+  contactEmail String
+  website      String
+  socialLinks  SocialLinks
+}
+
+type FundingInfo {
+  traction        String
+  milestones      String
+  fundingStage    String
+  amountSought    String
+  investmentTerms String
+}
+
+type ExtendedBusinessInfo {
+  usp                  String
+  problemStatement     String
+  solution             String
+  targetMarket         String
+  competitiveLandscape String
+  businessModel        String
+  goMarketStrategy     String
+  teamInfo             String
+  financialInfo        String
+}
+
+type SocialLinks {
+  linkedIn  String?
+  twitter   String?
+  instagram String?
+  facebook  String?
+  youtube   String?
+  pinterest String?
+  medium    String?
+  github    String?
+  behance   String?
+  dribbble  String?
+  snapchat  String?
+  tiktok    String?
+  clubhouse String?
+  telegram  String?
+}
+
+// Post
+model Media {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  mediaUrl  String
+  mediaType String
+  postId    String @db.ObjectId
+  post      Post   @relation(fields: [postId], references: [id])
+}
+
+model Comment {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String
+  content String
+  date    String
+  postId  String @db.ObjectId
+  post    Post   @relation(fields: [postId], references: [id])
+}
+
+model Post {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  caption   String
+  date      String
+  likes     Int
+  collected Int
+  saved     Int
+  shared    Int
+  media     Media[]
+  comments  Comment[]
+  userId    String
 }

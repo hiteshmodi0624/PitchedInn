@@ -3,7 +3,7 @@ import {  FC } from "react";
 import NavButton from "./nav-button";
 import {AiFillHome, AiOutlineMessage, AiOutlineMore, AiOutlineNotification, AiOutlinePlusSquare, AiOutlineSearch, AiOutlineUser, AiOutlineVideoCamera} from "react-icons/ai"
 import MoreMenu from "./more-menu";
-import MenuToggler from "@/components/shared/hidden-menu/menu-toggler";
+import MenuToggler from "components/shared/hidden-menu/menu-toggler";
 const RootNav: FC<{}> = () => {
     return (
         <>

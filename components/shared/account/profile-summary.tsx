@@ -9,7 +9,7 @@ const ProfileSummary: FC<{
     showFollowingButton: boolean;
 }> = ({ profile, showFollowingButton }) => {
     return (
-        <Link className="flex items-center justify-start" href={profile.username}>
+        <Link className="flex items-center justify-start" href={`/${profile.username}`}>
             <ProfilePicture className="h-16" profilePic={profile.profilePic} />
             <div className="m-2 w-full">
                 <h2 className="font-bold text-sm text-white">{profile.name}</h2>

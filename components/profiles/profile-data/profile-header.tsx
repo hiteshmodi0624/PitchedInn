@@ -1,16 +1,16 @@
 import { FC } from "react";
-import ProfilePicture from "@/components/shared/account/profile-picture";
-import FollowButton from "@/components/shared/buttons/follow-button";
-import Button from "@/components/ui/button";
+import ProfilePicture from "components/shared/account/profile-picture";
+import FollowButton from "components/shared/buttons/follow-button";
+import Button from "components/ui/button";
 import { AiOutlineMore } from "react-icons/ai";
-import MenuToggler from "@/components/shared/hidden-menu/menu-toggler";
+import MenuToggler from "components/shared/hidden-menu/menu-toggler";
 import ProfileHiddenMenu from "./profile-hidden-menu";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 const ProfileHeader: FC<{
     profile: Profile;
 }> = ({ profile }) => {
-    const params=useParams();
+    const username= useRouter().query.username!
     return (
         <div className="flex justify-between">
             <ProfilePicture
@@ -18,7 +18,7 @@ const ProfileHeader: FC<{
                 profilePic={profile.profilePic}
             />
             <div className="flex space-x-2 items-center mt-4">
-                {params!.username === "profile" ? (
+                {username === "profile" ? (
                     <Button
                         name="Edit Profile"
                         className="mr-0"

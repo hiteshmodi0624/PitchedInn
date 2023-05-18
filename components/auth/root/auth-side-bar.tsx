@@ -1,7 +1,7 @@
 "use client"
-import Sidebar from "@/components/root/sidebar/sidebar";
-import SubmitButton from "@/components/shared/buttons/auth-button";
-import Heading from "@/components/ui/heading";
+import Sidebar from "components/root/sidebar/sidebar";
+import SubmitButton from "components/shared/buttons/auth-button";
+import Heading from "components/ui/heading";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import {  AiFillGoogleSquare } from "react-icons/ai";

@@ -9,7 +9,7 @@ import {
     signupUsernameReducer,
 } from "./signup-reducers";
 import DOB from "./dob";
-import Label from "@/components/ui/label/label";
+import Label from "components/ui/label/label";
 const initialValue = {
     value: "",
     isValid: false,

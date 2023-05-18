@@ -1,6 +1,6 @@
 "use client"
-import { brand } from "@/data/data";
-import HorizontalListItem from "@/components/shared/horizontal-list/horizontal-list-item";
+import { brand } from "data/data";
+import HorizontalListItem from "components/shared/horizontal-list/horizontal-list-item";
 
 function Footer() {
     return (

@@ -1,6 +1,6 @@
-import Card from "@/components/ui/card";
+import Card from "components/ui/card";
 import { FC } from "react";
-import Image from "@/components/ui/large-image";
+import Image from "components/ui/large-image";
 import Link from "next/link";
 
 const ProfilePost:FC<{post:Post}>=({post})=>{

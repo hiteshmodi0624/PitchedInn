@@ -1,5 +1,5 @@
 import ProfileHeader from "./profile-header";
-import LargeImage from "@/components/ui/large-image";
+import LargeImage from "components/ui/large-image";
 import Link from "next/link";
 
 const ProfileData = ({profile}:{profile:Profile}) => {

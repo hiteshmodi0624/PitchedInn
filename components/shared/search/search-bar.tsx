@@ -2,7 +2,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { AiFillCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import SearchList from "./search-list";
-import Input from "@/components/auth/input";
+import Input from "components/auth/input";
 function SearchBar({placeholder,className,divClasses}:{placeholder:string,className?:string,divClasses?:string}) {
     const [value, setValue] = useState<string>("");
     const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {

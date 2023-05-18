@@ -33,7 +33,7 @@ const Button: FC<{
                         {children}
                     </button>
                 ) : (
-                    <Link href={link?link:name.toLowerCase()} className={`${classes}`}>
+                    <Link href={`/${link??name.toLowerCase()}`} className={`${classes}`}>
                         {children}
                     </Link>
                 )}

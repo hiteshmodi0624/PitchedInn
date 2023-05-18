@@ -1,7 +1,7 @@
-import HiddenMenu from "@/components/shared/hidden-menu/hidden-menu";
-import HiddenMenuItem from "@/components/shared/hidden-menu/hidden-menu-item";
+import HiddenMenu from "components/shared/hidden-menu/hidden-menu";
+import HiddenMenuItem from "components/shared/hidden-menu/hidden-menu-item";
 import { FC } from "react";
-import { blockHandler, muteHandler, reportHandler } from "@/util/profile";
+import { blockHandler, muteHandler, reportHandler } from "src/util/profile";
 const ProfileHiddenMenu:FC<{profile:Profile}>=({profile})=>{
     
     return (

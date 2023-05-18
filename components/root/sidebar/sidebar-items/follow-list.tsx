@@ -1,8 +1,8 @@
 "use client"
 import { FC } from "react";
-import ProfileSummary from "@/components/shared/account/profile-summary";
-import Heading from "@/components/ui/heading";
-import { getFollowList } from "@/util/lists";
+import ProfileSummary from "components/shared/account/profile-summary";
+import Heading from "components/ui/heading";
+import { getFollowList } from "src/util/lists";
 import Link from "next/link";
 const FollowList: FC<{ listType: "collector"|"business" }> = ({ listType }) => {
     const followList = getFollowList(listType, 2);

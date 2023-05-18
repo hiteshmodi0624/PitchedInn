@@ -1,4 +1,4 @@
-import NavButton from "@/components/root/navbar/nav-button";
+import NavButton from "components/root/navbar/nav-button";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiLogin } from "react-icons/hi";
 import { MdLogin } from "react-icons/md";

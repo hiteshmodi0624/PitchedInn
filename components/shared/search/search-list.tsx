@@ -1,9 +1,9 @@
 "use client"
 import { FC } from "react";
-import HiddenMenu from "@/components/shared/hidden-menu/hidden-menu";
-import HiddenMenuItem from "@/components/shared/hidden-menu/hidden-menu-item";
-import ProfileSummary from "@/components/shared/account/profile-summary";
-import { getSearchList } from "@/util/lists";
+import HiddenMenu from "components/shared/hidden-menu/hidden-menu";
+import HiddenMenuItem from "components/shared/hidden-menu/hidden-menu-item";
+import ProfileSummary from "components/shared/account/profile-summary";
+import { getSearchList } from "src/util/lists";
 
 const SearchList: FC<{ search: string }> = ({ search }) => {
     const searchList = getSearchList(search);

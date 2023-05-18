@@ -1,6 +1,6 @@
 "use client"
-import { brand } from "@/data/data";
-import LargeImage from "@/components/ui/large-image";
+import { brand } from "data/data";
+import LargeImage from "components/ui/large-image";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 const Navbar = ({ children }: PropsWithChildren) => {

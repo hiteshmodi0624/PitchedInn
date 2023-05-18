@@ -30,7 +30,7 @@ const HiddenMenuItem: FC<
     return (
         <>
             {to ? (
-                <Link href={to} className="w-full text-left">
+                <Link href={`/${to}`} className="w-full text-left">
                     <Wrapper>{title ? text : element}</Wrapper>
                 </Link>
             ) : (

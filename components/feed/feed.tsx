@@ -1,4 +1,3 @@
-'use client';
 import { useState } from "react";
 import Posts from "./posts/posts";
 import Modes from "../shared/mode/modes";

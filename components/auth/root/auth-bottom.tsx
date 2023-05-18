@@ -1,5 +1,4 @@
-"use client"
-import AuthButton from "@/components/shared/buttons/auth-button";
+import AuthButton from "components/shared/buttons/auth-button";
 import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 export default function AuthBottom() {

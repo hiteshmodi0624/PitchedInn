@@ -1,4 +1,4 @@
-import { getPosts } from "../../../util/post";
+import { getPosts } from "../../../src/util/post";
 import Post from "./post";
 
 const Posts=()=>{

@@ -1,4 +1,3 @@
-"use client"
 import { FC } from "react";
 import ProfileSummary from "components/shared/account/profile-summary";
 import Heading from "components/ui/heading";

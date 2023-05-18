@@ -1,5 +1,3 @@
-"use client"
-
 import DetailedProfileSummary from "components/shared/account/detailed-profile-summary";
 
 const DetailedProfilesList=({list}:{list:Profile[]})=>{

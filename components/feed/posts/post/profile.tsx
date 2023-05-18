@@ -8,7 +8,7 @@ import ProfilePicture from "components/shared/account/profile-picture";
 import { getProfileData } from "src/util/profile";
 
 const Profile: FC<{ userId: string, date:string }> = ({ userId,date }) => {
-    const profile:Profile=getProfileData(userId);
+    const profile:Profile=getProfileData(userId)!;
     return (
         <div className="flex w-full items-center justify-between pt-2">
             <Link

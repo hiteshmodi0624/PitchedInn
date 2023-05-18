@@ -1,4 +1,3 @@
-'use client';
 import { FC, useRef } from "react";
 import useMenuDirection from "../../hooks/useMenuDirection";
 

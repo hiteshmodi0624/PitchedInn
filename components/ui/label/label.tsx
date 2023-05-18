@@ -1,4 +1,3 @@
-'use client';
 import { FC, PropsWithChildren, useState } from "react";
 import LabelText from "./label-text";
 

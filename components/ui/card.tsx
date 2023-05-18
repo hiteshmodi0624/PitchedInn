@@ -1,4 +1,3 @@
-'use client';
 import { FC, PropsWithChildren } from "react";
 
 const Card:FC<PropsWithChildren<{className?:string}>>=({children,className})=>{

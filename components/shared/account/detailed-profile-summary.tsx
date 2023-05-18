@@ -1,4 +1,3 @@
-'use client';
 import { FC } from "react";
 import Link from "next/link";
 import ProfilePicture from "./profile-picture";

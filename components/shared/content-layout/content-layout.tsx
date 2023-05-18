@@ -1,4 +1,3 @@
-'use client';
 import Card from "components/ui/card";
 import Heading from "components/ui/heading";
 import { PropsWithChildren } from "react";

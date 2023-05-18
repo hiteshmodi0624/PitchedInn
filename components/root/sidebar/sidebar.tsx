@@ -1,4 +1,3 @@
-"use client";
 import Footer from "./footer";
 import SearchBar from "../../shared/search/search-bar";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";

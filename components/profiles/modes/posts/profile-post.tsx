@@ -8,7 +8,7 @@ const ProfilePost:FC<{post:Post}>=({post})=>{
         <Link className="flex justify-center hover:opacity-80" href={`/${post.id}`}>
             <Card className="w-full aspect-square flex justify-center items-center bg-white">
                 <Image
-                    src={post.media[0].mediaUrl}
+                    src={post.media[0]!.mediaUrl}
                     alt={post.caption}
                 />
             </Card>

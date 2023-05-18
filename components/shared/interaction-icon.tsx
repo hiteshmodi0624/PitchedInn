@@ -1,4 +1,3 @@
-'use client';
 import { FC } from "react";
 import Label from "../ui/label/label";
 

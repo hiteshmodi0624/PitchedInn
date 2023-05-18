@@ -1,4 +1,3 @@
-'use client';
 import { FC } from "react";
 
 const Heading: FC<{ text: string, className?:string }> = ({ text,className }) => {

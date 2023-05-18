@@ -1,4 +1,3 @@
-"use client"
 import {  FC, MouseEventHandler } from "react";
 import Label from "./label/label";
 import Link from "next/link";

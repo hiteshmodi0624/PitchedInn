@@ -1,4 +1,3 @@
-'use client';
 import { FC } from "react";
 import ProfilePicture from "./profile-picture";
 import FollowButton from "../buttons/follow-button";

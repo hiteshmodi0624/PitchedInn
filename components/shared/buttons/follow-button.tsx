@@ -1,4 +1,3 @@
-'use client';
 import { FC, useState } from "react";
 import Button from "../../ui/button";
 import { followHandler } from "../../../src/util/profile";

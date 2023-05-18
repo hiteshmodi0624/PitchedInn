@@ -18,16 +18,27 @@ const HiddenMenuItem: FC<
                     </div>}
                 </div>
     const element=<div className="p-3">{children}</div>
+    const Wrapper=({children}:PropsWithChildren)=>{
+        return (
+            <li
+                className={`border-b-2 border-seperator last:border-b-0 hover:bg-gray ${className}`}
+            >
+                {children}
+            </li>
+        );
+    }
     return (
-        <li
-            className={`border-b-2 border-seperator last:border-b-0 hover:bg-gray ${className}`}
-        >
+        <>
             {to ? (
-                title?<Link href={to}>{text}</Link>:element
+                <Link href={to} className="w-full text-left">
+                    <Wrapper>{title ? text : element}</Wrapper>
+                </Link>
             ) : (
-                <button onClick={onClickHandler}>{title?text:element}</button>
+                <button onClick={onClickHandler} className="w-full text-left">
+                    <Wrapper>{title ? text : element}</Wrapper>
+                </button>
             )}
-        </li>
+        </>
     );
 };
 export default HiddenMenuItem;

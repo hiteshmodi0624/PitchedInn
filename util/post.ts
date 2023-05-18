@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import { dummyPosts } from "../data/dummy-post";
 
 export const likeHandler = (
@@ -19,7 +20,7 @@ export const collectHandler = (
     changeState((prev) => !prev);
 };
 export const logoutHandler=()=>{
-    
+    signOut({callbackUrl:"/auth"})
 }
 export const changePasswordHandler=(username:string)=>{
     

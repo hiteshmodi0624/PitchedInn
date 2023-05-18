@@ -9,7 +9,7 @@ const Portfolio: React.FC<{ portfolio: PortfolioItem[] }> = ({
         <AboutCard>
             <Accordian heading="Portfolios">
                 {portfolio.map((item) => (
-                    <AboutCard className="pl-4 bg-gray2 text-grey">
+                    <AboutCard className="pl-4 bg-gray2 text-grey" key={item.companyName}>
                         <p className="text-lg">{`${item.industry}`}</p>
                         <div className="text-sm flex space-x-2 items-center flex-wrap">
                             {item?.website && (

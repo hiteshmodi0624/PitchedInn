@@ -1,12 +1,11 @@
 import NavButton from "@/components/root/navbar/nav-button";
-import Navbar from "@/components/root/navbar/navbar";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiLogin } from "react-icons/hi";
 import { MdLogin } from "react-icons/md";
 
-export default function AuthNavBar() {
+export default function AuthNav() {
     return (
-            <Navbar>
+            <>
                 <ul className="flex sm:flex-col justify-around w-full sm:justify-normal flex-row h-full">
                     <NavButton
                         name="Explore"
@@ -24,6 +23,6 @@ export default function AuthNavBar() {
                         link="/auth/signup"
                     />
                 </ul>
-            </Navbar>
+            </>
     );
 }

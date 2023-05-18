@@ -11,7 +11,6 @@ function MoreMenu() {
             <HiddenMenuItem title="Settings" icon={<AiFillSetting />} to="settings"/>
             <HiddenMenuItem title="Saved" icon={<BsBookmarkFill />} to="profile/saved"/>
             <HiddenMenuItem title="Report A Problem" icon={<BiMessageSquareError />} to="report"/>
-            <HiddenMenuItem title="Switch accounts" to="switch"/>
             <HiddenMenuItem title="Log out" onClickHandler={logoutHandler}/>
         </HiddenMenu>
     );

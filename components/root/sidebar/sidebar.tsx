@@ -4,24 +4,18 @@ import SearchBar from "../../shared/search/search-bar";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 function Sidebar({ children }: PropsWithChildren) {
-    const [containerTop, setContainerTop] = useState(0);
-    const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const container = document.getElementById("side-bar");
-    if (container) {
-      const containerRect = container.getBoundingClientRect();
-      const containerHeight = containerRect.height;
+    useEffect(() => {
+      const sidebar = document.getElementById("side-bar");
       const screenHeight = document.body.getBoundingClientRect().height;
-      setContainerTop(Math.min(0,screenHeight-containerHeight-10));
-    }
-    if (containerRef.current) {
-        containerRef.current.style.top = `${containerTop}px`;
+      if (sidebar) {
+          const containerHeight = sidebar.getBoundingClientRect().height;
+          sidebar.style.top = `${Math.min(0, screenHeight - containerHeight - 10)}px`;
       }
-  }, [containerRef,containerTop]);
+    },[]);
     return (
         <div className="h-full flex w-full flex-col">
-            <div  id="side-bar" className={`sticky w-full pl-6 hidden lg:block`} ref={containerRef}>
+            <div  id="side-bar" className={`sticky w-full pl-6 hidden lg:block`}>
                 <SearchBar
                     placeholder="Search Startups or Collections"
                     className="border-transparent"

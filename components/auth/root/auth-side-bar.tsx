@@ -2,6 +2,7 @@
 import Sidebar from "@/components/root/sidebar/sidebar";
 import SubmitButton from "@/components/shared/buttons/auth-button";
 import Heading from "@/components/ui/heading";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import {  AiFillGoogleSquare } from "react-icons/ai";
 
@@ -11,12 +12,12 @@ export default function AuthSideBar() {
             <div className="my-3 rounded-3xl bg-gray z-10 w-full overflow-hidden py-3">
                 <Heading text="New to PitchedInn?" className="px-6" />
                 <h3 className="text-xs text-grey px-6">
-                    Sign up now to get your own personalized timeline!
+                    Sign up now to get your own personalized feed!
                 </h3>
                 <SubmitButton
                     name="Sign Up With Google"
                     icon={<AiFillGoogleSquare />}
-                    link="auth/google"
+                    onClickHandler={()=>signIn('google',{callbackUrl:"/"})}
                 />
                 <SubmitButton name="Create Account" link="auth/signup" />
                 <h3 className="text-xs text-grey px-6">

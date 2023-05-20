@@ -1,28 +1,18 @@
-interface Media {
-    mediaUrl: string;
-    mediaType: string;
-}
-
-interface Comments {
-    id: string;
-    userId: string;
-    content: string;
-    date: string;
-}
+import { Collects, Comment, Likes, Media, Post, Saves } from "@prisma/client";
 
 type Interactions = {
-    likes: number;
-    comments: Comments[];
-    collected: number;
-    saved: number;
-    shared: number;
+    likes: Likes[];
+    comments: Comment[];
+    collects: Collects[];
+    saves: Saves[];
+    shares: number;
 };
 
-interface Post {
-    id: string;
-    media: Media[];
-    caption: string;
-    date: string;
-    interactions: Interactions;
-    userId: string;
+interface completePost extends Post{
+    comments:Comment[],
+    media:Media[]
+    likes: Likes[];
+    comments: Comment[];
+    collects: Collects[];
+    saves: Saves[];
 }

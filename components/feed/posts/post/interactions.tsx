@@ -9,6 +9,7 @@ import {
     likeHandler,
     saveHandler,
 } from "src/util/post";
+import { Interactions } from "types/post";
 
 const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
     interactions,
@@ -27,7 +28,7 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
                 state={liked}
                 icon2={<AiFillHeart color="red" />}
                 title="Like"
-                count={interactions.likes + +liked}
+                count={interactions.likes.length + +liked}
                 color="red"
             />
             <InteractionIcon
@@ -43,7 +44,7 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
                 state={collected}
                 icon2={<MdAddBox color="green" />}
                 title="Collect"
-                count={interactions.collected + +collected}
+                count={interactions.collects.length + +collected}
                 color="green"
             />
             <InteractionIcon
@@ -52,14 +53,14 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
                 state={saved}
                 icon2={<BsBookmarkFill color="DodgerBlue" />}
                 title="Save"
-                count={interactions.saved + +saved}
+                count={interactions.saves.length + +saved}
                 color="DodgerBlue"
             />
             <InteractionIcon
                 icon1={<AiOutlineSend />}
                 onClick={onForward}
                 title="Forward"
-                count={interactions.shared}
+                count={interactions.shares}
             />
         </div>
     );

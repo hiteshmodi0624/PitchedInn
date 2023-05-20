@@ -1,3 +1,4 @@
+"use client";
 import Modal from "components/ui/modal/modal";
 import { useRouter } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";

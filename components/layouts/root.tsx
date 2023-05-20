@@ -1,5 +1,6 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import Body from './body';
+import ProgressBar from "components/shared/progress-bar/progress-bar";
 
 export default function Layout({
     children
@@ -19,6 +20,7 @@ export default function Layout({
                 <Body>{children}</Body>
             </div>
             <div id="root-notification"></div>
+            <ProgressBar/>
         </SessionProvider>
     );
 }

@@ -1,12 +1,10 @@
-import { z } from "zod";
-import { publicProcedure, router } from "../trpc";
+import { router } from "../trpc";
+import { postRouter } from "./post/post";
+import { userRouter } from "./user/user";
 
 export const appRouter = router({
-    hello: publicProcedure.input(z.object({ text: z.string() })).query((opts) => {
-        return {
-            greetings: `hello ${opts.input.text}`,
-        };
-    }),
+  post: postRouter,
+  user: userRouter,
 });
 
 export type AppRouter = typeof appRouter;

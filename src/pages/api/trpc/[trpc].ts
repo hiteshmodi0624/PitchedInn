@@ -7,4 +7,4 @@ const handler = trpcNext.createNextApiHandler({
     router:appRouter,
     createContext
 }) 
-export {handler as GET, handler as POST}
+export default handler

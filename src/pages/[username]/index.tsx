@@ -6,7 +6,7 @@ import ProfileLayout from "components/layouts/profile-layout";
 import { notFound } from "next/navigation";
 import { trpc } from "~/utils/trpc";
 
-const UserPosts = (props) => {
+const UserPosts = () => {
   const router = useRouter();
   const username = router.query.username as string;
   const getPosts=trpc.post.fetchAllPostsByUsername.useQuery({username});

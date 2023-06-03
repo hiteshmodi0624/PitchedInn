@@ -28,7 +28,7 @@ const RootNav = () => {
   const {data:session,status}:{data:Session|null,status:"authenticated" | "loading" | "unauthenticated"}=useSession();
   const router=useRouter();
   if(status==="unauthenticated"){
-      return router.replace("/auth")
+      router.replace("/auth")
   }
   return (
     <>

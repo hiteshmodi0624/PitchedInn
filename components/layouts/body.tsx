@@ -19,7 +19,11 @@ export default function Body({ children }: { children: React.ReactNode }) {
     } else if (status==="unauthenticated"){
         nav=<AuthNav />
         side=<AuthSideBar />
-        child=<>{children}</>
+        child = (
+          <>
+            {children}
+          </>
+        );
     }
     return (
         <>

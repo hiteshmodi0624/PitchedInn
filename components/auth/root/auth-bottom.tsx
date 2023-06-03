@@ -5,7 +5,7 @@ export default function AuthBottom() {
     const overlayRef = useRef<Element | null>(null);
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
-        overlayRef.current = document.getElementById("root-overlay");
+        overlayRef.current = document.getElementById("root-notification");
         setMounted(true);
     }, []);
     return (

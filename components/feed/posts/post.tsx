@@ -13,17 +13,17 @@ const Post: FC<{ post: PostRouterProcedure<"findPostById"> }> = ({ post }) => {
   if (!post) return notFound();
   const time = relativeDate(post.createdAt);
   const interactions: InteractionsType = {
-    collects: post.collects,
-    comments: post.comments,
-    likes: post.likes,
-    saves: post.saves,
-    shares: post.shares,
+    collects: post.collect,
+    comments: post.comment,
+    likes: post.like,
+    saves: post.save,
+    shares: post.share,
   };
   return (
     <Card className="w-full rounded-lg">
       <div className="flex justify-center">
         <div className="flex w-full flex-col items-center px-6 py-3">
-          <Profile userId={post.userId} date={time} />
+          <Profile userId={post.creatorId} date={time} />
           <PostMedia mediaUrl={post.mediaUrl} mediaType={post.mediaType} />
           <Content content={post.caption} />
           <div className="w-full px-4 py-4">

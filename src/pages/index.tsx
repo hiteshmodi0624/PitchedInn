@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { trpc } from "~/utils/trpc";
 import { setProgressBarState } from "~/utils/ui";
 
-export default function Home() {
+export default function Home(props) {
   const { data: session, status } = useSession();
   const router = useRouter();
   if (status === "loading") {
@@ -13,8 +13,6 @@ export default function Home() {
   }
   if (status === "unauthenticated") {
     router.replace("/auth");
-  } else {
-    console.log(session);
   }
   const posts = trpc.post.fetchAllPosts.useQuery();
   if (!posts.data) {

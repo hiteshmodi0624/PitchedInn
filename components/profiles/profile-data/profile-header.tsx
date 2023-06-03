@@ -6,16 +6,17 @@ import { AiOutlineMore } from "react-icons/ai";
 import MenuToggler from "components/shared/hidden-menu/menu-toggler";
 import ProfileHiddenMenu from "./profile-hidden-menu";
 import { useRouter } from "next/router";
+import { User } from "@prisma/client";
 
 const ProfileHeader: FC<{
-    profile: Profile;
+    profile: User;
 }> = ({ profile }) => {
     const username= useRouter().query.username!
     return (
         <div className="flex justify-between">
             <ProfilePicture
                 className="h-32 w-32 flex justify-center rounded-full bg-white -translate-y-1/3"
-                profilePic={profile.profilePic}
+                profilePic={profile.image??""}
             />
             <div className="flex space-x-2 items-center mt-4">
                 {username === "profile" ? (
@@ -32,10 +33,10 @@ const ProfileHeader: FC<{
                             className="mr-0"
                             buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
                         />
-                        <FollowButton
+                        {profile.username&&<FollowButton
                             className="mr-0"
                             username={profile.username}
-                        />
+                        />}
                         <MenuToggler
                             button={
                                 <Button

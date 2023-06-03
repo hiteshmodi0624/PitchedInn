@@ -4,7 +4,7 @@ import { trpc } from "~/utils/trpc";
 import { setProgressBarState } from "~/utils/ui";
 
 export default function Pitches() {
-    const posts = trpc.post.fetchAllPosts.useQuery().data;
+  const posts = trpc.post.fetchAllPosts.useQuery().data;
   if (!posts) {
     setProgressBarState(60);
     return <div></div>;
@@ -17,4 +17,4 @@ export default function Pitches() {
       </ContentLayout>
     </>
   );
-  }
+}

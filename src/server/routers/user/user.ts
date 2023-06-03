@@ -31,7 +31,6 @@ export const userRouter = router({
     .input(z.object(loginInputSchema))
     .query(async (opts) => {
       const { input, ctx } = opts;
-      console.log(input);
       var user: User | null;
       if (z.string().email().safeParse(input.emailOrUsername).success)
         user = await ctx.prisma.user.findUnique({
@@ -66,6 +65,27 @@ export const userRouter = router({
       where: { email: input.email },
     });
     return user ? true : false;
+  }),
+  getUserInfoFromEmail: publicProcedure.input(emailExistsSchema).query(async (opts) => {
+    const { input, ctx } = opts;
+    const user = await ctx.prisma.user.findUnique({
+      where: { email: input.email },
+    });
+    return user;
+  }),
+  getUserInfoFromId: publicProcedure.input(z.object({id:z.string()})).query(async (opts) => {
+    const { input, ctx } = opts;
+    const user = await ctx.prisma.user.findUnique({
+      where: { id: input.id },
+    });
+    return user;
+  }),
+  getUserInfoFromUsername: publicProcedure.input(z.object({username:z.string()})).query(async (opts) => {
+    const { input, ctx } = opts;
+    const user = await ctx.prisma.user.findUnique({
+      where: { username: input.username },
+    });
+    return user;
   }),
 });
 export type UserRoutes = typeof userRouter;

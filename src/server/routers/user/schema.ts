@@ -35,3 +35,4 @@ export const usernameExistsSchema = z.object({
 export const emailExistsSchema = z.object({
   email: z.string().email(),
 });
+

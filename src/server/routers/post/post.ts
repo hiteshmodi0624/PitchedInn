@@ -1,12 +1,15 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "~/server/trpc";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { randomBytes } from "crypto";
+import s3 from "~/server/s3";
+import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const createPostInputSchema = z.object({
   caption: z.string(),
   mediaType: z.enum(["Pitch", "Images"]),
   mediaUrl: z.string().array(),
-  creatorId: z.string(),
 });
 
 export const postRouter = router({
@@ -15,7 +18,10 @@ export const postRouter = router({
     .mutation(async (opts) => {
       const { input, ctx } = opts;
       const newPost = await ctx.prisma.post.create({
-        data: input,
+        data: {
+          ...input,
+          creatorId: ctx.session.user.id,
+        },
       });
       return newPost;
     }),
@@ -29,8 +35,39 @@ export const postRouter = router({
         like: true,
       },
     });
+    for (const post of posts) {
+      const command = new GetObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: post.mediaUrl[0],
+      });
+      const url = await getSignedUrl(s3, command, { expiresIn: 600 });
+      post.mediaUrl = [url];
+    }
     return posts;
   }),
+  fetchAllPostsByUsername: publicProcedure
+    .input(z.object({ username: z.string() }))
+    .query(async (opts) => {
+      const {prisma}=opts.ctx
+      const {username}=opts.input;
+      const user=await prisma.user.findUnique({where:{username}})
+      if(user){
+        const posts = await prisma.post.findMany({
+          where:{
+            creatorId:user.id
+          }
+        });
+        for (const post of posts) {
+          const command = new GetObjectCommand({
+            Bucket: process.env.BUCKET_NAME,
+            Key: post.mediaUrl[0],
+          });
+          const url = await getSignedUrl(s3, command, { expiresIn: 600 });
+          post.mediaUrl = [url];
+        }
+        return posts;
+      }
+    }),
   findPostById: publicProcedure
     .input(z.object({ postId: z.string() }))
     .query(async (opts) => {
@@ -48,6 +85,22 @@ export const postRouter = router({
       });
       return post;
     }),
+  getSignedUrl: protectedProcedure.query(async (opts) => {
+    const rawBytes = randomBytes(32);
+    const imageName = rawBytes.toString("hex");
+
+    const url = await getSignedUrl(
+      s3,
+      new PutObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: imageName,
+      })
+    );
+    return {
+      url,
+      imageName,
+    };
+  }),
 });
 
 export type PostRouter = typeof postRouter;

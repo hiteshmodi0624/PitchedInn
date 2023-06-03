@@ -11,6 +11,7 @@ const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
       id: "register",
@@ -35,7 +36,6 @@ const authOptions: NextAuthOptions = {
           password: credentials.password,
           username: credentials.username,
         });
-        console.log(user);
         if (user) {
           return {
             email: user.email,
@@ -74,6 +74,24 @@ const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async session({ session, user }) {
+      const caller = appRouter.user.createCaller({ prisma, session: null });
+      const userInfo = await caller.getUserInfoFromEmail({email:session.user?.email??""})
+      const newSession = {
+        ...session,
+        user: {
+          ...user,
+          username: userInfo?.username,
+          userType: userInfo?.userType,
+          image: userInfo?.image,
+          id: userInfo?.id,
+          email:userInfo?.email
+        },
+      };
+      return newSession;
+    },
   },
 };
 const handler = NextAuth(authOptions);

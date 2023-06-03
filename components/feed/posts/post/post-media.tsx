@@ -1,22 +1,22 @@
 import { FC } from "react";
 import Card from "components/ui/card";
-import SmallImage from "components/ui/small-image";
+import Image from "next/image";
 
-const PostMedia:FC<{mediaUrl:string[],mediaType:string}>=({mediaUrl,mediaType})=>{
+const PostMedia:FC<{mediaUrl:string[],mediaType:string}>=({mediaUrl})=>{
+  console.log(mediaUrl[0]);
     return (
       <>
         {mediaUrl.map((url) => (
           <Card
-            className="flex w-full justify-center rounded-xl bg-gray"
+            className="relative flex h-96 w-full justify-center overflow-hidden rounded-xl bg-gray"
             key={url}
           >
-            {mediaType === "image" && (
-              <SmallImage
-                src={url}
-                alt="logo"
-                className="max-h-min max-w-full overflow-hidden p-6"
-              />
-            )}
+            <Image
+              fill
+              src={url}
+              alt={url}
+              style={{ objectFit: "contain" }}
+            />
           </Card>
         ))}
       </>

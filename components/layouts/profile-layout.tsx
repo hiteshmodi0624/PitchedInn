@@ -3,6 +3,7 @@ import React from "react";
 import { getProfileData } from "src/util/profile";
 import Modes from "components/shared/mode/modes";
 import ProfileData from "../profiles/profile-data/profile-data";
+import { trpc } from "~/utils/trpc";
 
 const ProfileLayout = ({
   children,
@@ -15,17 +16,18 @@ const ProfileLayout = ({
   const pathname = usePathname() as string;
   const location = pathname.split("/").filter(Boolean);
 
-  const profile = getProfileData(username);
+  const profileQuery=trpc.user.getUserInfoFromUsername.useQuery({username})
+  const profile=profileQuery.data;
 
   if (!profile) {
-    return notFound();
+    return <></>;
   }
 
   const modes: string[] = [];
 
-  if (profile.userType === "business" || profile.userType === "investor")
+  if (profile.userType === "Business" || profile.userType === "Investor")
     modes.push("about");
-  if (profile.userType === "business" || profile.userType === "collector") {
+  if (profile.userType === "Business" || profile.userType === "Collector") {
     modes.push("posts", "pitches");
   }
   const setProfileMode = (mode: string) => {

@@ -1,36 +1,69 @@
-"use client"
-import {  FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import NavButton from "./nav-button";
-import {AiFillHome, AiOutlineMessage, AiOutlineMore, AiOutlineNotification, AiOutlinePlusSquare, AiOutlineSearch, AiOutlineUser, AiOutlineVideoCamera} from "react-icons/ai"
+import {
+  AiFillHome,
+  AiOutlineMessage,
+  AiOutlineMore,
+  AiOutlineNotification,
+  AiOutlinePlusSquare,
+  AiOutlineSearch,
+  AiOutlineUser,
+  AiOutlineVideoCamera,
+} from "react-icons/ai";
 import MoreMenu from "./more-menu";
 import MenuToggler from "components/shared/hidden-menu/menu-toggler";
-const RootNav: FC<{}> = () => {
-    return (
-        <>
-            <ul className="flex sm:flex-col justify-around w-full sm:justify-normal flex-row h-full">
-                <NavButton name="Home" icon={<AiFillHome />} link="/"/>
-                <NavButton name="Explore" icon={<AiOutlineSearch />} />
-                <NavButton name="Pitches" icon={<AiOutlineVideoCamera />} />
-                <NavButton name="Messages" icon={<AiOutlineMessage />} className="hidden sm:block"/>
-                <NavButton
-                    name="Notifications"
-                    icon={<AiOutlineNotification />}
-                />
-                <NavButton name="Create" icon={<AiOutlinePlusSquare />} />
-                <NavButton name="Profile" icon={<AiOutlineUser />} />
-            </ul>
-            <MenuToggler
-                button={
-                    <NavButton
-                        name="More"
-                        icon={<AiOutlineMore />}
-                        onClickHandler={()=>{}}
-                    />
-                }
-                menu={<MoreMenu />}
-                className="hidden sm:block"
-            />
-        </>
-    )
+import Create from "components/create/create";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+const RootNav = () => {
+  const [createState, changeState] = useState(false);
+  const createStateShowHandler = () => {
+    changeState(true);
+  };
+  const createStateHideHandler = () => {
+    changeState(false);
+  };
+  const {data:session,status}:{data:Session|null,status:"authenticated" | "loading" | "unauthenticated"}=useSession();
+  const router=useRouter();
+  if(status==="unauthenticated"){
+      return router.replace("/auth")
+  }
+  return (
+    <>
+      <ul className="flex h-full w-full flex-row justify-around sm:flex-col sm:justify-normal">
+        <NavButton name="Home" icon={<AiFillHome />} link="/" />
+        <NavButton name="Explore" icon={<AiOutlineSearch />} />
+        <NavButton name="Pitches" icon={<AiOutlineVideoCamera />} />
+        <NavButton
+          name="Messages"
+          icon={<AiOutlineMessage />}
+          className="hidden sm:block"
+        />
+        <NavButton name="Notifications" icon={<AiOutlineNotification />} />
+
+        <NavButton
+          name="Create"
+          icon={<AiOutlinePlusSquare />}
+          onClickHandler={createStateShowHandler}
+        />
+        {createState && <Create hide={createStateHideHandler} />}
+        
+        {session&&session.user&&session.user.username&&<NavButton name="Profile" icon={<AiOutlineUser />} link={session.user.username}/>}
+      </ul>
+      <MenuToggler
+        button={
+          <NavButton
+            name="More"
+            icon={<AiOutlineMore />}
+            onClickHandler={() => {}}
+          />
+        }
+        menu={<MoreMenu />}
+        className="hidden sm:block"
+      />
+    </>
+  );
 };
 export default RootNav;

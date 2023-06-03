@@ -1,4 +1,4 @@
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import Body from './body';
 import ProgressBar from "components/shared/progress-bar/progress-bar";
 
@@ -9,9 +9,8 @@ export default function Layout({
 }) {
     
     return (
-        <SessionProvider>
-            <div id="root-backdrop"></div>
-            <div id="root-overlay"></div>
+        <SessionProvider >
+            <div id="modals"></div>
 
             <div
                 className="grid h-screen justify-center gap-6 overflow-x-hidden

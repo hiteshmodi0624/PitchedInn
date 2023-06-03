@@ -19,7 +19,7 @@ export default function AuthPage() {
   }
   const posts = trpc.post.fetchAllPosts.useQuery();
   if (posts.data === undefined) {
-    setProgressBarState(60);
+    setProgressBarState(70);
     return <div></div>;
   }
   setProgressBarState(100);

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
@@ -50,7 +47,7 @@ enum userType {
   Collector
   Business
   Investor
-  Basic
+  Regular
 }
 
 model User {
@@ -64,7 +61,7 @@ model User {
   username      String?    @unique
   coverImage    String?
   bio           String?
-  userType      userType   @default(Basic)
+  userType      userType   @default(Regular)
   savedPosts    String[]   @default([])
   followers     String[]   @default([])
   following     String[]   @default([])

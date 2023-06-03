@@ -1,6 +1,4 @@
-import About from "components/profiles/modes/About/about";
 import ProfilePosts from "components/profiles/modes/posts/profile-posts";
-import { getDetails, getProfilePosts } from "src/util/profile";
 import { useRouter } from "next/router";
 import ProfileLayout from "components/layouts/profile-layout";
 import { notFound } from "next/navigation";

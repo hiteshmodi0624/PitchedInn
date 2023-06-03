@@ -1,5 +1,4 @@
 import { signOut } from "next-auth/react";
-import { dummyPosts } from "../../data/dummy-post";
 
 export const likeHandler = (
   postId: string,
@@ -24,7 +23,3 @@ export const logoutHandler = () => {
 };
 export const changePasswordHandler = (username: string) => {};
 
-export const getPosts = () => {
-  const posts = dummyPosts;
-  return posts;
-};

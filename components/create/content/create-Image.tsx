@@ -65,7 +65,6 @@ const CreateImage = ({
   useEffect(() => {
     const image = imageRef.current;
     const handleImageLoad = () => {
-      console.log(containerDimension);
       if (image) {
         const imageRatio =
           image.getBoundingClientRect().height /

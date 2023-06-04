@@ -40,6 +40,7 @@ const CreateContent = ({
         method: "PUT",
         headers: {
           "Content-Type": "multipart/form-data",
+          'Origin': 'https://pitched-inn.vercel.app',
         },
         body: file,
       });

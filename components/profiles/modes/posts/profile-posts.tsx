@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Post } from "@prisma/client";
 import Link from "next/link";
-import Card from "components/ui/card";
 import Image from "next/image";
 
 const ProfilePosts:FC<{posts:Post[]}>=({posts})=>{

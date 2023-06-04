@@ -4,12 +4,11 @@ import { FC } from "react";
 import PostHiddenMenu from "./post-hidden-menu";
 import MenuToggler from "../../../shared/hidden-menu/menu-toggler";
 import Link from "next/link";
-import ProfilePicture from "components/shared/account/profile-picture";
-import { getProfileData } from "~/util/profile";
+import Image from "next/image";
 import { trpc } from "~/utils/trpc";
 
 const Profile: FC<{ userId: string; date: string }> = ({ userId, date }) => {
-  const db=trpc.user.getUserInfoFromId.useQuery({id:userId})
+  const db=trpc.user.getUserInfo.useQuery({id:userId})
   const profile=db.data;
   if(!profile){
     return <></>
@@ -20,12 +19,13 @@ const Profile: FC<{ userId: string; date: string }> = ({ userId, date }) => {
         href={profile.username ?? profile.id}
         className="flex h-full items-center space-x-2 pb-2 text-grey"
       >
-        {profile.image && (
-          <ProfilePicture
-            profilePic={profile.image}
-            className="h-12 w-12 sm:h-16 sm:w-16"
+          <Image
+            className="flex h-12 w-12 bg-white rounded-full"
+            width={1000}
+            height={1000}
+            src={profile.image ?? "/profile-picture.svg"}
+            alt={profile.username ?? "Profile Picture"}
           />
-        )}
         <div className="flex h-max items-start space-x-2 text-sm">
           <div className="text-white">
             <h2 className="font-bold">{profile.name}</h2>

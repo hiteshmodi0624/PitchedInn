@@ -45,6 +45,29 @@ export const postRouter = router({
     }
     return posts;
   }),
+  fetchAllPithches: publicProcedure.query(async (opts) => {
+    const posts = await opts.ctx.prisma.post.findMany({
+      include: {
+        collect: true,
+        comment: true,
+        save: true,
+        creator: true,
+        like: true,
+      },
+      where:{
+        mediaType:"Pitch"
+      }
+    });
+    for (const post of posts) {
+      const command = new GetObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: post.mediaUrl[0],
+      });
+      const url = await getSignedUrl(s3, command, { expiresIn: 600 });
+      post.mediaUrl = [url];
+    }
+    return posts;
+  }),
   fetchAllPostsByUsername: publicProcedure
     .input(z.object({ username: z.string() }))
     .query(async (opts) => {

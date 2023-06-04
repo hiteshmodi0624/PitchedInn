@@ -9,7 +9,7 @@ const ProfilePosts:FC<{posts:Post[]}>=({posts})=>{
         {posts.map((post) => (
           <li key={post.id} className="w-full overflow-hidden">
             <Link
-              className="flex relative justify-center hover:opacity-80 h-96 bg-gray rounded-xl w-full"
+              className="flex relative justify-center hover:opacity-80 h-60 bg-gray rounded-xl w-full"
               href={`/${post.id}`}
             >
               <Image

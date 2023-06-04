@@ -9,7 +9,9 @@ import {
   usernameExistsSchema,
 } from "./schema";
 import { User } from "@prisma/client";
-
+import { randomBytes } from "crypto";
+import snakeText from "~/utils/snake-text";
+import { followRoutes } from "./follow/follow";
 export const userRouter = router({
   register: publicProcedure
     .input(z.object(registerInputSchema))
@@ -66,27 +68,56 @@ export const userRouter = router({
     });
     return user ? true : false;
   }),
-  getUserInfoFromEmail: publicProcedure.input(emailExistsSchema).query(async (opts) => {
-    const { input, ctx } = opts;
-    const user = await ctx.prisma.user.findUnique({
-      where: { email: input.email },
-    });
-    return user;
-  }),
-  getUserInfoFromId: publicProcedure.input(z.object({id:z.string()})).query(async (opts) => {
-    const { input, ctx } = opts;
-    const user = await ctx.prisma.user.findUnique({
-      where: { id: input.id },
-    });
-    return user;
-  }),
-  getUserInfoFromUsername: publicProcedure.input(z.object({username:z.string()})).query(async (opts) => {
-    const { input, ctx } = opts;
-    const user = await ctx.prisma.user.findUnique({
-      where: { username: input.username },
-    });
-    return user;
-  }),
+  getUserInfo: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email().optional(),
+        username: z.string().optional(),
+        id: z.string().optional(),
+      })
+    )
+    .query(async (opts) => {
+      const { input, ctx } = opts;
+      const { email, id, username } = input;
+      const user = email? await ctx.prisma.user.findUnique({
+        where: { email },
+      }):username?await ctx.prisma.user.findUnique({
+        where: { username },
+      }):await ctx.prisma.user.findUnique({
+        where: { id },
+      })
+      return user;
+    }),
+  setRandomUsername: publicProcedure
+    .input(z.object({ email: z.string().email() }))
+    .mutation(async (opts) => {
+      const email = opts.input.email;
+      const userInfo = await opts.ctx.prisma.user.findUnique({
+        where: { email: email },
+      });
+      var username = userInfo?.username;
+      if (username) return userInfo;
+      if (email && userInfo && !username) {
+        const { name } = userInfo;
+        username = name ? snakeText(name) : email?.split("@")[0] ?? "user_";
+        var found = await opts.ctx.prisma.user.findUnique({
+          where: { username },
+        });
+        while (username && found) {
+          const newUserName: string = username + randomBytes(6).toString("hex");
+          found = await opts.ctx.prisma.user.findUnique({
+            where: { username: newUserName },
+          });
+          if (!found) username = newUserName;
+        }
+        return await opts.ctx.prisma.user.update({
+          data: { username },
+          where: { email: email },
+        });
+      }
+      return null;
+    }),
+  follow: followRoutes,
 });
 export type UserRoutes = typeof userRouter;
 

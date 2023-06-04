@@ -1,9 +1,10 @@
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ProfilePicture from "components/shared/account/profile-picture";
+import { User } from "@prisma/client";
 
 const MessageProfiles: FC<{
-    profile: Profile;
+    profile: User;
 }> = ({ profile }) => {
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const MessageProfiles: FC<{
             className="flex items-center justify-center"
             href={`messages/${profile.username}`}
         >
-            <ProfilePicture className="h-12" profilePic={profile.profilePic} />
+            <ProfilePicture className="h-12" profilePic={profile.image} />
             <div
                 className="m-2 flex w-full flex-col overflow-hidden overflow-ellipsis truncate" id="messages"
             >

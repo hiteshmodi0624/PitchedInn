@@ -5,6 +5,7 @@ import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { appRouter } from "~/server/routers/route";
+import { randomBytes } from "crypto";
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -78,7 +79,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user }) {
       const caller = appRouter.user.createCaller({ prisma, session: null });
-      const userInfo = await caller.getUserInfoFromEmail({email:session.user?.email??""})
+      const userInfo = await caller.setRandomUsername({ email: session.user.email });
       const newSession = {
         ...session,
         user: {

@@ -1,7 +1,7 @@
 import ContentLayout from "components/shared/content-layout/content-layout";
 import Modes from "components/shared/mode/modes";
 import SmallProfileHeader from "components/shared/profile-header/small-profile-header";
-import { getProfileData } from "~/util/profile";
+import { trpc } from "~/utils/trpc";
 import { useRouter } from "next/router";
 
 const FollowLayout = ({
@@ -20,10 +20,13 @@ const FollowLayout = ({
     router.push(newPath);
   };
   const currentMode = location.slice(-1)[0] ?? "";
-  const profile = getProfileData(username)!;
+  const profile = trpc.user.getUserInfo.useQuery({username});
+  if (!profile.data) {
+    return <div></div>;
+  }
   return (
     <ContentLayout
-      headerContent={<SmallProfileHeader profile={profile} />}
+      headerContent={<SmallProfileHeader profile={profile.data} />}
       className="h-screen"
     >
       <div className="my-6 h-screen border-[1px] border-seperator">

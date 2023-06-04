@@ -5,11 +5,21 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
 import InteractionIcon from "components/shared/interaction-icon";
 import { collectHandler, likeHandler, saveHandler } from "~/util/post";
-import { Interactions } from "types/post";
-
-const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
-  interactions,
+import { Collect, Comment, Like, Save } from "@prisma/client";
+const Interactions = ({
+  likes,
+  comments,
+  collects,
+  shares,
+  saves,
   postId,
+}: {
+  likes: Like[];
+  comments: Comment[];
+  collects: Collect[];
+  shares: number;
+  saves: Save[];
+  postId: string;
 }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [saved, setSaved] = useState<boolean>(false);
@@ -24,14 +34,14 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
         state={liked}
         icon2={<AiFillHeart color="red" />}
         title="Like"
-        count={interactions.likes.length + +liked}
+        count={likes.length + +liked}
         color="red"
       />
       <InteractionIcon
         icon1={<BiMessageRounded />}
         onClick={onComment}
         title="Message"
-        count={interactions.comments.length}
+        count={comments.length}
         color="DodgerBlue"
       />
       <InteractionIcon
@@ -40,7 +50,7 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
         state={collected}
         icon2={<MdAddBox color="green" />}
         title="Collect"
-        count={interactions.collects.length + +collected}
+        count={collects.length + +collected}
         color="green"
       />
       <InteractionIcon
@@ -49,14 +59,14 @@ const Interactions: FC<{ postId: string; interactions: Interactions }> = ({
         state={saved}
         icon2={<BsBookmarkFill color="DodgerBlue" />}
         title="Save"
-        count={interactions.saves.length + +saved}
+        count={saves.length + +saved}
         color="DodgerBlue"
       />
       <InteractionIcon
         icon1={<AiOutlineSend />}
         onClick={onForward}
         title="Forward"
-        count={interactions.shares}
+        count={shares}
       />
     </div>
   );

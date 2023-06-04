@@ -1,22 +1,22 @@
 "use client"
 import { brand } from "data/data";
-import LargeImage from "components/ui/large-image";
+import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 const Navbar = ({ children }: PropsWithChildren) => {
     return (
-        <nav
-            className="sm:h-screen w-screen justify-center sm:w-full bg-black text-white border-seperator 
-                        border-r-[1px] p flex flex-row sm:flex-col p-4 sm:justify-start"
-        >
-            <Link href="/" className="hidden xl:block mb-6 my-2 mx-3">
-                <LargeImage src="logo.svg" alt={brand} />
-            </Link>
-            <Link href="/" className="hidden sm:block xl:hidden mb-6 my-2 mx-1">
-                <LargeImage src="favicon-white.ico" alt={brand} className="w-12" />
-            </Link>
-            {children}
-        </nav>
+      <nav
+        className="p flex w-screen flex-row justify-center border-r-[1px] border-seperator 
+                        bg-black p-4 text-white sm:h-screen sm:w-full sm:flex-col sm:justify-start"
+      >
+        <Link href="/" className="mx-3 my-2 mb-6 hidden xl:block">
+          <Image width={300} height={300} src="/logo.svg" alt={brand} />
+        </Link>
+        <Link href="/" className="mx-1 my-2 mb-6 hidden sm:block xl:hidden">
+          <Image width={300} height={300} src="/favicon-white.ico" alt={brand} className="w-12" />
+        </Link>
+        {children}
+      </nav>
     );
 };
   

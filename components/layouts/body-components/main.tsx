@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import Navbar from "../root/navbar/navbar";
 
 const Main=({children}:PropsWithChildren)=>{
     return <main

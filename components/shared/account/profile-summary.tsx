@@ -2,14 +2,15 @@ import { FC } from "react";
 import ProfilePicture from "./profile-picture";
 import FollowButton from "../buttons/follow-button";
 import Link from "next/link";
+import { User } from "@prisma/client";
 
 const ProfileSummary: FC<{
-    profile: Profile;
+    profile: User;
     showFollowingButton: boolean;
 }> = ({ profile, showFollowingButton }) => {
     return (
         <Link className="flex items-center justify-start" href={`/${profile.username}`}>
-            <ProfilePicture className="h-16" profilePic={profile.profilePic} />
+            <ProfilePicture className="h-16 w-16 bg-white rounded-full" profilePic={profile.image} />
             <div className="m-2 w-full">
                 <h2 className="font-bold text-sm text-white">{profile.name}</h2>
                 <div className="flex text-grey">
@@ -24,7 +25,7 @@ const ProfileSummary: FC<{
             </div>
             {showFollowingButton && (
                 <FollowButton
-                    username={profile.backgroundImage}
+                    username={profile.username!}
                 />
             )}
             <div></div>

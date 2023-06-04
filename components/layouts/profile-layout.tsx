@@ -1,9 +1,9 @@
 import { useRouter, usePathname, notFound } from "next/navigation";
 import React from "react";
-import { getProfileData } from "src/util/profile";
 import Modes from "components/shared/mode/modes";
 import ProfileData from "../profiles/profile-data/profile-data";
 import { trpc } from "~/utils/trpc";
+import ContentLayout from "../shared/content-layout/content-layout";
 
 const ProfileLayout = ({
   children,
@@ -16,11 +16,11 @@ const ProfileLayout = ({
   const pathname = usePathname() as string;
   const location = pathname.split("/").filter(Boolean);
 
-  const profileQuery=trpc.user.getUserInfoFromUsername.useQuery({username})
+  const profileQuery=trpc.user.getUserInfo.useQuery({username})
   const profile=profileQuery.data;
 
   if (!profile) {
-    return <></>;
+    return <div></div>;
   }
 
   const modes: string[] = [];
@@ -42,13 +42,13 @@ const ProfileLayout = ({
       ? "posts"
       : modes[0] ?? "";
   return (
-    <div className="h-screen">
-      <ProfileData profile={profile} />
+    <ContentLayout>
+      <ProfileData profile={profile}/>
       {modes.length !== 0 && (
         <Modes setMode={setProfileMode} mode={currentMode} modes={modes} />
       )}
       <section className="pb-1">{children}</section>
-    </div>
+    </ContentLayout>
   );
 };
 

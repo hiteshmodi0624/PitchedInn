@@ -1,13 +1,15 @@
 import { FC } from "react";
-import SmallImage from "../../ui/small-image";
+import Image from "next/image";
 
-const ProfilePicture:FC<{profilePic:string,className?:string}> = ({profilePic,className}) => {
+const ProfilePicture:FC<{profilePic:string|null,className?:string}> = ({profilePic,className}) => {
     return (
-        <SmallImage
-            src={profilePic}
-            alt={profilePic}
-            className={`rounded-full bg-white p-1.5 aspect-square ${className}`}
-        />
+        <Image
+            className={`flex rounded-full aspect-square ${className}`}
+            width={1000}
+            height={1000}
+            src={profilePic ?? "/profile-picture.svg"}
+            alt={profilePic ?? "Profile Picture"}
+          />
     );
 };
 export default ProfilePicture

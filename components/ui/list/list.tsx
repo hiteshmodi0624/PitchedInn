@@ -1,6 +1,7 @@
+import { User } from "@prisma/client";
 import DetailedProfileSummary from "components/shared/account/detailed-profile-summary";
 
-const DetailedProfilesList=({list}:{list:Profile[]})=>{
+const DetailedProfilesList=({list}:{list:User[]})=>{
     return (
         <>
             {list.map((profile) => (

@@ -4,8 +4,8 @@ import RootNav from "components/root/navbar/root-nav";
 import RootSideBar from "components/root/sidebar/sidebar-items/root-sidebar";
 import { useSession } from "next-auth/react";
 import AuthNav from "components/auth/root/auth-nav";
-import Header from "./header";
-import Main from "./main";
+import Header from "./body-components/header";
+import Main from "./body-components/main";
 
 export default function Body({ children }: { children: React.ReactNode }) {
     const { status } = useSession();

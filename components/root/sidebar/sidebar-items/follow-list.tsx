@@ -3,10 +3,11 @@ import ProfileSummary from "components/shared/account/profile-summary";
 import Heading from "components/ui/heading";
 import { getFollowList } from "src/util/lists";
 import Link from "next/link";
+import { User } from "@prisma/client";
 const FollowList: FC<{ listType: "collector" | "business" }> = ({
   listType,
 }) => {
-  const followList = getFollowList(listType, 2);
+  const followList:User[] = [];
   return (
     <div className="z-10 my-3 w-full overflow-hidden rounded-3xl bg-gray pt-3">
       <Heading

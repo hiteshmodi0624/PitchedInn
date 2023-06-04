@@ -1,20 +1,24 @@
 import Input from "components/auth/input";
 import ContentLayout from "components/shared/content-layout/content-layout";
-import { getProfileData } from "src/util/profile";
 import { ChangeEvent, useState } from "react";
 import { BsEmojiSmile } from "react-icons/bs";
 import { MdAttachFile, MdGifBox, MdPhoto, MdSend } from "react-icons/md";
 import Message from "components/messages/message";
 import SmallProfileHeader from "components/shared/profile-header/small-profile-header";
 import { useRouter } from "next/router";
+import { User } from "@prisma/client";
 
-export default function Messages() {
+export default function Messages({}) {
   const router = useRouter();
-  const profile = getProfileData(router.query.username as string)!;
+  const profile:User|undefined = undefined;
   const [message, setMessage] = useState("");
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
+  if (!profile) {
+    router.replace("/404");
+    return <div></div>;
+  }
   return (
     <ContentLayout
       headerContent={<SmallProfileHeader profile={profile} />}

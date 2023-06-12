@@ -36,3 +36,10 @@ export const emailExistsSchema = z.object({
   email: z.string().email(),
 });
 
+export const modifyUserSchema = z.object({
+  name: z.string().min(2),
+  username: z.string().min(4),
+  bio: z.string().max(160).optional(),
+  dob: z.date(),
+  userType: z.enum(["Regular", "Business", "Investor","Collector"]),
+});

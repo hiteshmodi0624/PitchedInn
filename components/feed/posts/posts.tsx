@@ -10,7 +10,7 @@ const Posts = ({ posts }: { posts: PostRouterProcedure<"fetchAllPosts"> }) => {
     <ul className="mt-6 space-y-6 pb-16">
       {posts.map((post) => (
         <li key={post.id}>
-          <Card className="flex w-full flex-col items-center justify-center rounded-lg px-6 py-3">
+          <Card className="w-full rounded-lg px-6 py-3">
             <Profile
               userId={post.creatorId}
               date={relativeDate(post.createdAt)}

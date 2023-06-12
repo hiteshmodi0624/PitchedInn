@@ -1,5 +1,4 @@
-import { FC } from "react";
-import ProfilePicture from "components/shared/account/profile-picture";
+import { FC, FormEvent, useState } from "react";
 import FollowButton from "components/shared/buttons/follow-button";
 import Button from "components/ui/button";
 import { AiOutlineMore } from "react-icons/ai";
@@ -7,33 +6,48 @@ import MenuToggler from "components/shared/hidden-menu/menu-toggler";
 import ProfileHiddenMenu from "./profile-hidden-menu";
 import { useRouter } from "next/router";
 import { User } from "@prisma/client";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
+import ProfileImage from './profile-image';
+import {useEffect} from 'react';
+import ProfileSettings from "components/settings/profile/profile-settings";
 const ProfileHeader: FC<{
   profile: User;
   setFollowValue: (value: boolean) => void;
 }> = ({ profile, setFollowValue }) => {
-  const username = useRouter().query.username!;
+  const router=useRouter();
+  const username = router.query.username!;
   const { data: session, status } = useSession();
-
+  const [showSetting,setShowSetting]=useState(false);
+  useEffect(() => {
+    if (window.location.pathname.includes("/settings/profile")) {
+      setShowSetting(true);
+    } else {
+      setShowSetting(false);
+    }
+  }, []);
+  const navigateToEditProfile = () => {
+    if (session) {
+        if (!window.location.pathname.includes("/settings/profile")) {
+          window.history.pushState(null, "", "settings/profile");
+          setShowSetting(true);
+        }
+    }
+  }
+  const navigateToProfile = () => {
+    window.history.pushState(null, '', "/"+username);
+    setShowSetting(false)
+  }
   return (
     <div className="flex justify-between">
-      <div>
-        <Image
-          className="flex h-32 w-32 -translate-y-1/3 justify-center overflow-hidden rounded-full bg-white"
-          width={1000}
-          height={1000}
-          src={profile.image ?? "/profile-picture.svg"}
-          alt={profile.username ?? "Profile Picture"}
-        />
-      </div>
+      <ProfileImage profileImage={profile.image} id={profile.username??profile.id} className="-translate-y-1/3"/>
       <div className="mt-4 flex items-center space-x-2">
-        {username === session?.user.username ? (
+        {profile.id === session?.user.id ? (
           <Button
             name="Edit Profile"
             className="mr-0"
             buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
-            link="/account/edit"
+            onClickHandler={navigateToEditProfile}
+            labelClasses="hidden"
           />
         ) : (
           <>
@@ -42,6 +56,7 @@ const ProfileHeader: FC<{
                 name="Message"
                 className="mr-0"
                 buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
+                labelClasses="hidden"
               />
             )}
             {profile.username && (
@@ -61,6 +76,7 @@ const ProfileHeader: FC<{
                     nameClasses="hidden"
                     buttonClasses="border-grey border-[1px] aspect-square w-3 justify-center"
                     onClickHandler={() => {}}
+                    labelClasses="hidden"
                   />
                 }
                 menu={<ProfileHiddenMenu profile={profile} />}
@@ -69,6 +85,7 @@ const ProfileHeader: FC<{
           </>
         )}
       </div>
+      {showSetting&&<ProfileSettings hide={navigateToProfile}/>}
     </div>
   );
 };

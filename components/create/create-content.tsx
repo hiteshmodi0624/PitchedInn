@@ -23,6 +23,7 @@ const CreateContent = ({
   CreateStateHandler,
 }: CreateContentType) => {
   const { data: session } = useSession();
+  const [ratio,setRatio]= useState(1);
   const createPost = trpc.post.createPost.useMutation();
   const getSecureUrl = trpc.post.getSignedUrl.useQuery();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,12 @@ const CreateContent = ({
       }
     }
   };
+  const handleSetRatio=(r:number)=>{
+    setRatio(r);
+    setTop(undefined);
+    setLeft(undefined);
+  }
+  const ratios:number[][]= [[1,1],[4,5],[16,9]]
   return (
     <>
       <CreateButtons
@@ -71,22 +78,37 @@ const CreateContent = ({
           setFiles={setFiles}
           className={`${createState === "selection" ? "block" : "hidden"}`}
         />
-        {containerDimension && (
-          <CreateImage
-            src={dragState}
-            top={top}
-            left={left}
-            setLeft={setLeft}
-            setTop={setTop}
-            containerDimension={containerDimension}
-            className={`${createState === "crop" ? "block" : "hidden"}`}
-          />
+        {containerDimension && createState === "crop" && (
+          <div className="relative flex justify-center">
+            <div className="absolute bottom-2 left-2 z-10  space-x-2">
+              {ratios.map((r) => {
+                const rat = r[0]! / r[1]!;
+                return (
+                  <button
+                    className="h-10 w-10 rounded-full bg-gray text-sm text-white"
+                    onClick={handleSetRatio.bind(null, rat)}
+                    key={rat}
+                  >
+                    {r[0]!}:{r[1]!}
+                  </button>
+                );
+              })}
+            </div>
+            <CreateImage
+              src={dragState}
+              top={top}
+              left={left}
+              setLeft={setLeft}
+              setTop={setTop}
+              containerRatio={ratio}
+              containerWidth={ratio>1?containerDimension:containerDimension*ratio}
+              containerHeight={ratio>1?containerDimension/ratio:containerDimension}
+            />
+          </div>
         )}
-        <AddCaption
-          caption={caption}
-          setCaption={setCaption}
-          className={`${createState === "final" ? "block" : "hidden"}`}
-        />
+        {createState === "final" && (
+          <AddCaption caption={caption} setCaption={setCaption} />
+        )}
       </div>
     </>
   );

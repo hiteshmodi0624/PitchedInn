@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEventHandler, useReducer, useState } from "react";
-import Select from "../select";
 import { DOBInputType } from "../reducers";
+import Select from '../../ui/inputs/select';
 export default function DOB({
   handleChange,
   DOB,
@@ -46,35 +46,34 @@ export default function DOB({
     </>
   );
   return (
-    <div className="my-3 space-y-1">
-      <p className="text-sm">Date of Birth</p>
-      <p className="text-xs text-grey">
-        This will not be shown publicly. Confirm your own age, even if this
-        account is for a business or a collector.
-      </p>
-      <div className="flex space-x-2">
-        <Select
-          placeholder="Month"
-          value={DOB.month}
-          onChangeHandler={handleChange}
-        >
-          {month}
-        </Select>
-        <Select
-          placeholder="Date"
-          value={DOB.date}
-          onChangeHandler={handleChange}
-        >
-          {date}
-        </Select>
-        <Select
-          placeholder="Year"
-          value={DOB.year}
-          onChangeHandler={handleChange}
-        >
-          {years}
-        </Select>
-      </div>
+    <div className="flex space-x-2 w-full">
+      <Select
+        placeholder="Month"
+        value={DOB.month}
+        onChangeHandler={handleChange}
+        className="w-1/3"
+        label="Month"
+      >
+        {month}
+      </Select>
+      <Select
+        placeholder="Date"
+        value={DOB.date}
+        onChangeHandler={handleChange}
+        className="w-1/3"
+        label="Date"
+      >
+        {date}
+      </Select>
+      <Select
+        placeholder="Year"
+        value={DOB.year}
+        onChangeHandler={handleChange}
+        className="w-1/3"
+        label="Year"
+      >
+        {years}
+      </Select>
     </div>
   );
 }

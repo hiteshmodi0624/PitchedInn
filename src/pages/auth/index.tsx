@@ -7,7 +7,7 @@ import ContentLayout from "components/shared/content-layout/content-layout";
 import Posts from "components/feed/posts/posts";
 import { trpc } from "~/utils/trpc";
 
-export default function AuthPage() {
+export default function AuthPage({}) {
   const { data: session, status } = useSession();
   const router = useRouter();
   if (status === "loading") {

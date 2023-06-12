@@ -1,7 +1,7 @@
 import ContentLayout from "components/shared/content-layout/content-layout";
 import Modal from "components/ui/modal/modal";
 import { useState } from "react";
-import CloseModal from "./close-modal";
+import CloseModal from "components/shared/close-modal/close-modal";
 import CreateContent from "./create-content";
 
 export default function Create({ hide }: { hide: () => void }) {
@@ -60,6 +60,10 @@ export default function Create({ hide }: { hide: () => void }) {
     <>
       {backdrop && (
         <CloseModal
+          cancelButton="Cancel"
+          closeButton="Discard"
+          heading="Discard post?"
+          text="If you leave, your edits won&apos;t be saved."
           cancelHandler={HideCloseHandler}
           discardHandler={discardHandler}
         />

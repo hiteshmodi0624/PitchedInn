@@ -11,7 +11,7 @@ const ValidFieldCheck = ({
   return (
     <>
       {isValid ? (
-        <div className="absolute right-3 top-4 text-2xl text-green-500">
+        <div className="absolute right-3 -translate-y-1/2 top-1/2 text-2xl text-green-500">
           <Label
             label={`${fieldName} is available`}
             className="max-w-96 right-0 min-w-max"
@@ -20,7 +20,7 @@ const ValidFieldCheck = ({
           </Label>
         </div>
       ) : (
-        <div className="absolute right-3 top-4 text-2xl text-red-500">
+        <div className="absolute right-3 -translate-y-1/2 top-1/2 text-2xl text-red-500">
           <Label
             label={`${fieldName} is not available.`}
             className="max-w-96 right-0 min-w-max"

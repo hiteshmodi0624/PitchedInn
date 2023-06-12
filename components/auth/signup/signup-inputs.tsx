@@ -5,7 +5,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import Input from "../input";
+import Input from "../../ui/inputs/input";
 import {
   dobInitialValue,
   dobReducer,
@@ -72,7 +72,7 @@ export default function SignUpInputs() {
           type="text"
           isValid={name.isValid || !name.isTouched}
           value={name.value}
-          className="!my-1 bg-transparent"
+          className="bg-transparent"
           dispatchInput={dispatchName}
           id="name"
           validationChecker={registerInputSchema.name.safeParse}
@@ -86,7 +86,7 @@ export default function SignUpInputs() {
             type="email"
             isValid={email.isValid || !email.isTouched}
             value={email.value}
-            className="!my-1 bg-transparent pr-10"
+            className="bg-transparent pr-10"
             dispatchInput={dispatchEmail}
             id="email"
             validationChecker={registerInputSchema.email.safeParse}
@@ -106,7 +106,7 @@ export default function SignUpInputs() {
             type="text"
             isValid={username.isValid || !username.isTouched}
             value={username.value}
-            className="!my-1 bg-transparent pr-10"
+            className="bg-transparent pr-10"
             dispatchInput={dispatchUsername}
             id="username"
             validationChecker={registerInputSchema.username.safeParse}
@@ -127,13 +127,21 @@ export default function SignUpInputs() {
           type="password"
           isValid={password.isValid || !password.isTouched}
           value={password.value}
-          className="!my-1 bg-transparent"
+          className="bg-transparent"
           dispatchInput={dispatchPassword}
           id="password"
           validationChecker={registerInputSchema.password.safeParse}
         />
       </Label>
-      <DOB handleChange={DOBChangeHandler} DOB={dob} />
+
+      <div className="my-3 space-y-1">
+        <p className="text-sm">Date of Birth</p>
+        <p className="text-xs text-grey">
+          This will not be shown publicly. Confirm your own age, even if this
+          account is for a business or a collector.
+        </p>
+        <DOB handleChange={DOBChangeHandler} DOB={dob} />
+      </div>
 
       <button
         onClick={signupHandler}

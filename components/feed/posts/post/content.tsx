@@ -7,7 +7,7 @@ const Content:FC<{content:string}>=({content})=>{
     }
     return (
         <>
-            <p className="text-sm py-4">
+            <p className="text-sm py-4 justify-center flex">
                 {showAll ? content : content.substring(0, 250)}
                 { content.length>250&&
                 <button onClick={openMore} className="pl-2 text-blue-500 hover:text-blue-700 hover:underline">

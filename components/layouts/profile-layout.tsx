@@ -1,9 +1,11 @@
 import { useRouter, usePathname, notFound } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Modes from "components/shared/mode/modes";
 import ProfileData from "../profiles/profile-data/profile-data";
 import { trpc } from "~/utils/trpc";
 import ContentLayout from "../shared/content-layout/content-layout";
+import SmallProfileHeader from "components/shared/profile-header/small-profile-header";
+import Card from "components/ui/card";
 
 const ProfileLayout = ({
   children,
@@ -16,9 +18,11 @@ const ProfileLayout = ({
   const pathname = usePathname() as string;
   const location = pathname.split("/").filter(Boolean);
 
-  const profileQuery=trpc.user.getUserInfo.useQuery({username})
-  const profile=profileQuery.data;
-
+  const profileQuery = trpc.user.getUserInfo.useQuery({ username });
+  const profile = profileQuery.data;
+  useEffect(() => {
+    profileQuery.refetch();
+  }, [profileQuery,location]);
   if (!profile) {
     return <div></div>;
   }
@@ -42,12 +46,17 @@ const ProfileLayout = ({
       ? "posts"
       : modes[0] ?? "";
   return (
-    <ContentLayout>
-      <ProfileData profile={profile}/>
-      {modes.length !== 0 && (
-        <Modes setMode={setProfileMode} mode={currentMode} modes={modes} />
-      )}
-      <section className="pb-1">{children}</section>
+    <ContentLayout
+      headerContent={<SmallProfileHeader profile={profile} />}
+      className="h-screen"
+    >
+      <Card className="mt-6 w-full mb-6">
+        <ProfileData profile={profile} />
+        {modes.length !== 0 && (
+          <Modes setMode={setProfileMode} mode={currentMode} modes={modes} />
+        )}
+        <section className="pb-1">{children}</section>
+      </Card>
     </ContentLayout>
   );
 };

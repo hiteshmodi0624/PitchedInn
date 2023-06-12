@@ -6,12 +6,14 @@ const PostMedia:FC<{mediaUrl:string[],mediaType:string}>=({mediaUrl})=>{
     return (
       <>
         {mediaUrl.map((url) => (
-          <div
-            className="relative flex h-96 w-full justify-center overflow-hidden rounded-xl bg-gray"
+          <Image
+            height={1000}
+            width={1000}
+            src={url}
+            alt={url}
+            className="max-h-[32rem] min-h-[24rem] w-auto rounded-xl mx-auto border-seperator border-[1px]"
             key={url}
-          >
-            <Image fill src={url} alt={url} style={{ objectFit: "contain" }} />
-          </div>
+          />
         ))}
       </>
     );

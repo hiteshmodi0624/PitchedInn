@@ -1,12 +1,13 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure, router } from "~/server/trpc";
+import { publicProcedure, router, protectedProcedure } from '~/server/trpc';
 import { hash, compare } from "bcrypt";
 import {
   emailExistsSchema,
   loginInputSchema,
   registerInputSchema,
   usernameExistsSchema,
+  modifyUserSchema,
 } from "./schema";
 import { User } from "@prisma/client";
 import { randomBytes } from "crypto";
@@ -117,6 +118,20 @@ export const userRouter = router({
       }
       return null;
     }),
+  modifyUser: protectedProcedure.input(modifyUserSchema).mutation(async (opts) => {
+    const { input, ctx } = opts;
+    const { name, username, bio, dob, userType } = input;
+    const user = await ctx.prisma.user.findUnique({
+      where: { id:ctx.session.user.id },
+    });
+    if (!user) throw new Error("User not found");
+    return await ctx.prisma.user.update({
+      data: { bio, dob, name, username, userType },
+      where: {
+        id: ctx.session.user.id,
+      },
+    });
+  }),
   follow: followRoutes,
 });
 export type UserRoutes = typeof userRouter;

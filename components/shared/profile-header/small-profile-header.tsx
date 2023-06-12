@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 
 const SmallProfileHeader = ({profile}:{profile:User}) => {
     return (
-        <div className="border-seperator border-[1px] flex bg-transparent p-2">
+        <div className="flex bg-transparent p-2">
             <BackButton />
             <Link
                 href={`/${profile.username}`}

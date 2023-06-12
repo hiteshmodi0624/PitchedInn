@@ -1,4 +1,4 @@
-import Input from "components/auth/input";
+import Input from "components/ui/inputs/input";
 import ContentLayout from "components/shared/content-layout/content-layout";
 import { ChangeEvent, useState } from "react";
 import { BsEmojiSmile } from "react-icons/bs";

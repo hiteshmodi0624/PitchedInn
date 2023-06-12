@@ -1,6 +1,5 @@
-"use client";
 import { FormEvent, useReducer } from "react";
-import Input from "../input";
+import Input from "../../ui/inputs/input";
 
 import SubmitButton from "../../shared/buttons/submit-button";
 import Link from "next/link";

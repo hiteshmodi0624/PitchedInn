@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import CoverImage from "./cover-image";
 
 const ProfileData = ({ profile }: { profile: User }) => {
   const [isFollowing, setIsFollowing] = useState(0);
@@ -21,18 +22,7 @@ const ProfileData = ({ profile }: { profile: User }) => {
   };
   return (
     <div className="flex w-full flex-col">
-      <div className="h-40 bg-gray">
-        {profile.coverImage && (
-          <Image
-            width={1000}
-            height={1000}
-            style={{ objectFit: "scale-down" }}
-            src={profile.coverImage}
-            alt={profile.id}
-            className="h-full w-full"
-          />
-        )}
-      </div>
+      <CoverImage coverImage={profile.coverImage} id={profile.username??profile.id} />
       <div className="mx-4">
         <ProfileHeader profile={profile} setFollowValue={setFollowValue} />
         <div>

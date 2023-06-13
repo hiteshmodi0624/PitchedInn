@@ -11,6 +11,9 @@ import { AiOutlineArrowRight, AiOutlineClose } from "react-icons/ai";
 import Select from '../../ui/inputs/select';
 import TextArea from '../../ui/inputs/textarea';
 import { BiImageAdd } from "react-icons/bi";
+import UploadImage from '../../shared/upload-image/upload-image';
+import { useState } from "react";
+import UploadImageLabel from '../../shared/upload-image/upload-image-label';
 
 const DefaultForm = ({
   coverImage,
@@ -46,6 +49,12 @@ const DefaultForm = ({
   const usernameQuery = trpc.user.usernameExists.useQuery({
     username: username,
   });
+  const [profilePhoto, setProfilePhoto] = useState<File>();
+  const [uploadState,setUploadState] = useState<string>("selection");
+  const [dragState,setDragState] = useState<string>("end");
+  const setPhoto = (file:File)=>{
+    setProfilePhoto(file);
+  }
   return (
     <>
       <div className="relative w-full">
@@ -70,30 +79,40 @@ const DefaultForm = ({
         </div>
         <CoverImage coverImage={coverImage} id={username} />
       </div>
-      <div className="relative w-max mx-5 -translate-y-1/3">
-        <div
-          className="flex absolute left-1/2 top-1/2 -translate-x-1/2
-         -translate-y-1/2 space-x-1 z-[80]"
+      <div className="relative mx-5 w-max -translate-y-1/3">
+        <UploadImage
+          setUploadState={setUploadState}
+          setDragState={setDragState}
+          setFiles={setPhoto}
         >
-          {profileImage && (
-            <button
-              className="rounded-full bg-black bg-opacity-80 p-2 text-xl 
-         text-white transition-all duration-300 hover:bg-grey hover:bg-opacity-50"
-            >
-              <AiOutlineClose />
-            </button>
-          )}
-          <button
-            className="rounded-full bg-black bg-opacity-80 p-2 text-xl 
-         text-white transition-all duration-300 hover:bg-grey hover:bg-opacity-50"
+          <div
+            className="absolute left-1/2 top-1/2 z-[80] flex
+         -translate-x-1/2 -translate-y-1/2 space-x-1"
           >
-            <BiImageAdd />
-          </button>
-        </div>
-        <ProfileImage
-          profileImage={profileImage}
-          id={username}
-        />
+            {profileImage && (
+              <button
+                className="rounded-full bg-black bg-opacity-80 p-2 text-xl 
+         text-white transition-all duration-300 hover:bg-grey hover:bg-opacity-50"
+              >
+                <AiOutlineClose />
+              </button>
+            )}
+
+            <UploadImageLabel
+              className="w-min rounded-full bg-black bg-opacity-80 p-2 
+       text-xl text-white transition-all duration-300 hover:bg-grey hover:bg-opacity-50"
+            >
+              <BiImageAdd />
+            </UploadImageLabel>
+          </div>
+          <ProfileImage
+            profileImage={
+              profilePhoto ? URL.createObjectURL(profilePhoto) : profileImage
+            }
+            className="border-[1px]"
+            id={username}
+          />
+        </UploadImage>
       </div>
       <div className="mx-10">
         <Input

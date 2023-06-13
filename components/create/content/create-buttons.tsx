@@ -18,15 +18,15 @@ const CreateButtons = ({
   const leftButtonClickHandler = () => {
     if (createState === "selection") {
       onCloseHandler();
-    } else if (createState === "crop") {
+    } else if (createState === "preview") {
       setBackdrop(true);
       setDiscardMode("back");
     } else {
-      setCreateState("crop");
+      setCreateState("preview");
     }
   };
   const rightButtonClickHandler = () => {
-    if (createState === "crop") {
+    if (createState === "preview") {
       setCreateState("final");
     } else {
       onSubmitHandler();
@@ -50,7 +50,7 @@ const CreateButtons = ({
           onClick={rightButtonClickHandler}
           type="submit"
         >
-          {createState === "crop" ? "Next" : "Share"}
+          {createState === "preview" ? "Next" : "Share"}
         </button>
       )}
     </>

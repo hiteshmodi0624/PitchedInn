@@ -1,34 +1,25 @@
-import { FC, FormEvent, useState } from "react";
+import { FC, useState } from "react";
 import FollowButton from "components/shared/buttons/follow-button";
 import Button from "components/ui/button";
 import { AiOutlineMore } from "react-icons/ai";
 import MenuToggler from "components/shared/hidden-menu/menu-toggler";
 import ProfileHiddenMenu from "./profile-hidden-menu";
-import { useRouter } from "next/router";
 import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import ProfileImage from './profile-image';
-import {useEffect} from 'react';
 import ProfileSettings from "components/settings/profile/profile-settings";
 const ProfileHeader: FC<{
   profile: User;
   setFollowValue: (value: boolean) => void;
 }> = ({ profile, setFollowValue }) => {
-  const router=useRouter();
-  const username = router.query.username!;
+  const username = profile.username!;
   const { data: session, status } = useSession();
   const [showSetting,setShowSetting]=useState(false);
-  useEffect(() => {
-    if (window.location.pathname.includes("/settings/profile")) {
-      setShowSetting(true);
-    } else {
-      setShowSetting(false);
-    }
-  }, []);
+  
   const navigateToEditProfile = () => {
     if (session) {
         if (!window.location.pathname.includes("/settings/profile")) {
-          window.history.pushState(null, "", "settings/profile");
+          history.pushState(null, '', "/settings/profile");
           setShowSetting(true);
         }
     }

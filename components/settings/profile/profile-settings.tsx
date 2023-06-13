@@ -1,6 +1,5 @@
-import ContentLayout from "components/shared/content-layout/content-layout";
 import Modal from "components/ui/modal/modal";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import CloseModal from "components/shared/close-modal/close-modal";
 import ProfileSettingsForm from './settings-form';
 import { useSession } from "next-auth/react";

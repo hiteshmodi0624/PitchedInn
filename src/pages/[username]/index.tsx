@@ -4,7 +4,7 @@ import ProfileLayout from "components/layouts/profile-layout";
 import { setProgressBarState } from "~/utils/ui";
 import { trpc } from "~/utils/trpc";
 
-const UserPosts = ({}) => {
+const UserProfile = ({}) => {
   const router = useRouter();
   const username = router.query.username as string;
   const getPosts=trpc.post.fetchAllPostsByUsername.useQuery({username});
@@ -14,7 +14,7 @@ const UserPosts = ({}) => {
   }
   setProgressBarState(100)
   if (!getPosts.data) {
-    router.replace("/404");
+    router.replace("404");
     return <div></div>;
   }
   return (
@@ -24,4 +24,4 @@ const UserPosts = ({}) => {
   );
 };
 
-export default UserPosts;
+export default UserProfile;

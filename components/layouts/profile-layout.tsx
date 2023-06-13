@@ -1,4 +1,4 @@
-import { useRouter, usePathname, notFound } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import Modes from "components/shared/mode/modes";
 import ProfileData from "../profiles/profile-data/profile-data";
@@ -6,6 +6,7 @@ import { trpc } from "~/utils/trpc";
 import ContentLayout from "../shared/content-layout/content-layout";
 import SmallProfileHeader from "components/shared/profile-header/small-profile-header";
 import Card from "components/ui/card";
+import { useRouter } from "next/router";
 
 const ProfileLayout = ({
   children,
@@ -17,12 +18,8 @@ const ProfileLayout = ({
   const router = useRouter();
   const pathname = usePathname() as string;
   const location = pathname.split("/").filter(Boolean);
-
   const profileQuery = trpc.user.getUserInfo.useQuery({ username });
   const profile = profileQuery.data;
-  useEffect(() => {
-    profileQuery.refetch();
-  }, [profileQuery,location]);
   if (!profile) {
     return <div></div>;
   }

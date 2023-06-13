@@ -172,22 +172,24 @@ const ProfileSettingsForm = ({ profile, hide }: { profile: User, hide:()=>void }
       formRef.current.scrollTo(0,0);
     }
   },[page])
-  const router=useRouter();
-  const modifyUser=trpc.user.modifyUser.useMutation();
-  const onSubmitHandler=()=>{
-    modifyUser.mutate({dob:new Date(dob.year,dob.month,dob.date),name,username,bio,userType:type});
+  const utils = trpc.useContext();
+  const router= useRouter();
+  const modifyUser=trpc.user.modifyUser.useMutation({
+    async onSuccess(input){
+      await utils.user.getUserInfo.invalidate()
+      router.push("/"+input.username+"/")
+      hide();
+    },
+  });
+  const onSubmitHandler=async()=>{
+    await modifyUser.mutateAsync({
+      dob: new Date(dob.year, dob.month, dob.date),
+      name,
+      username,
+      bio,
+      userType: type,
+    });
   }
-  useEffect(()=>{
-    const modifyData=async()=>{
-      if (modifyUser.data) {
-        router.replace(`/${modifyUser.data.username}`, undefined, {
-          shallow: true,
-        });
-        hide();
-      }
-    }
-    modifyData();
-  },[modifyUser.data,username,router,hide])
   return (
     <ContentLayout
       page="Edit Profile"

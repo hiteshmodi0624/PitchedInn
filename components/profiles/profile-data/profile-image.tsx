@@ -12,7 +12,7 @@ export default function ProfileImage({
   return (
     <Image
       className={`flex aspect-square w-32 justify-center
-       overflow-hidden rounded-full bg-white ${className}`}
+       overflow-hidden rounded-full border-none bg-white ${className}`}
       width={1000}
       height={1000}
       src={

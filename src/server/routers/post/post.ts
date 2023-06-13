@@ -36,13 +36,18 @@ export const postRouter = router({
       },
     });
     for (const post of posts) {
-      const command = new GetObjectCommand({
-        Bucket: process.env.BUCKET_NAME,
-        Key: post.mediaUrl[0],
-      });
-      const url = await getSignedUrl(s3, command, { expiresIn: 600 });
-      post.mediaUrl = [url];
+      const mediaUrls: string[] = [];
+      for (const mediaUrl of post.mediaUrl) {
+        const command = new GetObjectCommand({
+          Bucket: process.env.BUCKET_NAME,
+          Key: mediaUrl,
+        });
+        const url = await getSignedUrl(s3, command, { expiresIn: 600 });
+        mediaUrls.push(url);
+      }
+      post.mediaUrl = mediaUrls;
     }
+    posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     return posts;
   }),
   fetchAllPithches: publicProcedure.query(async (opts) => {
@@ -54,31 +59,35 @@ export const postRouter = router({
         creator: true,
         like: true,
       },
-      where:{
-        mediaType:"Pitch"
-      }
+      where: {
+        mediaType: "Pitch",
+      },
     });
     for (const post of posts) {
-      const command = new GetObjectCommand({
-        Bucket: process.env.BUCKET_NAME,
-        Key: post.mediaUrl[0],
-      });
-      const url = await getSignedUrl(s3, command, { expiresIn: 600 });
-      post.mediaUrl = [url];
+      const mediaUrls: string[] = [];
+      for (const mediaUrl of post.mediaUrl) {
+        const command = new GetObjectCommand({
+          Bucket: process.env.BUCKET_NAME,
+          Key: mediaUrl,
+        });
+        const url = await getSignedUrl(s3, command, { expiresIn: 600 });
+        mediaUrls.push(url);
+      }
+      post.mediaUrl = mediaUrls;
     }
     return posts;
   }),
   fetchAllPostsByUsername: publicProcedure
     .input(z.object({ username: z.string() }))
     .query(async (opts) => {
-      const {prisma}=opts.ctx
-      const {username}=opts.input;
-      const user=await prisma.user.findUnique({where:{username}})
-      if(user){
+      const { prisma } = opts.ctx;
+      const { username } = opts.input;
+      const user = await prisma.user.findUnique({ where: { username } });
+      if (user&&user.userType==="Business") {
         const posts = await prisma.post.findMany({
-          where:{
-            creatorId:user.id
-          }
+          where: {
+            creatorId: user.id,
+          },
         });
         for (const post of posts) {
           const command = new GetObjectCommand({
@@ -108,22 +117,18 @@ export const postRouter = router({
       });
       return post;
     }),
-  getSignedUrl: protectedProcedure.query(async (opts) => {
-    const rawBytes = randomBytes(32);
-    const imageName = rawBytes.toString("hex");
-
-    const url = await getSignedUrl(
-      s3,
-      new PutObjectCommand({
-        Bucket: process.env.BUCKET_NAME,
-        Key: imageName,
-      })
-    );
-    return {
-      url,
-      imageName,
-    };
-  }),
+  getSignedUrl: protectedProcedure
+    .input(z.object({ imageName: z.string() }))
+    .mutation(async (opts) => {
+      const url = await getSignedUrl(
+        s3,
+        new PutObjectCommand({
+          Bucket: process.env.BUCKET_NAME,
+          Key: opts.input.imageName,
+        })
+      );
+      return url;
+    }),
 });
 
 export type PostRouter = typeof postRouter;

@@ -5,30 +5,22 @@ import CloseModal from "components/shared/close-modal/close-modal";
 import CreateContent from "./create-content";
 
 export default function Create({ hide }: { hide: () => void }) {
-  const [top, setTop] = useState<undefined | number>();
-  const [left, setLeft] = useState<undefined | number>();
-
   const [dragState, setDragState] = useState("end");
   const [createState, setCreateState] = useState<
-    "selection" | "crop" | "final"
+    "selection" | "preview" | "final"
   >("selection");
   const [backdrop, setBackdrop] = useState(false);
   const [discardMode, setDiscardMode] = useState<"close" | "back">("close");
+  const [files, setFile] = useState<File[]>([]);
 
   const DragStateHandler = (state: string) => {
     setDragState(state);
   };
-  const setBackDropHandler= (val:boolean) => {
+  const setBackDropHandler = (val: boolean) => {
     setBackdrop(val);
-  }
-  const setTopHandler = (val: number | undefined) => {
-    setTop(val);
-  };
-  const setLeftHandler = (val: number | undefined) => {
-    setLeft(val);
   };
   const CreateStateHandler = (state: string) => {
-    if (state === "selection" || state === "crop" || state === "final")
+    if (state === "selection" || state === "preview" || state === "final")
       setCreateState(state);
   };
   const setDiscardModeHandler = (mode: "close" | "back") => {
@@ -52,8 +44,14 @@ export default function Create({ hide }: { hide: () => void }) {
       setDragState("end");
       setCreateState("selection");
       setBackdrop(false);
-      setTop(undefined);
-      setLeft(undefined);
+      setFile([]);
+    }
+  };
+  const setFiles = (fl: File, remove?: boolean) => {
+    if (remove) {
+      setFile((prev) => prev.filter((f) => f !== fl));
+    } else {
+      setFile((prev) => [...new Set([...prev, fl])]);
     }
   };
   return (
@@ -63,7 +61,7 @@ export default function Create({ hide }: { hide: () => void }) {
           cancelButton="Cancel"
           closeButton="Discard"
           heading="Discard post?"
-          text="If you leave, your edits won&apos;t be saved."
+          text="If you leave, your edits won't be saved."
           cancelHandler={HideCloseHandler}
           discardHandler={discardHandler}
         />
@@ -77,27 +75,26 @@ export default function Create({ hide }: { hide: () => void }) {
           page={
             createState === "selection"
               ? `Create new post`
-              : createState === "crop"
-              ? `Crop`
+              : createState === "preview"
+              ? `Preview`
               : "Upload Post"
           }
-          className={`relative mx-4 flex max-w-sm cursor-default overflow-hidden rounded-xl text-center sm:max-w-lg ${
+          className={`relative mx-4 h-[42rem] max-w-sm cursor-default overflow-hidden rounded-xl text-center sm:max-w-lg ${
             dragState === "end" ? "!bg-gray2" : "!bg-black"
           } ${backdrop ? "backdrop-blur-3xl" : "opacity-100"}`}
+          cardClassName="items-self-start"
         >
           <CreateContent
             CreateStateHandler={CreateStateHandler}
             DragStateHandler={DragStateHandler}
             createState={createState}
-            dragState={dragState}
             hide={hide}
-            left={left}
+            dragState={dragState}
             onCloseHandler={onCloseHandler}
             setBackdrop={setBackDropHandler}
             setDiscardMode={setDiscardModeHandler}
-            setLeft={setLeftHandler}
-            setTop={setTopHandler}
-            top={top}
+            files={files}
+            setFiles={setFiles}
           />
         </ContentLayout>
       </Modal>

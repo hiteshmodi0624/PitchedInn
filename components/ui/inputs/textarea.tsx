@@ -57,6 +57,7 @@ const TextArea = ({
                 isValid === false &&
                 "focus:placeholder:test-red-500 placeholder:text-red-500"
               } ${className} ${label && "!my-0 !py-0 placeholder:opacity-0"}`}
+        style={{ resize: "none" }}
       />
       {!isValid && error && (
         <p

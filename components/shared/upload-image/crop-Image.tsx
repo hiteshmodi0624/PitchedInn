@@ -3,7 +3,7 @@ import { DragEventHandler, useEffect, useRef, useState } from "react";
 
 type DispatchHandler = (val: number | undefined) => void;
 
-const CreateImage = ({
+const CropImage = ({
   src,
   top,
   left,
@@ -138,4 +138,4 @@ const CreateImage = ({
   );
 };
 
-export default CreateImage;
+export default CropImage;

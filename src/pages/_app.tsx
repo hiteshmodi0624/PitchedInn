@@ -4,16 +4,18 @@ import Layout from "components/layouts/root";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { trpc } from "~/utils/trpc";
+import { useRouter } from "next/router";
 
 const client = new QueryClient({
   defaultOptions:{
     queries:{
       refetchOnWindowFocus:false,
-      refetchInterval:1000*60*2
+      refetchOnMount:true,
     }
-  }
+  },
 });
 const App = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
   return (
     <QueryClientProvider client={client}>
       <Layout>
@@ -21,7 +23,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <title>PitchedInn</title>
         </Head>
-        <Component {...pageProps} />
+        <Component {...pageProps} key={router.asPath}/>
       </Layout>
     </QueryClientProvider>
   );

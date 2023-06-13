@@ -1,21 +1,22 @@
 import { ChangeEventHandler, DragEventHandler } from "react";
-import { IoMdPhotos } from "react-icons/io";
 
 const UploadImage = ({
-  className,
-  setCreateState,
+  setUploadState,
   setDragState,
   setFiles,
+  className,
+  children,
 }: {
   className?: string;
-  setCreateState: (state: string) => void;
+  setUploadState: (state: "selection"|"preview"|"final") => void;
   setDragState: (state: string) => void;
   setFiles: (fl: File) => void;
+  children?: React.ReactNode;
 }) => {
   const setImage = (file: File) => {
     setFiles(file);
     const objectURL = URL.createObjectURL(file);
-    setCreateState("crop");
+    setUploadState("preview");
     setDragState(objectURL);
   };
   const drophandler: DragEventHandler<HTMLDivElement> = (event) => {
@@ -38,24 +39,16 @@ const UploadImage = ({
   return (
     <>
       <div
-        className={`drop z-[60] flex h-full cursor-default flex-col items-center justify-center text-white ${className}`}
+        className={`drop z-[60]  h-full cursor-default ${className}`}
         onDrop={drophandler}
         onDragOverCapture={dragEnterHandler}
         onDragLeaveCapture={dragEndHandler}
       >
-        <IoMdPhotos className="text-7xl" />
-        <h2 className="py-3 text-xl">Drag photos and videos here</h2>
-
-        <label
-          htmlFor="img"
-          className="cursor-pointer rounded-full bg-primary2 px-6 py-2 file:bg-black hover:bg-primary2 hover:opacity-90"
-        >
-          Select from your device
-        </label>
+        {children}
         <input
           type="file"
-          id="img"
-          name="img"
+          id="upload-img"
+          name="upload-img"
           accept="image/*"
           className="hidden"
           onChange={fileselectHandler}

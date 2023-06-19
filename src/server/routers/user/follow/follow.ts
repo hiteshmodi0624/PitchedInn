@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "~/server/trpc";
+import { protectedProcedure, publicProcedure, router } from "../../../../server/trpc";
 export const followRoutes = router({
   getUserFollowers: publicProcedure
     .input(

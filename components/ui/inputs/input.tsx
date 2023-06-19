@@ -11,11 +11,12 @@ interface InputProps {
   id?: string;
   dispatchInput?: Dispatch<ActionType>;
   onChangeHandler?: ChangeEventHandler;
-  label?:string
-  error?:string
+  label?: string;
+  error?: string;
   validationChecker?: (
     value: string
   ) => SafeParseReturnType<string, string> | { success: boolean };
+  onBlurCapture?: () => void;
 }
 const Input = ({
   type,
@@ -28,7 +29,8 @@ const Input = ({
   onChangeHandler,
   validationChecker,
   label,
-  error
+  error,
+  onBlurCapture,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -71,15 +73,13 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChangeHandler ?? dispatchHandler}
-        onBlur={onBlurHandler}
+        onBlur={onBlurCapture??onBlurHandler}
         ref={inputRef}
         className={`h-max w-full p-3 text-white placeholder:font-light placeholder:text-grey focus:outline-none 
         focus:placeholder:text-primary  ${
-                isValid === false &&
-                "focus:placeholder:test-red-500placeholder:text-red-500"
-              } ${className} ${
-          label && "!my-0 !py-0 !pb-2 placeholder:opacity-0"
-        }`}
+          isValid === false &&
+          "focus:placeholder:test-red-500placeholder:text-red-500"
+        } ${className} ${label && "!my-0 !py-0 !pb-2 placeholder:opacity-0"}`}
       />
       {!isValid && error && (
         <p

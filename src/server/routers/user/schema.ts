@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { prisma } from "~/server/db";
 
 export const registerInputSchema = {
   name: z.string().min(2),
@@ -43,3 +42,9 @@ export const modifyUserSchema = z.object({
   dob: z.date(),
   userType: z.enum(["Regular", "Business", "Investor","Collector"]),
 });
+
+export const identifierSchema = z.object({
+  username: z.string().optional(),
+  id: z.string().optional(),
+  email: z.string().optional(),
+})

@@ -19,9 +19,9 @@ const MessageProfiles: FC<{
     return (
         <Link
             className="flex items-center justify-center"
-            href={`messages/${profile.username}`}
+            href={`messages/${profile.id}`}
         >
-            <ProfilePicture className="h-12" profilePic={profile.image} />
+            <ProfilePicture className="h-12 w-12" profilePic={profile.image} />
             <div
                 className="m-2 flex w-full flex-col overflow-hidden overflow-ellipsis truncate" id="messages"
             >

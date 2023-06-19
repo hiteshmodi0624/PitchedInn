@@ -75,11 +75,40 @@ model User {
   save          Save[]
   password      String?
   dob           DateTime?
+  chatIds       String[]   @default([]) @db.ObjectId
+  chat          Chat[]     @relation(fields: [chatIds], references: [id])
 }
 
 enum mediaType {
   Pitch
   Images
+}
+
+enum ChatType {
+  SINGLE
+  GROUP
+}
+
+model Chat {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  type        ChatType
+  messages    Message[]
+  userIds     String[]  @default([]) @db.ObjectId @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  groupName   String?
+  description String?
+  photo       String?
+  Users       User[]    @relation(fields: [userIds], references: [id])
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  chatId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  creatorId String   @db.ObjectId
+  chat      Chat     @relation(fields: [chatId], references: [id])
 }
 
 model Post {

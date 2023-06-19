@@ -1,6 +1,6 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure, router, protectedProcedure } from '~/server/trpc';
+import { publicProcedure, router, protectedProcedure } from '../../../server/trpc';
 import { hash, compare } from "bcrypt";
 import {
   emailExistsSchema,
@@ -11,8 +11,9 @@ import {
 } from "./schema";
 import { User } from "@prisma/client";
 import { randomBytes } from "crypto";
-import snakeText from "~/utils/snake-text";
+import snakeText from "../../../utils/snake-text";
 import { followRoutes } from "./follow/follow";
+import { chatRoutes } from "./chat/chat";
 export const userRouter = router({
   register: publicProcedure
     .input(z.object(registerInputSchema))
@@ -133,6 +134,7 @@ export const userRouter = router({
     });
   }),
   follow: followRoutes,
+  chat: chatRoutes,
 });
 export type UserRoutes = typeof userRouter;
 

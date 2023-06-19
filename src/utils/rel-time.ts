@@ -1,4 +1,4 @@
-export function relativeDate(time: Date) {
+export function relativeTime(time: Date) {
   const date = new Date(time || ""),
     diff = (new Date().getTime() - date.getTime()) / 1000,
     day_diff = Math.floor(diff / 86400);
@@ -14,7 +14,7 @@ export function relativeDate(time: Date) {
       "-" +
       (day < 10 ? "0" + day.toString() : day.toString())
     );
-
+  const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   return diff < 60
     ? "just now"
     : diff < 120
@@ -28,6 +28,8 @@ export function relativeDate(time: Date) {
     : day_diff == 1
     ? "Yesterday"
     : day_diff < 7
-    ? day_diff + " days ago"
+    ? dayOfWeek[date.getDay()]!
+    : day_diff < 365
+    ? day.toString() + " " + month + year
     : Math.ceil(day_diff / 7) + " weeks ago"
 }

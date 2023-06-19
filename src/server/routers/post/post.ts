@@ -1,9 +1,8 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "~/server/trpc";
+import { protectedProcedure, publicProcedure, router } from "../../../server/trpc";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { randomBytes } from "crypto";
-import s3 from "~/server/s3";
+import s3 from "../../../server/s3";
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const createPostInputSchema = z.object({
@@ -99,6 +98,7 @@ export const postRouter = router({
         }
         return posts;
       }
+      return []
     }),
   findPostById: publicProcedure
     .input(z.object({ postId: z.string() }))

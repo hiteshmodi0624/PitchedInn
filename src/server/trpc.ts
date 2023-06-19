@@ -3,23 +3,25 @@ import { CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { prisma } from "./db";
 import SuperJSON from "superjson";
 import { ZodError } from "zod";
-import { getServerAuthSession } from "~/pages/api/auth/[...nextauth]";
-import { Session } from "next-auth";
+import ws from 'ws';
+import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-http";
+import { IncomingMessage } from "http";
+import { getSession } from "next-auth/react";
 
-type CreateContextOptions = {
-  session: Session | null;
-};
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
+export const createContext = async (
+  opts?:
+    | CreateNextContextOptions
+    | NodeHTTPCreateContextFnOptions<IncomingMessage, ws>
+) => {
+  const req = opts?.req;
+  const res = opts?.res;
+
+  const session = req && res && (await getSession({ req }));
+
   return {
-    session: opts.session,
+    session,
     prisma,
   };
-};
-
-export const createContext = async (opts: CreateNextContextOptions) => {
-  const { req, res } = opts;
-  const session = await getServerAuthSession({ req, res });
-  return createInnerTRPCContext({ session });
 };
 
 const t = initTRPC.context<typeof createContext>().create({

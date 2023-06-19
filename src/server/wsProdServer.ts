@@ -15,7 +15,6 @@ void app.prepare().then(() => {
   const server = http.createServer((req, res) => {
     const proto = req.headers['x-forwarded-proto'];
     if (proto && proto === 'http') {
-      // redirect to ssl
       res.writeHead(303, {
         location: `https://` + req.headers.host + (req.headers.url ?? ''),
       });
@@ -34,10 +33,4 @@ void app.prepare().then(() => {
   });
   server.listen(port);
 
-  // tslint:disable-next-line:no-console
-  console.log(
-    `> Server listening at http://localhost:${port} as ${
-      dev ? 'development' : process.env.NODE_ENV
-    }`,
-  );
 });

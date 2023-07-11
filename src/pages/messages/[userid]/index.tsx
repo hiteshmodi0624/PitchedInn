@@ -1,15 +1,15 @@
 import Input from "components/ui/inputs/input";
 import ContentLayout from "components/shared/content-layout/content-layout";
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { BsEmojiSmile } from "react-icons/bs";
 import { MdAttachFile, MdGifBox, MdPhoto, MdSend } from "react-icons/md";
 import MessagesHeader from "components/messages/messages-header";
 import { useRouter } from "next/router";
-import { trpc } from "~/utils/trpc";
+import { trpc } from "../../../utils/trpc";
 import { useSession } from "next-auth/react";
 import ChatMessages from "components/messages/chat-messages";
-import { pusherClient } from "~/server/pusher";
-import { toPusherKey } from "~/utils/pusher";
+import { pusherClient } from "../../../server/pusher";
+import { toPusherKey } from "../../../utils/pusher";
 
 const Messages = () => {
   const router = useRouter();

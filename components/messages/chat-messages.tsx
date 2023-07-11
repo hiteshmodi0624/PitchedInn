@@ -1,11 +1,11 @@
 import { Message } from "@prisma/client";
-import { relativeDay } from "~/utils/rel-day";
-import { trpc } from "~/utils/trpc";
+import { relativeDay } from "../../src/utils/rel-day";
+import { trpc } from "../../src/utils/trpc";
 import ChatMessage from "./message";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { pusherClient } from "~/server/pusher";
-import { toPusherKey } from "~/utils/pusher";
+import { pusherClient } from "../../src/server/pusher";
+import { toPusherKey } from "../../src/utils/pusher";
 import { useRouter } from "next/router";
 
 const ChatMessages = ({ messages }: { messages: Message[] }) => {

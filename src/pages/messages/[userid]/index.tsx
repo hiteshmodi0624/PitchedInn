@@ -19,6 +19,7 @@ const Messages = () => {
   const sendMessage = trpc.user.chat.sendMessage.useMutation();
   const isTypingMutation = trpc.user.chat.isTyping.useMutation();
   const [isTyping,setIsTyping]=useState(false);
+
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
     if (event.target.value !== "" ) {
@@ -33,6 +34,7 @@ const Messages = () => {
       }
     };
   };
+
   const onBlurHandler = () => {
     if (isTyping === true) {
       isTypingMutation.mutate({ typing: false });
@@ -44,6 +46,7 @@ const Messages = () => {
   };
 
   const [currentlyTyping, setCurrentlyTyping] = useState<string[]>([]);
+  
   trpc.user.chat.whoIsTyping.useSubscription(undefined, {
     onData(data) {
       setCurrentlyTyping(data);

@@ -1,8 +1,7 @@
-import { User } from "@prisma/client";
 import MessageProfiles from "components/messages/message-profile";
 import ContentLayout from "components/shared/content-layout/content-layout";
 import SearchBar from "components/shared/search/search-bar";
-import { trpc } from '~/utils/trpc';
+import { trpc } from '../../utils/trpc';
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/router";
 

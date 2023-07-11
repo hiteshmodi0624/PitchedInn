@@ -59,7 +59,7 @@ const Messages = () => {
 
     return () => {
       pusherClient.unsubscribe(toPusherKey(`chat:${id}`));
-      pusherClient.unbind("incoming-message", typingHandler);
+      pusherClient.unbind("typing", typingHandler);
     };
   }, [id]);
 

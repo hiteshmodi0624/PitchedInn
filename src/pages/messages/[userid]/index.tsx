@@ -49,20 +49,6 @@ const Messages = () => {
 
   const [otherUserTyping, setOtherUserTyping] = useState<boolean>(false);
 
-  useEffect(() => {
-    pusherClient.subscribe(toPusherKey(`chat:${id}`));
-    const typingHandler = (typing: boolean) => {
-      setOtherUserTyping(typing);
-    };
-
-    pusherClient.bind("typing", typingHandler);
-
-    return () => {
-      pusherClient.unsubscribe(toPusherKey(`chat:${id}`));
-      pusherClient.unbind("typing", typingHandler);
-    };
-  }, [id]);
-
   if (profile.isLoading) return <div></div>;
   if (!profile.data || !session?.user.id) {
     router.replace("/404");
@@ -76,6 +62,7 @@ const Messages = () => {
     });
     setMessage("")
   };
+
   return (
     <ContentLayout
       headerContent={

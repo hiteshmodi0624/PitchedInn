@@ -30,7 +30,7 @@ function getEndingLink(ctx: NextPageContext | undefined) {
     });
   }
   const client = createWSClient({
-    url: "ws://localhost:3001",
+    url: `${process.env.WS_URL??`ws://localhost:${process.env.WS_PORT??"3001"}`}`,
   });
   return wsLink<AppRouter>({
     client,

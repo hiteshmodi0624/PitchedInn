@@ -8,6 +8,7 @@ import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import ProfileImage from './profile-image';
 import ProfileSettings from "components/settings/profile/profile-settings";
+import MoreMenu from "components/root/navbar/more-menu";
 const ProfileHeader: FC<{
   profile: User;
   setFollowValue: (value: boolean) => void;
@@ -30,16 +31,23 @@ const ProfileHeader: FC<{
   }
   return (
     <div className="flex justify-between">
-      <ProfileImage profileImage={profile.image} id={profile.username??profile.id} className="-translate-y-1/3"/>
+      <ProfileImage
+        profileImage={profile.image}
+        id={profile.username ?? profile.id}
+        className="-translate-y-1/3"
+      />
       <div className="mt-4 flex items-center space-x-2">
         {profile.id === session?.user.id ? (
-          <Button
-            name="Edit Profile"
-            className="mr-0"
-            buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
-            onClickHandler={navigateToEditProfile}
-            labelClasses="hidden"
-          />
+          <>
+            <MoreMenu className="w-min sm:hidden" />
+            <Button
+              name="Edit Profile"
+              className="mr-0"
+              buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
+              onClickHandler={navigateToEditProfile}
+              labelClasses="hidden"
+            />
+          </>
         ) : (
           <>
             {status === "authenticated" && (
@@ -57,7 +65,7 @@ const ProfileHeader: FC<{
                 setFollowValue={setFollowValue}
               />
             )}
-            {status === "authenticated" && (
+            {status === "authenticated" ?? (
               <MenuToggler
                 button={
                   <Button
@@ -76,7 +84,7 @@ const ProfileHeader: FC<{
           </>
         )}
       </div>
-      {showSetting&&<ProfileSettings hide={navigateToProfile}/>}
+      {showSetting && <ProfileSettings hide={navigateToProfile} />}
     </div>
   );
 };

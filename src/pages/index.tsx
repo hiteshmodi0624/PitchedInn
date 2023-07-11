@@ -21,5 +21,5 @@ export default function Home({}) {
   }
 
   setProgressBarState(100);
-  return <Feed page="Home" posts={posts.data} />;
+  return <Feed page="Home" posts={posts.data}/>;
 }

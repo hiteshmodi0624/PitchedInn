@@ -52,17 +52,7 @@ const RootNav = () => {
         
         {session&&session.user&&session.user.username&&<NavButton name="Profile" icon={<AiOutlineUser />} link={session.user.username}/>}
       </ul>
-      <MenuToggler
-        button={
-          <NavButton
-            name="More"
-            icon={<AiOutlineMore />}
-            onClickHandler={() => {}}
-          />
-        }
-        menu={<MoreMenu />}
-        className="hidden sm:block"
-      />
+      <MoreMenu className="hidden sm:block"/>
     </>
   );
 };

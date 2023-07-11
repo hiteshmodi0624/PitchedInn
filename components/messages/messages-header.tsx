@@ -11,7 +11,7 @@ const MessagesHeader = ({
   name: string | null | undefined;
   image: string | null | undefined;
   description: string | null | undefined;
-  typing: string | null | undefined;
+  typing: boolean;
 }) => {
   return (
     <div className="flex border-[1px] border-seperator bg-transparent p-2">
@@ -23,7 +23,7 @@ const MessagesHeader = ({
         />
         <div>
           <h1>{name}</h1>
-          {typing && <h2 className="text-xs">{typing} is typing</h2>}
+          {typing && <h2 className="text-xs">is typing</h2>}
         </div>
       </Link>
     </div>

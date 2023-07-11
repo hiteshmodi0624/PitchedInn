@@ -1,6 +1,6 @@
 import { prisma } from "../../../server/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { NextApiRequest, NextApiResponse } from "next";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -100,30 +100,8 @@ const handler = NextAuth(authOptions);
 export default handler;
 
 export const getServerAuthSession = (ctx: {
-  req: NextApiRequest | IncomingMessage;
-  res: NextApiResponse | WebSocket;
+  req: GetServerSidePropsContext["req"];
+  res: GetServerSidePropsContext["res"];
 }) => {
-  const { req, res } = ctx;
-
-  let request: IncomingMessage & { cookies: Partial<{ [key: string]: string }> };
-
-  if ("cookies" in req) {
-    request = req as IncomingMessage & { cookies: Partial<{ [key: string]: string }> };
-  } else {
-    request = {
-      ...req,
-      cookies: {},
-    } as IncomingMessage & { cookies: Partial<{ [key: string]: string }> };
-  }
-
-  let response: ServerResponse<IncomingMessage> | NextApiResponse;
-
-  if (res instanceof WebSocket) {
-    response = new ServerResponse<IncomingMessage>(request);
-    response.statusCode = 200;
-  } else {
-    response = res;
-  }
-
-  return getServerSession(request, response, authOptions);
+  return getServerSession(ctx.req, ctx.res, authOptions)
 };

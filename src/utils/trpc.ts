@@ -3,42 +3,13 @@ import { createTRPCNext } from "@trpc/next";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 import { type AppRouter } from "~/server/routers/route";
-import { wsLink, createWSClient } from "@trpc/client/links/wsLink";
-import getConfig from "next/config";
-import { NextPageContext } from "next";
-
-const { publicRuntimeConfig } = getConfig();
-const { APP_URL, WS_URL } = publicRuntimeConfig;
-
-function getEndingLink(ctx: NextPageContext | undefined) {
-  if (typeof window === "undefined") {
-    return httpBatchLink({
-      url: `https://${
-        process.env.VERCEL_URL
-          ? process.env.VERCEL_URL
-          : `localhost:${process.env.PORT ?? 3000}`
-      }/api/trpc`,
-      headers() {
-        if (!ctx?.req?.headers) {
-          return {};
-        }
-        return {
-          ...ctx.req.headers,
-          "x-ssr": "1",
-        };
-      },
-    });
-  }
-  const client = createWSClient({
-    url: `${process.env.WS_URL??`ws://localhost:${process.env.WS_PORT??"3001"}`}`,
-  });
-  return wsLink<AppRouter>({
-    client,
-  });
-}
-
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return "";
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return `http://localhost:${process.env.PORT ?? 3000}`;
+};
 export const trpc = createTRPCNext<AppRouter>({
-  config({ ctx }) {
+  config() {
     return {
       transformer: superjson,
       links: [
@@ -47,12 +18,13 @@ export const trpc = createTRPCNext<AppRouter>({
             process.env.NODE_ENV === "development" ||
             (opts.direction === "down" && opts.result instanceof Error),
         }),
-        getEndingLink(ctx),
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
       ],
-      queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
     };
   },
-  ssr: true,
+  ssr: false,
 });
 export type RouterInputs = inferRouterInputs<AppRouter>;
 export type RouterOutputs = inferRouterOutputs<AppRouter>;

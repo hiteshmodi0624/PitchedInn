@@ -1,13 +1,16 @@
-import PusherServer from "pusher"
-import PusherClient from "pusher-js"
+import PusherServer from "pusher";
+import PusherClient from "pusher-js";
 
 export const pusherServer = new PusherServer({
-  appId: process.env.PUSHER_APP_ID!,
-  secret: process.env.PUSHER_APP_SECRET!,
-  key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY!,
+  appId: "1633021",
+  secret: "553a403abab56e09dbbe",
+  key: "63e75d93f2f83e4104d5",
   cluster: "ap2",
   useTLS: true,
 });
-export const pusherClient = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_APP_KEY!, {
-  cluster: "ap2",
-});
+export const pusherClient = new PusherClient(
+  "63e75d93f2f83e4104d5",
+  {
+    cluster: "ap2",
+  }
+);

@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { trpc } from "~/utils/trpc";
 import { useSession } from "next-auth/react";
 import ChatMessages from "components/messages/chat-messages";
+import { pusherClient } from "~/server/pusher";
+import { toPusherKey } from "~/utils/pusher";
 
 const Messages = () => {
   const router = useRouter();
@@ -45,13 +47,21 @@ const Messages = () => {
     isTypingMutation.mutate({ typing: true });
   };
 
-  const [currentlyTyping, setCurrentlyTyping] = useState<string[]>([]);
-  
-  trpc.user.chat.whoIsTyping.useSubscription(undefined, {
-    onData(data) {
-      setCurrentlyTyping(data);
-    },
-  });
+  const [otherUserTyping, setOtherUserTyping] = useState<boolean>(false);
+
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`chat:${id}`));
+    const typingHandler = (typing: boolean) => {
+      setOtherUserTyping(typing);
+    };
+
+    pusherClient.bind("typing", typingHandler);
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`chat:${id}`));
+      pusherClient.unbind("incoming-message", typingHandler);
+    };
+  }, [id]);
 
   if (profile.isLoading) return <div></div>;
   if (!profile.data || !session?.user.id) {
@@ -73,7 +83,7 @@ const Messages = () => {
           description={messages.data?.groupName}
           image={messages.data?.photo}
           name={messages.data?.groupName}
-          typing={currentlyTyping.join(",")}
+          typing={otherUserTyping}
         />
       }
       className="h-screen"

@@ -3,6 +3,8 @@ import { observable } from "@trpc/server/observable";
 import EventEmitter from "events";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../../../../server/trpc";
+import { pusherServer } from "../../../../server/pusher";
+import { toPusherKey } from "../../../../utils/pusher";
 
 const ee = new EventEmitter();
 const currentlyTyping: Record<string, { lastTyped: Date }> =
@@ -146,26 +148,25 @@ export const chatRoutes = router({
           chatId: input.chatId,
         },
       });
-      ee.emit("newMessage", newMessage);
-      delete currentlyTyping[ctx.session.user.username];
-      ee.emit("isTypingUpdate");
+      await pusherServer.trigger(toPusherKey(`chat:${id}`),'incoming-message',newMessage);
+      await pusherServer.trigger(
+        toPusherKey(`chat:${id}`),
+        "typing",
+        false
+      );
       return newMessage;
     }),
 
   isTyping: protectedProcedure
     .input(z.object({ typing: z.boolean() }))
-    .mutation(({ input, ctx }) => {
-      const username = ctx.session.user.username;
-      if (!input.typing) {
-        delete currentlyTyping[username];
-      } else {
-        currentlyTyping[username] = {
-          lastTyped: new Date(),
-        };
-      }
-      ee.emit("isTypingUpdate");
+    .mutation(async({ input, ctx }) => {
+      const id = ctx.session?.user.id;
+      await pusherServer.trigger(
+        toPusherKey(`chat:${id}`),
+        "typing",
+        input.typing
+      );
     }),
-
   infinite: publicProcedure
     .input(
       z.object({
@@ -195,32 +196,4 @@ export const chatRoutes = router({
         prevCursor,
       };
     }),
-
-  onAdd: publicProcedure.subscription(() => {
-    return observable<Message>((emit) => {
-      const onAdd = (data: Message) => emit.next(data);
-      ee.on("newMessage", onAdd);
-      return () => {
-        ee.off("newMessage", onAdd);
-      };
-    });
-  }),
-
-  whoIsTyping: publicProcedure.subscription(() => {
-    let prev: string[] | null = null;
-    return observable<string[]>((emit) => {
-      const onIsTypingUpdate = () => {
-        const newData = Object.keys(currentlyTyping);
-
-        if (!prev || prev.toString() !== newData.toString()) {
-          emit.next(newData);
-        }
-        prev = newData;
-      };
-      ee.on("isTypingUpdate", onIsTypingUpdate);
-      return () => {
-        ee.off("isTypingUpdate", onIsTypingUpdate);
-      };
-    });
-  }),
 });

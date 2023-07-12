@@ -1,5 +1,4 @@
 import ContentLayout from "components/shared/content-layout/content-layout";
-import { getFollowList } from "src/util/lists";
 import DetailedProfilesList from "components/ui/list/list";
 
 export default function Collections({}) {

@@ -8,7 +8,7 @@ import ContentLayout from 'components/shared/content-layout/content-layout';
 import ProfileSettingsButtons from './profile-settings-buttons';
 import { useRouter } from "next/router";
 export type pageType = "default"|"business-details"|"business-funding-info"|"business-social-links"|"business-extended-info";
-const ProfileSettingsForm = ({ profile, hide }: { profile: User, hide:()=>void }) => {
+const ProfileSettingsForm = ({ profile }: { profile: User}) => {
   const [page,setPage]=useState<pageType>("default");
   const [name, setName] = useState(profile.name ?? "");
   const [nameIsTouched, setNameIsTouched] = useState(false);
@@ -178,7 +178,6 @@ const ProfileSettingsForm = ({ profile, hide }: { profile: User, hide:()=>void }
     async onSuccess(input){
       await utils.user.getUserInfo.invalidate()
       router.push("/"+input.username+"/")
-      hide();
     },
   });
   const onSubmitHandler=async()=>{
@@ -194,12 +193,12 @@ const ProfileSettingsForm = ({ profile, hide }: { profile: User, hide:()=>void }
     <ContentLayout
       page="Edit Profile"
       headerContent={
-        <ProfileSettingsButtons hide={hide} submit={onSubmitHandler} />
+        <ProfileSettingsButtons submit={onSubmitHandler} />
       }
+      className="space-y-6"
     >
-      <div className={`aspect-square h-full w-full overflow-hidden bg-black`}>
         <form
-          className="mx-0 h-full overflow-scroll text-left text-black "
+          className="mx-0 h-full overflow-scroll text-left text-black"
           ref={formRef}
           onSubmit={onSubmitHandler}
         >
@@ -253,7 +252,6 @@ const ProfileSettingsForm = ({ profile, hide }: { profile: User, hide:()=>void }
             </div>
           )}
         </form>
-      </div>
     </ContentLayout>
   );
 };

@@ -7,28 +7,13 @@ import ProfileHiddenMenu from "./profile-hidden-menu";
 import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import ProfileImage from './profile-image';
-import ProfileSettings from "components/settings/profile/profile-settings";
 import MoreMenu from "components/root/navbar/more-menu";
 const ProfileHeader: FC<{
   profile: User;
   setFollowValue: (value: boolean) => void;
 }> = ({ profile, setFollowValue }) => {
-  const username = profile.username!;
   const { data: session, status } = useSession();
-  const [showSetting,setShowSetting]=useState(false);
   
-  const navigateToEditProfile = () => {
-    if (session) {
-        if (!window.location.pathname.includes("/settings/profile")) {
-          history.pushState(null, '', "/settings/profile");
-          setShowSetting(true);
-        }
-    }
-  }
-  const navigateToProfile = () => {
-    window.history.pushState(null, '', "/"+username);
-    setShowSetting(false)
-  }
   return (
     <div className="flex justify-between">
       <ProfileImage
@@ -44,7 +29,7 @@ const ProfileHeader: FC<{
               name="Edit Profile"
               className="mr-0"
               buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
-              onClickHandler={navigateToEditProfile}
+              link="settings/profile"
               labelClasses="hidden"
             />
           </>
@@ -85,7 +70,6 @@ const ProfileHeader: FC<{
           </>
         )}
       </div>
-      {showSetting && <ProfileSettings hide={navigateToProfile} />}
     </div>
   );
 };

@@ -2,8 +2,9 @@ import React from "react";
 import SocialLinks from "../util/social-links";
 import Portfolio from "./portfolio";
 import InvestmentCriteria from "./investment-criteria";
+import { Investor } from "@prisma/client";
 
-const InvestorsProfile = ({ details }: { details: InvestorInfo }) => {
+const InvestorsProfile = ({ details }: { details: Investor }) => {
     const { investorName, investorDetails } = details;
     const {investmentFocus, contactInfo,investorDescription,location,portfolio,investmentCriteria}= investorDetails
     return (

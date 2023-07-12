@@ -1,6 +1,7 @@
 import SignUpForm from "components/auth/signup/signup-form";
-import AuthLayout from "components/layouts/auth/layout";
 import SubmitButton from "components/shared/buttons/auth-button";
+import BackButton from "components/shared/buttons/back-button";
+import ContentLayout from "components/shared/content-layout/content-layout";
 import Heading from "components/ui/heading";
 import Seperator from "components/ui/seperator/seperator";
 import { signIn, useSession } from "next-auth/react";
@@ -22,9 +23,18 @@ export default function AuthPage() {
 
   setProgressBarState(100);
   return (
-    <AuthLayout>
-      <div className="p-4 px-24 text-white">
-        <Heading text="Create your Account" className="!text-4xl font-normal" />
+    <ContentLayout
+      headerContent={
+        <div className="flex items-center">
+          <BackButton />
+          <Heading
+            text="Create your Account"
+            className="text-center font-normal"
+          />
+        </div>
+      }
+    >
+      <div className="my-auto max-w-lg mx-auto w-full px-8 py-4 text-white border-seperator border-[1px] ">
         <SubmitButton
           name="Sign Up With Google"
           icon={<AiFillGoogleSquare />}
@@ -33,6 +43,6 @@ export default function AuthPage() {
         <Seperator title="or" />
         <SignUpForm />
       </div>
-    </AuthLayout>
+    </ContentLayout>
   );
 }

@@ -9,7 +9,7 @@ const UserProfile = ({}) => {
   const username = router.query.username as string;
   const getPosts=trpc.post.fetchAllPostsByUsername.useQuery({username});
   setProgressBarState(40)
-  if (getPosts.isFetching) {
+  if (getPosts.isLoading) {
     return <div></div>
   }
   setProgressBarState(100)

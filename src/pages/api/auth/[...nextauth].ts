@@ -1,12 +1,10 @@
 import { prisma } from "../../../server/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import { GetServerSidePropsContext } from "next";
 import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { appRouter } from "../../../server/routers/route";
-import { IncomingMessage, ServerResponse } from "http";
-import WebSocket from "ws";
 import { signOut } from "next-auth/react";
 
 const authOptions: NextAuthOptions = {

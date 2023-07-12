@@ -97,7 +97,7 @@ const BusinessProfileForm = ({
             <button
               className={`flex items-center justify-end pt-3 text-base text-white hover:opacity-80 ${
                 page === "business-extended-info" &&
-                "cursor-default opacity-0 hover:opacity-0"
+                "cursor-default !opacity-0"
               }`}
               onClick={(event) => {
                 event.preventDefault();

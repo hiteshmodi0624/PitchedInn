@@ -2,6 +2,7 @@ import React from "react";
 import Item from "../util/item";
 import Accordian from "components/ui/accordian/accordian";
 import AboutCard from "../util/about-card";
+import { InvestmentCriteria } from "@prisma/client";
 
 const InvestmentCriteria: React.FC<{ investmentCriteria: InvestmentCriteria }> = ({
     investmentCriteria,

@@ -1,9 +1,9 @@
 import SignInForm from "components/auth/login/login-form";
-import AuthLayout from "components/layouts/auth/layout";
 import SubmitButton from "components/shared/buttons/auth-button";
+import BackButton from "components/shared/buttons/back-button";
+import ContentLayout from "components/shared/content-layout/content-layout";
 import Heading from "components/ui/heading";
 import Seperator from "components/ui/seperator/seperator";
-import SmallImage from "components/ui/small-image";
 import { brand } from "data/data";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -22,15 +22,18 @@ export default function AuthPage() {
   }
   setProgressBarState(100);
   return (
-    <AuthLayout>
-      <div className="p-4 sm:px-24 text-white">
-        <div className="flex justify-center">
-          <SmallImage src="favicon-white.ico" alt={brand} className="w-8" />
+    <ContentLayout
+      headerContent={
+        <div className="flex items-center">
+          <BackButton />
+          <Heading
+            text={`Sign in to ${brand}`}
+            className="text-center font-normal"
+          />
         </div>
-        <Heading
-          text={`Sign in to ${brand}`}
-          className="!text-4xl font-normal"
-        />
+      }
+    >
+      <div className="my-auto max-w-lg mx-auto w-full px-8 py-8 text-white border-seperator border-[1px] ">
         <SubmitButton
           name="Sign In With Google"
           icon={<AiFillGoogleSquare />}
@@ -39,6 +42,6 @@ export default function AuthPage() {
         <Seperator title="or" />
         <SignInForm />
       </div>
-    </AuthLayout>
+    </ContentLayout>
   );
 }

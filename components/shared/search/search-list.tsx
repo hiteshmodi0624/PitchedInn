@@ -1,9 +1,7 @@
-"use client";
 import { FC } from "react";
 import HiddenMenu from "components/shared/hidden-menu/hidden-menu";
 import HiddenMenuItem from "components/shared/hidden-menu/hidden-menu-item";
 import ProfileSummary from "components/shared/account/profile-summary";
-import { getSearchList } from "src/util/lists";
 import { User } from "@prisma/client";
 
 const SearchList: FC<{ search: string }> = ({ search }) => {

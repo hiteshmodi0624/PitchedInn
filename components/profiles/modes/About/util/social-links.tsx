@@ -17,6 +17,7 @@ import {
     FaTelegram,
 } from "react-icons/fa";
 import AboutCard from "./about-card";
+import { SocialLinks } from "@prisma/client";
 
 const iconMap = {
     linkedIn: FaLinkedin,
@@ -35,7 +36,7 @@ const iconMap = {
 };
 type SocialPlatform = keyof typeof iconMap;
 
-const SocialLinks: FC<{ socialLinks: BusinessContactInfo["socialLinks"] }> = ({
+const SocialLinks: FC<{ socialLinks: SocialLinks }> = ({
     socialLinks,
 }) => (
     <AboutCard>

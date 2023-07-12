@@ -1,7 +1,6 @@
 import { FC } from "react";
 import ProfileSummary from "components/shared/account/profile-summary";
 import Heading from "components/ui/heading";
-import { getFollowList } from "src/util/lists";
 import Link from "next/link";
 import { User } from "@prisma/client";
 const FollowList: FC<{ listType: "collector" | "business" }> = ({

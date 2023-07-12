@@ -4,6 +4,8 @@ import { protectedProcedure, publicProcedure, router } from "../../../server/trp
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import s3 from "../../../server/s3";
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { interactionsRoutes } from "./interactions";
+import { getPresignedUrl } from "~/utils/presigned-url";
 
 const createPostInputSchema = z.object({
   caption: z.string(),
@@ -37,12 +39,7 @@ export const postRouter = router({
     for (const post of posts) {
       const mediaUrls: string[] = [];
       for (const mediaUrl of post.mediaUrl) {
-        const command = new GetObjectCommand({
-          Bucket: process.env.BUCKET_NAME,
-          Key: mediaUrl,
-        });
-        const url = await getSignedUrl(s3, command, { expiresIn: 600 });
-        mediaUrls.push(url);
+        mediaUrls.push(await getPresignedUrl(mediaUrl));
       }
       post.mediaUrl = mediaUrls;
     }
@@ -82,7 +79,7 @@ export const postRouter = router({
       const { prisma } = opts.ctx;
       const { username } = opts.input;
       const user = await prisma.user.findUnique({ where: { username } });
-      if (user&&user.userType==="Business") {
+      if (user && user.userType === "Business") {
         const posts = await prisma.post.findMany({
           where: {
             creatorId: user.id,
@@ -98,7 +95,7 @@ export const postRouter = router({
         }
         return posts;
       }
-      return []
+      return [];
     }),
   findPostById: publicProcedure
     .input(z.object({ postId: z.string() }))
@@ -129,6 +126,7 @@ export const postRouter = router({
       );
       return url;
     }),
+  interaction: interactionsRoutes,
 });
 
 export type PostRouter = typeof postRouter;

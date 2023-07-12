@@ -14,6 +14,7 @@ import { randomBytes } from "crypto";
 import snakeText from "../../../utils/snake-text";
 import { followRoutes } from "./follow/follow";
 import { chatRoutes } from "./chat/chat";
+import { notificationRoutes } from "./notification/notification";
 export const userRouter = router({
   register: publicProcedure
     .input(z.object(registerInputSchema))
@@ -81,27 +82,31 @@ export const userRouter = router({
     .query(async (opts) => {
       const { input, ctx } = opts;
       const { email, id, username } = input;
-      const user = email? await ctx.prisma.user.findUnique({
-        where: { email },
-      }):username?await ctx.prisma.user.findUnique({
-        where: { username },
-      }):await ctx.prisma.user.findUnique({
-        where: { id },
-      })
+      const user = email
+        ? await ctx.prisma.user.findUnique({
+            where: { email },
+          })
+        : username
+        ? await ctx.prisma.user.findUnique({
+            where: { username },
+          })
+        : await ctx.prisma.user.findUnique({
+            where: { id },
+          });
       return user;
     }),
   setRandomUsername: publicProcedure
     .input(z.object({ email: z.string().email() }))
     .mutation(async (opts) => {
       const email = opts.input.email;
-      const userInfo = await opts.ctx.prisma.user.findUnique({
+      const userInfo = await opts.ctx.prisma.user.findUniqueOrThrow({
         where: { email: email },
       });
       var username = userInfo?.username;
       if (username) return userInfo;
       if (email && userInfo && !username) {
         const { name } = userInfo;
-        username = name ? snakeText(name) : email?.split("@")[0] ?? "user_";
+        username = (name ? snakeText(name) : email?.split("@")[0]) ?? "user_";
         var found = await opts.ctx.prisma.user.findUnique({
           where: { username },
         });
@@ -119,22 +124,25 @@ export const userRouter = router({
       }
       return null;
     }),
-  modifyUser: protectedProcedure.input(modifyUserSchema).mutation(async (opts) => {
-    const { input, ctx } = opts;
-    const { name, username, bio, dob, userType } = input;
-    const user = await ctx.prisma.user.findUnique({
-      where: { id:ctx.session.user.id },
-    });
-    if (!user) throw new Error("User not found");
-    return await ctx.prisma.user.update({
-      data: { bio, dob, name, username, userType },
-      where: {
-        id: ctx.session.user.id,
-      },
-    });
-  }),
+  modifyUser: protectedProcedure
+    .input(modifyUserSchema)
+    .mutation(async (opts) => {
+      const { input, ctx } = opts;
+      const { name, username, bio, dob, userType } = input;
+      const user = await ctx.prisma.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
+      if (!user) throw new Error("User not found");
+      return await ctx.prisma.user.update({
+        data: { bio, dob, name, username, userType },
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+    }),
   follow: followRoutes,
   chat: chatRoutes,
+  notification: notificationRoutes,
 });
 export type UserRoutes = typeof userRouter;
 

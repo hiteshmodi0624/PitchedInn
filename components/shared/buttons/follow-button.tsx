@@ -20,8 +20,10 @@ const FollowButton: FC<{
     if (!session) router.push("auth/login");
     else {
       followUser.mutate({ username });
+      if (isFollowing !== undefined && setFollowValue) {
+        setFollowValue(!isFollowing);
+      }
       setIsFollowing((prev) => {
-        if (prev !== undefined && setFollowValue) setFollowValue(!prev);
         return !prev;
       });
         

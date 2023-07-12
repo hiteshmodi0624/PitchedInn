@@ -25,10 +25,16 @@ const RootNav = () => {
   const createStateHideHandler = () => {
     changeState(false);
   };
-  const {data:session,status}:{data:Session|null,status:"authenticated" | "loading" | "unauthenticated"}=useSession();
-  const router=useRouter();
-  if(status==="unauthenticated"){
-      router.replace("/auth")
+  const {
+    data: session,
+    status,
+  }: {
+    data: Session | null;
+    status: "authenticated" | "loading" | "unauthenticated";
+  } = useSession();
+  const router = useRouter();
+  if (status === "unauthenticated") {
+    router.replace("/auth");
   }
   return (
     <>
@@ -49,10 +55,16 @@ const RootNav = () => {
           onClickHandler={createStateShowHandler}
         />
         {createState && <Create hide={createStateHideHandler} />}
-        
-        {session&&session.user&&session.user.username&&<NavButton name="Profile" icon={<AiOutlineUser />} link={session.user.username}/>}
+
+        {session && session.user && session.user.username && (
+          <NavButton
+            name="Profile"
+            icon={<AiOutlineUser />}
+            link={session.user.username}
+          />
+        )}
       </ul>
-      <MoreMenu className="hidden sm:block"/>
+      <MoreMenu className="hidden sm:block" />
     </>
   );
 };

@@ -7,6 +7,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { appRouter } from "../../../server/routers/route";
 import { IncomingMessage, ServerResponse } from "http";
 import WebSocket from "ws";
+import { signOut } from "next-auth/react";
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -80,7 +81,11 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user }) {
       const caller = appRouter.user.createCaller({ prisma, session: null });
-      const userInfo = await caller.setRandomUsername({ email: session.user.email });
+      const userInfo = await caller.setRandomUsername({
+        email: session.user.email,
+      });
+      if(!userInfo)
+        signOut()
       const newSession = {
         ...session,
         user: {

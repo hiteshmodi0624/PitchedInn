@@ -91,10 +91,10 @@ const Messages = () => {
           typing={otherUserTyping}
         />
       }
-      className="h-screen pb-20 sm:pb-0"
+      className="my-auto mt-0 h-screen"
     >
       <div className="flex h-full w-full flex-col overflow-scroll">
-        <div className=" flex h-full w-full flex-col justify-end border-[1px] border-seperator bg-black px-2">
+        <div className=" flex h-full w-full flex-col justify-end sm:border-[1px] border-seperator bg-black px-2">
           <div className="flex w-full flex-col space-y-1 overflow-scroll py-2">
             <ChatMessages
               messages={messages.data?.messages ? messages.data.messages : []}

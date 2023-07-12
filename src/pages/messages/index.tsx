@@ -4,7 +4,8 @@ import SearchBar from "components/shared/search/search-bar";
 import { trpc } from '../../utils/trpc';
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/router";
-
+import BackButton from "components/shared/buttons/back-button";
+import Heading from "components/ui/heading";
 export default function Messages({}) {
     const { data: session } = useSession();
     const followListQuery = trpc.user.follow.getUserFollowing.useQuery({id:session?.user.id});
@@ -15,8 +16,13 @@ export default function Messages({}) {
     }
     return (
       <ContentLayout
-        page="Messages"
         className="flex w-full grow overflow-hidden"
+        headerContent={
+          <div className="flex border-l-0 bg-transparent items-center">
+            <BackButton />
+            <Heading text={"Messages"} className="first-letter:uppercase" />
+          </div>
+        }
       >
         <div className="my-6 h-screen w-full grow overflow-scroll border-[1px] border-seperator py-2">
           <SearchBar

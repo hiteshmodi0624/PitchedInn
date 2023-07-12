@@ -1,6 +1,12 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../../../../server/trpc";
+import {
+  protectedProcedure,
+  publicProcedure,
+  router,
+} from "../../../../server/trpc";
+import { toPusherKey } from "~/utils/pusher";
+import { pusherServer } from "~/server/pusher";
 export const followRoutes = router({
   getUserFollowers: publicProcedure
     .input(
@@ -28,19 +34,20 @@ export const followRoutes = router({
             select: { followers: true },
           });
       if (!followers) return [];
-      const followerProfiles:User[] = [] 
+      const followerProfiles: User[] = [];
       await Promise.all(
         followers.followers.map(async (follower) => {
           const followerProfile = await ctx.prisma.user.findUnique({
             where: { id: follower },
           });
-          if (followerProfile !== null) return followerProfiles.push(followerProfile);
+          if (followerProfile !== null)
+            return followerProfiles.push(followerProfile);
         })
-      ); 
+      );
       return followerProfiles;
     }),
 
-    getUserFollowing: publicProcedure
+  getUserFollowing: publicProcedure
     .input(
       z.object({
         username: z.string().optional(),
@@ -66,15 +73,16 @@ export const followRoutes = router({
             select: { following: true },
           });
       if (!following) return [];
-      const followingProfiles:User[] = [] 
+      const followingProfiles: User[] = [];
       await Promise.all(
         following.following.map(async (following) => {
           const followingProfile = await ctx.prisma.user.findUnique({
             where: { id: following },
           });
-          if (followingProfile !== null) return followingProfiles.push(followingProfile);
+          if (followingProfile !== null)
+            return followingProfiles.push(followingProfile);
         })
-      ); 
+      );
       return followingProfiles;
     }),
   isFollowing: publicProcedure
@@ -116,11 +124,27 @@ export const followRoutes = router({
         toFollow.followers = toFollow.followers.filter(
           (id) => id !== follower.id
         );
+        await ctx.prisma.notification.deleteMany({
+          where: {
+            action: "FOLLOW",
+            notifierId: follower.id,
+            userId: toFollow.id,
+          },
+        });
       } else {
         follower.following.push(toFollow.id);
         follower.following = [...new Set(follower.following)];
         toFollow.followers.push(follower.id);
         toFollow.followers = [...new Set(toFollow.followers)];
+        const notification = await ctx.prisma.notification.create({
+          data: {
+            action: "FOLLOW",
+            notifierId: follower.id,
+            userId: toFollow.id,
+          },
+        });
+        const url = toPusherKey(`notification:${toFollow.id}`);
+        await pusherServer.trigger(url, "notification", notification);
       }
       await ctx.prisma.user.update({
         where: {

@@ -4,8 +4,10 @@ import { BiMessageRounded } from "react-icons/bi";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdAddBox, MdOutlineAddBox } from "react-icons/md";
 import InteractionIcon from "components/shared/interaction-icon";
-import { collectHandler, likeHandler, saveHandler } from "~/util/post";
+import { collectHandler, saveHandler } from "~/util/post";
 import { Collect, Comment, Like, Save } from "@prisma/client";
+import { trpc } from "~/utils/trpc";
+import { useSession } from "next-auth/react";
 const Interactions = ({
   likes,
   comments,
@@ -21,20 +23,29 @@ const Interactions = ({
   saves: Save[];
   postId: string;
 }) => {
-  const [liked, setLiked] = useState<boolean>(false);
+  const {data:session}=useSession();
+  const id=session?.user.id;
+  var isLiked=likes.find(like=>like.userId===id)!==undefined;
+  
+  const [liked, setLiked] = useState<boolean>(isLiked);
   const [saved, setSaved] = useState<boolean>(false);
   const [collected, setCollected] = useState<boolean>(false);
   const onComment = () => {};
   const onForward = () => {};
+  const likeQuery=trpc.post.interaction.likePost.useMutation();
+  const likeHandler=async()=>{
+    likeQuery.mutate({ postId: postId });
+    setLiked(prev=>!prev)
+  }
   return (
     <div className="flex w-full justify-between text-2xl">
       <InteractionIcon
         icon1={<AiOutlineHeart />}
-        onClick={likeHandler.bind(null, postId, setLiked)}
+        onClick={likeHandler}
         state={liked}
         icon2={<AiFillHeart color="red" />}
         title="Like"
-        count={likes.length + +liked}
+        count={likes.length+(+liked)-(+isLiked)}
         color="red"
       />
       <InteractionIcon

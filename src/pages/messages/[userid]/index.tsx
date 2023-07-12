@@ -52,7 +52,6 @@ const Messages = () => {
   useEffect(() => {
     if (session) {
       const url = toPusherKey(`chat:${id}:${session.user.id}`);
-      console.log(url)
       const typingChannel = pusherClient.subscribe(url);
       const typingHandler = (typing: boolean) => {
       setOtherUserTyping(typing);
@@ -71,12 +70,15 @@ const Messages = () => {
     return <div></div>;
   }
   const onSendHandler = async () => {
-    await sendMessage.mutateAsync({
-      content: message,
-      creatorId: id,
-      chatId: messages.data?.id,
-    });
-    setMessage("");
+    if(message.length!==0){
+      const content=message;
+      setMessage("");
+      await sendMessage.mutateAsync({
+        content,
+        creatorId: id,
+        chatId: messages.data?.id,
+      });
+    }
   };
 
   return (
@@ -89,14 +91,14 @@ const Messages = () => {
           typing={otherUserTyping}
         />
       }
-      className="h-screen"
+      className="h-screen pb-20 sm:pb-0"
     >
-      <div className="pb-20 sm:pb-2 flex h-full w-full flex-col overflow-scroll">
-        <div className=" flex h-full w-full flex-col justify-end bg-black px-2 border-[1px] border-seperator">
+      <div className="flex h-full w-full flex-col overflow-scroll">
+        <div className=" flex h-full w-full flex-col justify-end border-[1px] border-seperator bg-black px-2">
           <div className="flex w-full flex-col space-y-1 overflow-scroll py-2">
-            {messages.data?.messages && (
-              <ChatMessages messages={messages.data.messages} />
-            )}
+            <ChatMessages
+              messages={messages.data?.messages ? messages.data.messages : []}
+            />
           </div>
           <div
             className="my-2 flex h-min w-full items-center space-x-2
@@ -119,12 +121,14 @@ const Messages = () => {
               onChangeHandler={onChangeHandler}
               className="border-0 bg-transparent py-1 placeholder:!text-grey"
               onBlurCapture={onBlurHandler}
+              outerClass="!border-0 !my-3 flex"
+              onEnterPress={onSendHandler}
             />
             <button
               className="left-icons flex space-x-2 text-xl"
               onClick={onSendHandler}
             >
-              <MdSend />
+              {message.length !== 0 && <MdSend />}
             </button>
           </div>
         </div>

@@ -1,4 +1,9 @@
-import React, { useRef, Dispatch, ChangeEventHandler } from "react";
+import React, {
+  useRef,
+  Dispatch,
+  ChangeEventHandler,
+  KeyboardEventHandler,
+} from "react";
 import { ActionType } from "../../auth/reducers";
 import { SafeParseReturnType } from "zod";
 
@@ -17,7 +22,8 @@ interface InputProps {
     value: string
   ) => SafeParseReturnType<string, string> | { success: boolean };
   onBlurCapture?: () => void;
-  outerClass?:string;
+  outerClass?: string;
+  onEnterPress?: () => void;
 }
 const Input = ({
   type,
@@ -32,10 +38,15 @@ const Input = ({
   label,
   error,
   onBlurCapture,
-  outerClass
+  outerClass,
+  onEnterPress,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const onEnterPressHandler: KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    if (event.key === "Enter" && onEnterPress) onEnterPress();
+  };
   const dispatchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (dispatchInput)
@@ -75,13 +86,14 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChangeHandler ?? dispatchHandler}
-        onBlur={onBlurCapture??onBlurHandler}
+        onBlur={onBlurCapture ?? onBlurHandler}
         ref={inputRef}
         className={`h-max w-full p-3 text-white placeholder:font-light placeholder:text-grey focus:outline-none 
         focus:placeholder:text-primary  ${
           isValid === false &&
           "focus:placeholder:test-red-500placeholder:text-red-500"
         } ${className} ${label && "!my-0 !py-0 !pb-2 placeholder:opacity-0"}`}
+        onKeyDown={onEnterPressHandler}
       />
       {!isValid && error && (
         <p

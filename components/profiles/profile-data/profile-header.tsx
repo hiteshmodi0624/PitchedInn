@@ -56,6 +56,7 @@ const ProfileHeader: FC<{
                 className="mr-0"
                 buttonClasses="bg-white text-gray text-sm font-bold hover:opacity-90 hover:bg-white"
                 labelClasses="hidden"
+                link={`/messages/${profile.id}`}
               />
             )}
             {profile.username && (

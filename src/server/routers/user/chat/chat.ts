@@ -120,7 +120,7 @@ export const chatRoutes = router({
   sendMessage: protectedProcedure
     .input(
       z.object({
-        content: z.string(),
+        content: z.string().min(1),
         chatId: z.string().optional(),
         creatorId: z.string(),
       })
@@ -162,7 +162,6 @@ export const chatRoutes = router({
     .mutation(async ({ input, ctx }) => {
       const id = ctx.session?.user.id;
       const url=toPusherKey(`chat:${id}:${input.chatId}`);
-      console.log(url);
       await pusherServer.trigger(
         url,
         "typing",

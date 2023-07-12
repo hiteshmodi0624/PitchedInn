@@ -12,7 +12,7 @@ const BackButton = () => {
             name="Back"
             icon={<BiArrowBack />}
             iconClasses="text-lg"
-            nameClasses="xl:hidden"
+            nameClasses="hidden"
             labelClasses="text-xs"
             onClickHandler={goBack}
         ></Button>

@@ -18,7 +18,7 @@ export default function Messages({}) {
         page="Messages"
         className="flex w-full grow overflow-hidden"
       >
-        <div className="my-6 h-full w-full grow overflow-scroll border-[1px] border-seperator py-2">
+        <div className="my-6 h-screen w-full grow overflow-scroll border-[1px] border-seperator py-2">
           <SearchBar
             className="border-seperator !bg-black"
             placeholder="Search messages"

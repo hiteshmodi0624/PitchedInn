@@ -1,6 +1,5 @@
 import ContentLayout from "components/shared/content-layout/content-layout";
 import SearchBar from "components/shared/search/search-bar";
-import { getFollowList } from "src/util/lists";
 import Notification from "components/notifications/notification";
 import { trpc } from "~/utils/trpc";
 export default function Notifications() {

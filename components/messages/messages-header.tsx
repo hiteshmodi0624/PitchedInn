@@ -14,7 +14,7 @@ const MessagesHeader = ({
   typing: boolean;
 }) => {
   return (
-    <div className="flex border-[1px] border-seperator bg-transparent p-2">
+    <div className="flex py-2 border-l-0 bg-transparent">
       <BackButton />
       <Link href={`/${name}`} className="flex items-center space-x-2 ">
         <ProfilePicture

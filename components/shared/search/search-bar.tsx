@@ -15,7 +15,7 @@ function SearchBar({placeholder,className,divClasses}:{placeholder:string,classN
     return (
         <div className={`w-full text-grey group bg-black relative ${divClasses}`}>
             <form className="z-30 relative">
-                <label className="absolute text-2xl z-10 top-6 left-8 group-focus-within:text-primary">
+                <label className="absolute text-2xl z-10 top-3 left-6 group-focus-within:text-primary">
                     <AiOutlineSearch />
                 </label>
                 <Input
@@ -24,11 +24,12 @@ function SearchBar({placeholder,className,divClasses}:{placeholder:string,classN
                     placeholder={placeholder}
                     onChangeHandler={onInputChange}
                     value={value}
+                    outerClass={`rounded-full`}
                 />
 
                 {value.length > 0 && (
                     <button
-                        className="absolute text-2xl z-10 top-6 right-2 group-focus-within:text-primary"
+                        className="absolute text-2xl z-10 top-3 right-4 group-focus-within:text-primary"
                         onClick={onClose}
                     >
                         <AiFillCloseCircle />

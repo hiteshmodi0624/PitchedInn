@@ -20,48 +20,50 @@ const Messages = () => {
   const messages = trpc.user.chat.findMessages.useQuery({ id });
   const sendMessage = trpc.user.chat.sendMessage.useMutation();
   const isTypingMutation = trpc.user.chat.isTyping.useMutation();
-  const [isTyping,setIsTyping]=useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
-    if (event.target.value !== "" ) {
-      if(isTyping == false){
-        isTypingMutation.mutate({ typing: true });
+    if (event.target.value !== "") {
+      if (isTyping == false) {
+        isTypingMutation.mutate({ typing: true, chatId: id });
         setIsTyping(true);
       }
     } else {
-      if(isTyping == true){
-        isTypingMutation.mutate({ typing: false });
+      if (isTyping == true) {
+        isTypingMutation.mutate({ typing: false, chatId: id });
         setIsTyping(false);
       }
-    };
+    }
   };
 
   const onBlurHandler = () => {
     if (isTyping === true) {
-      isTypingMutation.mutate({ typing: false });
+      isTypingMutation.mutate({ typing: false, chatId: id });
       setIsTyping(false);
     }
   };
   const onFocusHandler = () => {
-    isTypingMutation.mutate({ typing: true });
+    isTypingMutation.mutate({ typing: true, chatId: id });
   };
 
   const [otherUserTyping, setOtherUserTyping] = useState<boolean>(false);
 
   useEffect(() => {
-    pusherClient.subscribe(toPusherKey(`chat:${id}`));
-    const typingHandler = (typing: boolean) => {
+    if (session) {
+      const url = toPusherKey(`chat:${id}:${session.user.id}`);
+      console.log(url)
+      const typingChannel = pusherClient.subscribe(url);
+      const typingHandler = (typing: boolean) => {
       setOtherUserTyping(typing);
-    };
-
-    pusherClient.bind("typing", typingHandler);
-
-    return () => {
-      pusherClient.unsubscribe(toPusherKey(`chat:${id}`));
-      pusherClient.unbind("typing", typingHandler);
-    };
-  }, [id]);
+      };
+      typingChannel.bind("typing", typingHandler);
+      return () => {
+        pusherClient.unsubscribe(url);
+        typingChannel.unbind("typing", typingHandler);
+      };
+    }
+  }, [id, session]);
 
   if (profile.isLoading) return <div></div>;
   if (!profile.data || !session?.user.id) {
@@ -74,9 +76,9 @@ const Messages = () => {
       creatorId: id,
       chatId: messages.data?.id,
     });
-    setMessage("")
+    setMessage("");
   };
-  
+
   return (
     <ContentLayout
       headerContent={
@@ -89,8 +91,8 @@ const Messages = () => {
       }
       className="h-screen"
     >
-      <div className="my-6 flex h-full w-full flex-col overflow-scroll border-[1px] border-seperator">
-        <div className=" flex h-full w-full flex-col justify-end border-[1px]  border-seperator bg-black px-2">
+      <div className="pb-20 sm:pb-2 flex h-full w-full flex-col overflow-scroll">
+        <div className=" flex h-full w-full flex-col justify-end bg-black px-2 border-[1px] border-seperator">
           <div className="flex w-full flex-col space-y-1 overflow-scroll py-2">
             {messages.data?.messages && (
               <ChatMessages messages={messages.data.messages} />

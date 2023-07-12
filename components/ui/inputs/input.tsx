@@ -17,6 +17,7 @@ interface InputProps {
     value: string
   ) => SafeParseReturnType<string, string> | { success: boolean };
   onBlurCapture?: () => void;
+  outerClass?:string;
 }
 const Input = ({
   type,
@@ -31,6 +32,7 @@ const Input = ({
   label,
   error,
   onBlurCapture,
+  outerClass
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -50,7 +52,7 @@ const Input = ({
   };
   return (
     <div
-      className={`group relative my-3 mb-6 w-full border-[1px] border-grey focus-within:border-primary ${
+      className={`group relative my-3 mb-6 w-full border-[1px] border-grey focus-within:border-primary ${outerClass} ${
         isValid === false &&
         "border-2 border-red-500 focus-within:border-red-500"
       } `}

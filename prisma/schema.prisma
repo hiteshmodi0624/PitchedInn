@@ -93,7 +93,7 @@ model Chat {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   type        ChatType
   messages    Message[]
-  userIds     String[]  @default([]) @db.ObjectId @unique
+  userIds     String[]  @default([]) @db.ObjectId
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   groupName   String?

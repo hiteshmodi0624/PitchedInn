@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 const ChatMessages = ({ messages }: { messages: Message[] }) => {
   const [allMessages, setMessages] = useState(messages);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
-  const router=useRouter();
+  const router = useRouter();
   const otherUserId = router.query.userid as string;
   const scrollToBottomOfList = useCallback(() => {
     if (scrollTargetRef.current === null) {
@@ -40,32 +40,37 @@ const ChatMessages = ({ messages }: { messages: Message[] }) => {
         map[msg.id] = msg;
       }
       return Object.values(map).sort(
-        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
     });
   }, []);
-  
+
   useEffect(() => {
-    pusherClient.subscribe(toPusherKey(`chat:${session?.user.id}`));
-    pusherClient.subscribe(toPusherKey(`chat:${otherUserId}`));
     const messageHandler = (message: Message) => {
       addMessages([message]);
     };
+    const Channel1 = pusherClient.subscribe(
+      toPusherKey(`chat:${session?.user.id}`)
+    );
+    const Channel2 = pusherClient.subscribe(toPusherKey(`chat:${otherUserId}`));
 
-    pusherClient.bind("incoming-message", messageHandler);
+    Channel1.bind("incoming-message", messageHandler);
+    Channel2.bind("incoming-message", messageHandler);
 
     return () => {
       pusherClient.unsubscribe(toPusherKey(`chat:${session?.user.id}`));
       pusherClient.unsubscribe(toPusherKey(`chat:${otherUserId}`));
-      pusherClient.unbind("incoming-message", messageHandler);
+      Channel1.unbind("incoming-message", messageHandler);
+      Channel2.unbind("incoming-message", messageHandler);
     };
-  }, [session,addMessages,otherUserId]);
+  }, [session, addMessages, otherUserId]);
 
   var currDate = new Date().toLocaleDateString();
   return (
     <>
       {allMessages.map((message) => {
-        const messageDate=new Date(message.createdAt);
+        const messageDate = new Date(message.createdAt);
         const msg = (
           <div key={message.id}>
             {currDate !== messageDate.toLocaleDateString() && (

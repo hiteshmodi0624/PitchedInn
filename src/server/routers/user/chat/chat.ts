@@ -148,21 +148,23 @@ export const chatRoutes = router({
           chatId: input.chatId,
         },
       });
-      await pusherServer.trigger(toPusherKey(`chat:${id}`),'incoming-message',newMessage);
       await pusherServer.trigger(
         toPusherKey(`chat:${id}`),
-        "typing",
-        false
+        "incoming-message",
+        newMessage
       );
+      await pusherServer.trigger(toPusherKey(`chat:${id}`), "typing", false);
       return newMessage;
     }),
 
   isTyping: protectedProcedure
-    .input(z.object({ typing: z.boolean() }))
-    .mutation(async({ input, ctx }) => {
+    .input(z.object({ typing: z.boolean(), chatId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
       const id = ctx.session?.user.id;
+      const url=toPusherKey(`chat:${id}:${input.chatId}`);
+      console.log(url);
       await pusherServer.trigger(
-        toPusherKey(`chat:${id}`),
+        url,
         "typing",
         input.typing
       );

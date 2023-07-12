@@ -23,7 +23,7 @@ export default function AuthPage() {
   setProgressBarState(100);
   return (
     <AuthLayout>
-      <div className="p-4 px-24 text-white">
+      <div className="p-4 sm:px-24 text-white">
         <div className="flex justify-center">
           <SmallImage src="favicon-white.ico" alt={brand} className="w-8" />
         </div>

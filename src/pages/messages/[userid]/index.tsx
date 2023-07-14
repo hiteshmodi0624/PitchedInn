@@ -83,20 +83,23 @@ const Messages = () => {
   };
 
   return (
-    <div className="grid h-[95vh] w-full grid-rows-[56px_1fr_max-content]">
+    <div
+      className="grid h-[93vh] w-full grid-rows-[56px_1fr_max-content]"
+      onDrag={(event) => event.preventDefault()}
+    >
       <MessagesHeader
         description={messages.data?.groupName}
         image={messages.data?.photo}
         name={messages.data?.groupName}
         typing={otherUserTyping}
       />
-      <div className="flex flex-col space-y-1 overflow-scroll p-2 justify-end">
+      <div className="flex flex-col justify-end space-y-1 overflow-scroll p-2">
         <ChatMessages
           messages={messages.data?.messages ? messages.data.messages : []}
         />
       </div>
       <div
-        className="flex h-min m-2 items-center space-x-2 
+        className="m-2 flex h-min items-center space-x-2 
         rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
       >
         <div

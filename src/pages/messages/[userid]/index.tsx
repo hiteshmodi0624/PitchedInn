@@ -82,7 +82,7 @@ const Messages = () => {
   };
 
   return (
-    <div className="my-auto mt-0 flex h-screen flex-col pb-20 mx-2 relative">
+    <div className="my-auto mt-0 flex h-screen flex-col pb-20 mx-2 relative justify-between">
       <MessagesHeader
         description={messages.data?.groupName}
         image={messages.data?.photo}

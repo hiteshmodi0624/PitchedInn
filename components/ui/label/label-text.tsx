@@ -10,7 +10,7 @@ const LabelText: FC<{ label: string; className?: string }> = ({
   return (
     <div
       className={`absolute z-20 my-1 whitespace-pre-line rounded bg-gray2 p-2 
-            py-1 text-xs text-white ${menuDirection} ${className}`}
+            py-1 text-xs text-white hidden sm:block ${menuDirection} ${className}`}
       ref={triggerRef}
     >
       {label}

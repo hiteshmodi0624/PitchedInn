@@ -82,58 +82,50 @@ const Messages = () => {
   };
 
   return (
-    <ContentLayout
-      headerContent={
-        <MessagesHeader
-          description={messages.data?.groupName}
-          image={messages.data?.photo}
-          name={messages.data?.groupName}
-          typing={otherUserTyping}
+    <div className="my-auto mt-0 flex h-screen flex-col">
+      <MessagesHeader
+        description={messages.data?.groupName}
+        image={messages.data?.photo}
+        name={messages.data?.groupName}
+        typing={otherUserTyping}
+      />
+      <div className="flex w-full flex-col space-y-1 overflow-scroll p-2">
+        <ChatMessages
+          messages={messages.data?.messages ? messages.data.messages : []}
         />
-      }
-      className="my-auto mt-0 h-screen"
-    >
-      <div className="flex h-full w-full flex-col overflow-scroll">
-        <div className=" flex h-full w-full flex-col justify-end sm:border-[1px] border-seperator bg-black px-2">
-          <div className="flex w-full flex-col space-y-1 overflow-scroll py-2">
-            <ChatMessages
-              messages={messages.data?.messages ? messages.data.messages : []}
-            />
-          </div>
-          <div
-            className="my-2 flex h-min w-full items-center space-x-2
-                     rounded-full border-[1px] border-seperator bg-transparent px-4"
-          >
-            <div
-              className="left-icons flex space-x-1 text-xl"
-              onBlurCapture={onBlurHandler}
-              onFocusCapture={onFocusHandler}
-            >
-              <BsEmojiSmile />
-              <MdGifBox />
-              <MdAttachFile />
-              <MdPhoto />
-            </div>
-            <Input
-              value={message}
-              placeholder="Start a new message"
-              type="text"
-              onChangeHandler={onChangeHandler}
-              className="border-0 bg-transparent py-1 placeholder:!text-grey"
-              onBlurCapture={onBlurHandler}
-              outerClass="!border-0 !my-3 flex"
-              onEnterPress={onSendHandler}
-            />
-            <button
-              className="left-icons flex space-x-2 text-xl"
-              onClick={onSendHandler}
-            >
-              {message.length !== 0 && <MdSend />}
-            </button>
-          </div>
-        </div>
       </div>
-    </ContentLayout>
+      <div
+        className="my-2 flex h-min w-full items-center space-x-2
+                     rounded-full border-[1px] border-seperator bg-transparent px-4"
+      >
+        <div
+          className="left-icons flex space-x-1 text-xl"
+          onBlurCapture={onBlurHandler}
+          onFocusCapture={onFocusHandler}
+        >
+          <BsEmojiSmile />
+          <MdGifBox />
+          <MdAttachFile />
+          <MdPhoto />
+        </div>
+        <Input
+          value={message}
+          placeholder="Start a new message"
+          type="text"
+          onChangeHandler={onChangeHandler}
+          className="border-0 bg-transparent py-1 placeholder:!text-grey"
+          onBlurCapture={onBlurHandler}
+          outerClass="!border-0 !my-3 flex"
+          onEnterPress={onSendHandler}
+        />
+        <button
+          className="left-icons flex space-x-2 text-xl"
+          onClick={onSendHandler}
+        >
+          {message.length !== 0 && <MdSend />}
+        </button>
+      </div>
+    </div>
   );
 };
 

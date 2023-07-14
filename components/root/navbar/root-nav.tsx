@@ -3,8 +3,6 @@ import { FC, useState } from "react";
 import NavButton from "./nav-button";
 import {
   AiFillHome,
-  AiOutlineMessage,
-  AiOutlineMore,
   AiOutlineNotification,
   AiOutlinePlusSquare,
   AiOutlineSearch,
@@ -17,6 +15,7 @@ import Create from "components/create/create";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import { BiMessageSquareDetail } from "react-icons/bi";
 const RootNav = () => {
   const [createState, changeState] = useState(false);
   const createStateShowHandler = () => {
@@ -44,7 +43,7 @@ const RootNav = () => {
         <NavButton name="Pitches" icon={<AiOutlineVideoCamera />} />
         <NavButton
           name="Messages"
-          icon={<AiOutlineMessage />}
+          icon={<BiMessageSquareDetail />}
           className="hidden sm:block"
         />
         <NavButton name="Notifications" icon={<AiOutlineNotification />} />

@@ -88,7 +88,7 @@ const Input = ({
         onChange={onChangeHandler ?? dispatchHandler}
         onBlur={onBlurCapture ?? onBlurHandler}
         ref={inputRef}
-        className={`h-max w-full p-3 text-white placeholder:font-light placeholder:text-grey focus:outline-none 
+        className={`h-max w-full p-2 sm:p-3 text-white placeholder:font-light placeholder:text-grey focus:outline-none 
         focus:placeholder:text-primary  ${
           isValid === false &&
           "focus:placeholder:test-red-500placeholder:text-red-500"

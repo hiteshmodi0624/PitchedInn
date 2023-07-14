@@ -84,7 +84,7 @@ const Messages = () => {
 
   return (
       <div
-        className="h-screen flex flex-col w-full sm:h-screen sticky top-0"
+        className="grid h-[93vh] sm:screen w-full grid-rows-[56px_1fr_max-content] sm:h-screen sticky top-0"
         onScroll={(event) => event.preventDefault}
       >
         <MessagesHeader
@@ -93,7 +93,7 @@ const Messages = () => {
           name={messages.data?.groupName}
           typing={otherUserTyping}
         />
-        <div className="grow flex flex-col justify-end space-y-1 overflow-scroll p-2">
+        <div className="flex flex-col justify-end space-y-1 overflow-scroll p-2">
           <ChatMessages
             messages={messages.data?.messages ? messages.data.messages : []}
           />

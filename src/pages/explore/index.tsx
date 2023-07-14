@@ -23,8 +23,8 @@ export default function Explore() {
           <SearchBar
             placeholder="Search Startups And Collections"
             className="border-0 truncate"
-            divClasses="w-56 focus-within:w-full !absolute right-1 transition-all bg-transparent h-10"
-            borderClass="border-none focus-within:border-solid -my-0.5"
+            divClasses="!w-56 focus-within:!w-full !absolute right-1 transition-all bg-transparent h-10"
+            borderClass="border-none focus-within:border-solid !-my-0.5"
           />
         </div>
       }

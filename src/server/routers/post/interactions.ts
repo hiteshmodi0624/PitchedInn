@@ -46,16 +46,18 @@ export const interactionsRoutes = router({
             userId
           }
         })
-        const notification=await ctx.prisma.notification.create({
-          data:{
-            action:"LIKE",
-            notifierId:userId,
-            userId:post.creatorId,
-            likeId:Like.id,
-          }
-        })
-        const url = toPusherKey(`notification:${post.creatorId}`);
-        await pusherServer.trigger(url, "notification", notification);
+        if(userId!==post.creatorId){
+          const notification=await ctx.prisma.notification.create({
+            data:{
+              action:"LIKE",
+              notifierId:userId,
+              userId:post.creatorId,
+              likeId:Like.id,
+            }
+          })
+          const url = toPusherKey(`notification:${post.creatorId}`);
+          await pusherServer.trigger(url, "notification", notification);
+        }
       }
     }),
 });

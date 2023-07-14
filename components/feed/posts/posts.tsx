@@ -19,7 +19,6 @@ const Posts = ({ posts }: { posts: PostRouterProcedure<"fetchAllPosts"> }) => {
             <Content content={post.caption} />
             <div className="w-full px-4 py-4">
               <Interactions
-                collects={post.collect}
                 comments={post.comment}
                 likes={post.like}
                 saves={post.save}

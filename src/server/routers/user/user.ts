@@ -140,6 +140,10 @@ export const userRouter = router({
         },
       });
     }),
+  getAllUsers: publicProcedure.query(async(opts)=>{
+    const { input, ctx } = opts;
+    return await ctx.prisma.user.findMany();
+  }),
   follow: followRoutes,
   chat: chatRoutes,
   notification: notificationRoutes,

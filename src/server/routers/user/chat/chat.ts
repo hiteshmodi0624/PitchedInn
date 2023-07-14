@@ -5,6 +5,7 @@ import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../../../../server/trpc";
 import { pusherServer } from "../../../../server/pusher";
 import { toPusherKey } from "../../../../utils/pusher";
+import { inferProcedureOutput } from "@trpc/server";
 
 const ee = new EventEmitter();
 const currentlyTyping: Record<string, { lastTyped: Date }> =
@@ -21,13 +22,18 @@ export const chatRoutes = router({
           include: {
             messages: {
               take: 1,
+              orderBy:{
+                createdAt:"desc"
+              }
             },
           },
         },
       },
     });
     if (!chats) return [];
-    const modifiedChats: Chat[] = await Promise.all(
+    const modifiedChats: (Chat & {
+      messages: Message[];
+    })[] = await Promise.all(
       chats.chat.map(async (chat) => {
         if (chat.type === "SINGLE") {
           const otherUserId =
@@ -198,3 +204,11 @@ export const chatRoutes = router({
       };
     }),
 });
+
+export type ChatRouter = typeof chatRoutes;
+
+export type ChatProcedure<
+  T extends keyof ChatRouter["_def"]["procedures"]
+> = ChatRouter["_def"]["procedures"][T] extends never
+  ? never
+  : inferProcedureOutput<ChatRouter["_def"]["procedures"][T]>;

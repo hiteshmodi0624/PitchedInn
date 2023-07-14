@@ -1,4 +1,5 @@
 import { ChangeEventHandler, DragEventHandler } from "react";
+import compressImage from "~/utils/compress-image";
 
 const UploadImage = ({
   setUploadState,
@@ -13,15 +14,20 @@ const UploadImage = ({
   setFiles: (fl: File) => void;
   children?: React.ReactNode;
 }) => {
-  const setImage = (file: File) => {
-    setFiles(file);
-    const objectURL = URL.createObjectURL(file);
-    setUploadState("preview");
-    setDragState(objectURL);
+  const setImage = async(file: File) => {
+    await compressImage(file,(blob)=>{
+      const newFile= new File([blob!], new Date().toISOString())
+      setFiles(newFile);
+      const objectURL = URL.createObjectURL(newFile);
+      setUploadState("preview");
+      setDragState(objectURL);
+    },0.2);
   };
   const drophandler: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
-    setImage(event.dataTransfer.files[0]!);
+    if (event.dataTransfer.files[0]!.type.includes("image"))
+      setImage(event.dataTransfer.files[0]!);
+    else setDragState("end");
   };
   const fileselectHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();

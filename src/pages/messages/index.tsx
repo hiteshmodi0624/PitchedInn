@@ -8,9 +8,9 @@ import BackButton from "components/shared/buttons/back-button";
 import Heading from "components/ui/heading";
 export default function Messages({}) {
     const { data: session } = useSession();
-    const followListQuery = trpc.user.follow.getUserFollowing.useQuery({id:session?.user.id});
+    const chatListQuery = trpc.user.chat.getUserChats.useQuery();
     const router=useRouter();
-    if(!followListQuery){
+    if(!chatListQuery){
         router.back();
         return <></>;
     }
@@ -30,14 +30,14 @@ export default function Messages({}) {
             placeholder="Search messages"
             divClasses="px-4"
           />
-          {followListQuery.data && (
+          {chatListQuery.data && (
             <ul className="">
-              {followListQuery.data.map((profile) => (
+              {chatListQuery.data.map((chat) => (
                 <li
-                  key={profile.username}
+                  key={chat.groupName}
                   className=" flex flex-grow flex-col p-2.5 px-6 hover:bg-gray2"
                 >
-                  <MessageProfiles profile={profile} />
+                  <MessageProfiles chat={chat} />
                 </li>
               ))}
             </ul>

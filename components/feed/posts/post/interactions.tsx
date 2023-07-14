@@ -11,14 +11,12 @@ import { useSession } from "next-auth/react";
 const Interactions = ({
   likes,
   comments,
-  collects,
   shares,
   saves,
   postId,
 }: {
   likes: Like[];
   comments: Comment[];
-  collects: Collect[];
   shares: number;
   saves: Save[];
   postId: string;
@@ -26,10 +24,8 @@ const Interactions = ({
   const {data:session}=useSession();
   const id=session?.user.id;
   var isLiked=likes.find(like=>like.userId===id)!==undefined;
-  
   const [liked, setLiked] = useState<boolean>(isLiked);
   const [saved, setSaved] = useState<boolean>(false);
-  const [collected, setCollected] = useState<boolean>(false);
   const onComment = () => {};
   const onForward = () => {};
   const likeQuery=trpc.post.interaction.likePost.useMutation();
@@ -51,18 +47,9 @@ const Interactions = ({
       <InteractionIcon
         icon1={<BiMessageRounded />}
         onClick={onComment}
-        title="Message"
+        title="Comment"
         count={comments.length}
         color="DodgerBlue"
-      />
-      <InteractionIcon
-        icon1={<MdOutlineAddBox />}
-        onClick={collectHandler.bind(null, postId, setCollected)}
-        state={collected}
-        icon2={<MdAddBox color="green" />}
-        title="Collect"
-        count={collects.length + +collected}
-        color="green"
       />
       <InteractionIcon
         icon1={<BsBookmark />}

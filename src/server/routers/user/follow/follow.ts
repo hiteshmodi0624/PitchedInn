@@ -117,6 +117,7 @@ export const followRoutes = router({
         },
       });
       if (!toFollow || !follower) return;
+      if (toFollow.id === follower.id) return;
       if (follower.following.includes(toFollow.id)) {
         follower.following = follower.following.filter(
           (id) => id !== toFollow.id

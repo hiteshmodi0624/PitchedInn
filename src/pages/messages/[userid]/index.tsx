@@ -83,51 +83,53 @@ const Messages = () => {
   };
 
   return (
-    <div
-      className="grid h-[93vh] w-full grid-rows-[56px_1fr_max-content]"
-      onDrag={(event) => event.preventDefault()}
-    >
-      <MessagesHeader
-        description={messages.data?.groupName}
-        image={messages.data?.photo}
-        name={messages.data?.groupName}
-        typing={otherUserTyping}
-      />
-      <div className="flex flex-col justify-end space-y-1 overflow-scroll p-2">
-        <ChatMessages
-          messages={messages.data?.messages ? messages.data.messages : []}
-        />
-      </div>
+    <div className="h-[10000px] sm:h-screen">
       <div
-        className="m-2 flex h-min items-center space-x-2 
-        rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
+        className="grid h-[93vh] w-full grid-rows-[56px_1fr_max-content] sm:h-screen"
+        onScroll={(event) => event.preventDefault}
       >
-        <div
-          className="left-icons flex space-x-1 text-xl"
-          onBlurCapture={onBlurHandler}
-          onFocusCapture={onFocusHandler}
-        >
-          <BsEmojiSmile />
-          <MdGifBox />
-          <MdAttachFile />
-          <MdPhoto />
-        </div>
-        <Input
-          value={message}
-          placeholder="Start a new message"
-          type="text"
-          onChangeHandler={onChangeHandler}
-          className="border-0 bg-transparent py-1 placeholder:!text-grey"
-          onBlurCapture={onBlurHandler}
-          outerClass="!border-0 !my-3 flex"
-          onEnterPress={onSendHandler}
+        <MessagesHeader
+          description={messages.data?.groupName}
+          image={messages.data?.photo}
+          name={messages.data?.groupName}
+          typing={otherUserTyping}
         />
-        <button
-          className="left-icons flex space-x-2 text-xl"
-          onClick={onSendHandler}
+        <div className="flex flex-col justify-end space-y-1 overflow-scroll p-2">
+          <ChatMessages
+            messages={messages.data?.messages ? messages.data.messages : []}
+          />
+        </div>
+        <div
+          className="m-2 flex h-min items-center space-x-2 
+        rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
         >
-          {message.length !== 0 && <MdSend />}
-        </button>
+          <div
+            className="left-icons flex space-x-1 text-xl"
+            onBlurCapture={onBlurHandler}
+            onFocusCapture={onFocusHandler}
+          >
+            <BsEmojiSmile />
+            <MdGifBox />
+            <MdAttachFile />
+            <MdPhoto />
+          </div>
+          <Input
+            value={message}
+            placeholder="Start a new message"
+            type="text"
+            onChangeHandler={onChangeHandler}
+            className="border-0 bg-transparent py-1 placeholder:!text-grey"
+            onBlurCapture={onBlurHandler}
+            outerClass="!border-0 !my-3 flex"
+            onEnterPress={onSendHandler}
+          />
+          <button
+            className="left-icons flex space-x-2 text-xl"
+            onClick={onSendHandler}
+          >
+            {message.length !== 0 && <MdSend />}
+          </button>
+        </div>
       </div>
     </div>
   );

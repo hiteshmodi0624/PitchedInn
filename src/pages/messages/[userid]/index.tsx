@@ -83,9 +83,8 @@ const Messages = () => {
   };
 
   return (
-    <div className="h-screen">
       <div
-        className="grid h-[93vh] w-full grid-rows-[56px_1fr_max-content] sm:h-screen sticky top-0"
+        className="grid h-[93vh] sm:screen w-full grid-rows-[56px_1fr_max-content] sm:h-screen sticky top-0"
         onScroll={(event) => event.preventDefault}
       >
         <MessagesHeader
@@ -131,7 +130,6 @@ const Messages = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

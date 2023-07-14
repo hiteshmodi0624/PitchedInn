@@ -54,7 +54,7 @@ const Messages = () => {
       const url = toPusherKey(`chat:${id}:${session.user.id}`);
       const typingChannel = pusherClient.subscribe(url);
       const typingHandler = (typing: boolean) => {
-      setOtherUserTyping(typing);
+        setOtherUserTyping(typing);
       };
       typingChannel.bind("typing", typingHandler);
       return () => {
@@ -69,9 +69,10 @@ const Messages = () => {
     router.replace("/404");
     return <div></div>;
   }
+  if (messages.isLoading) return <div></div>;
   const onSendHandler = async () => {
-    if(message.length!==0){
-      const content=message;
+    if (message.length !== 0) {
+      const content = message;
       setMessage("");
       await sendMessage.mutateAsync({
         content,
@@ -82,21 +83,28 @@ const Messages = () => {
   };
 
   return (
-    <div className="my-auto mt-0 flex h-screen flex-col pb-20 mx-2 relative justify-between">
-      <MessagesHeader
-        description={messages.data?.groupName}
-        image={messages.data?.photo}
-        name={messages.data?.groupName}
-        typing={otherUserTyping}
-      />
-      <div className="flex w-full flex-col space-y-1 overflow-scroll p-2">
-        <ChatMessages
-          messages={messages.data?.messages ? messages.data.messages : []}
+    <ContentLayout
+      headerContent={
+        <MessagesHeader
+          description={messages.data?.groupName}
+          image={messages.data?.photo}
+          name={messages.data?.groupName}
+          typing={otherUserTyping}
         />
+      }
+      className="relative my-auto mt-0 flex h-screen flex-col items-center justify-between"
+    >
+      <div className="w-full">
+        <div className="flex flex-col space-y-1 overflow-scroll p-2">
+          <ChatMessages
+            messages={messages.data?.messages ? messages.data.messages : []}
+          />
+        </div>
+        <div className="h-16 bg-black sm:h-0"></div>
       </div>
       <div
-        className="my-2 flex h-min w-full items-center space-x-2
-                     rounded-full border-[1px] border-seperator bg-transparent px-4 fixed bottom-0"
+        className="fixed bottom-0 my-2 flex h-min w-[98%]
+                     items-center space-x-2 rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
       >
         <div
           className="left-icons flex space-x-1 text-xl"
@@ -125,7 +133,7 @@ const Messages = () => {
           {message.length !== 0 && <MdSend />}
         </button>
       </div>
-    </div>
+    </ContentLayout>
   );
 };
 

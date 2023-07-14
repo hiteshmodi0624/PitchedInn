@@ -111,17 +111,32 @@ export const chatRoutes = router({
           },
         },
       });
+      var chatId=user?.chat[0]?.id;
+      var chat=user?.chat[0];
+      if (user && user.chat.length===0) {
+        const userIds = [input.id, id];
+        const newChat=await ctx.prisma.chat.create({
+          data: {
+            type: "SINGLE",
+            userIds: userIds,
+            Users: {
+              connect: userIds.map((userId) => ({ id: userId })),
+            },
+          },
+        });
+        chat={...newChat,messages:[]}
+      }
       const newUser = await ctx.prisma.user.findUnique({
         where: { id: input.id },
       });
-      const chat = {
-        messages: user?.chat[0]?.messages,
-        photo: user?.chat[0]?.photo ?? newUser?.image,
-        description: user?.chat[0]?.description ?? newUser?.bio,
-        groupName: user?.chat[0]?.groupName ?? newUser?.name,
-        id: user?.chat[0]?.id,
+      const modifiedChat = {
+        messages: chat?.messages,
+        photo: chat?.photo ?? newUser?.image,
+        description: chat?.description ?? newUser?.bio,
+        groupName: chat?.groupName ?? newUser?.name,
+        id: chatId,
       };
-      return chat;
+      return modifiedChat;
     }),
   sendMessage: protectedProcedure
     .input(

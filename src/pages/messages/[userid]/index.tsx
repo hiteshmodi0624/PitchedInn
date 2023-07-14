@@ -96,7 +96,7 @@ const Messages = () => {
       </div>
       <div
         className="my-2 flex h-min w-full items-center space-x-2
-                     rounded-full border-[1px] border-seperator bg-transparent px-4 absolute bottom-0"
+                     rounded-full border-[1px] border-seperator bg-transparent px-4 fixed bottom-0"
       >
         <div
           className="left-icons flex space-x-1 text-xl"

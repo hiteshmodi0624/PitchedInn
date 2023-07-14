@@ -83,14 +83,14 @@ const Messages = () => {
   };
 
   return (
-    <div className="grid h-screen w-full grid-rows-[56px_1fr_72px] sm:flex flex-col">
+    <div className="grid h-[95vh] w-full grid-rows-[56px_1fr_max-content]">
       <MessagesHeader
         description={messages.data?.groupName}
         image={messages.data?.photo}
         name={messages.data?.groupName}
         typing={otherUserTyping}
       />
-      <div className="flex flex-col space-y-1 overflow-scroll p-2">
+      <div className="flex flex-col space-y-1 overflow-scroll p-2 justify-end">
         <ChatMessages
           messages={messages.data?.messages ? messages.data.messages : []}
         />

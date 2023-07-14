@@ -41,7 +41,7 @@ function Feed({
                 height={300}
                 src="/logo.svg"
                 alt={brand}
-                className="h-7 m-3 -ml-8"
+                className="h-7 m-3 -ml-8 sm:hidden"
               />
             </Link>
             <NavButton

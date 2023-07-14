@@ -83,28 +83,21 @@ const Messages = () => {
   };
 
   return (
-    <ContentLayout
-      headerContent={
-        <MessagesHeader
-          description={messages.data?.groupName}
-          image={messages.data?.photo}
-          name={messages.data?.groupName}
-          typing={otherUserTyping}
+    <div className="grid h-screen w-full grid-rows-[56px_1fr_72px] sm:flex flex-col">
+      <MessagesHeader
+        description={messages.data?.groupName}
+        image={messages.data?.photo}
+        name={messages.data?.groupName}
+        typing={otherUserTyping}
+      />
+      <div className="flex flex-col space-y-1 overflow-scroll p-2">
+        <ChatMessages
+          messages={messages.data?.messages ? messages.data.messages : []}
         />
-      }
-      className="relative my-auto mt-0 flex h-screen flex-col items-center justify-between"
-    >
-      <div className="w-full">
-        <div className="flex flex-col space-y-1 overflow-scroll p-2">
-          <ChatMessages
-            messages={messages.data?.messages ? messages.data.messages : []}
-          />
-        </div>
-        <div className="h-16 bg-black sm:h-0"></div>
       </div>
       <div
-        className="fixed bottom-0 my-2 flex h-min w-[98%]
-                     items-center space-x-2 rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
+        className="flex h-min m-2 items-center space-x-2 
+        rounded-full border-[1px] border-seperator bg-transparent px-4 sm:relative"
       >
         <div
           className="left-icons flex space-x-1 text-xl"
@@ -133,7 +126,7 @@ const Messages = () => {
           {message.length !== 0 && <MdSend />}
         </button>
       </div>
-    </ContentLayout>
+    </div>
   );
 };
 

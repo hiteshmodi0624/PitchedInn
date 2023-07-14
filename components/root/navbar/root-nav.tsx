@@ -63,7 +63,7 @@ const RootNav = () => {
           />
         )}
       </ul>
-      <MoreMenu className="hidden sm:block " />
+      <MoreMenu className="hidden sm:block sm:py-0 md:py-2" />
     </>
   );
 };

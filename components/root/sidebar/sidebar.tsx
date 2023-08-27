@@ -13,8 +13,8 @@ function Sidebar({ children }: PropsWithChildren) {
       }
     },[]);
     return (
-        <div className="h-full flex w-full flex-col">
-            <div  id="side-bar" className={`sticky w-full pl-6 hidden lg:block`}>
+        <div className="h-full w-full flex-col hidden lg:flex">
+            <div  id="side-bar" className={`sticky w-full pl-6 `}>
                 <SearchBar
                     placeholder="Search Startups or Collections"
                     className="border-transparent"

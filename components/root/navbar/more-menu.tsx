@@ -18,7 +18,7 @@ function MoreMenu({className}:{className?:string}) {
         />
       }
       menu={
-        <HiddenMenu className="w-full min-w-max text-sm !bottom-full !top-auto">
+        <HiddenMenu className="w-full min-w-max text-sm">
           <HiddenMenuItem
             title="Settings"
             icon={<AiFillSetting />}

@@ -43,7 +43,7 @@ const Modal = ({
         overlayRef.current &&
         ReactDOM.createPortal(
           <button
-            className={`fixed z-[52] flex h-screen w-screen items-center justify-center overflow-scroll ${className}`}
+            className={`fixed z-[52] flex h-screen w-screen items-center justify-center overflow-auto ${className}`}
           >
             {children}
           </button>,

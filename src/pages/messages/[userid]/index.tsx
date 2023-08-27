@@ -34,7 +34,7 @@ const Messages = () => {
         isTypingMutation.mutate({ typing: false, chatId: id });
         setIsTyping(false);
       }
-    }
+    };
   };
 
   const onBlurHandler = () => {

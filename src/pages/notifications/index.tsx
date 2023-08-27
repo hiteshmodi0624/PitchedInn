@@ -9,7 +9,7 @@ export default function Notifications() {
   }
   return (
     <ContentLayout page="Notifications" className="overflow-x-hidden">
-      <div className="my-6 h-full w-full grow overflow-scroll border-[1px] border-seperator py-2">
+      <div className="my-6 h-full w-full grow overflow-auto border-[1px] border-seperator py-2">
         <SearchBar
           className="border-seperator !bg-black"
           placeholder="Search notifications"

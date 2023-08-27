@@ -93,7 +93,7 @@ const Messages = () => {
           name={messages.data?.groupName}
           typing={otherUserTyping}
         />
-        <div className="flex flex-col justify-end space-y-1 overflow-scroll p-2">
+        <div className="flex flex-col space-y-1 overflow-auto p-2 h-full">
           <ChatMessages
             messages={messages.data?.messages ? messages.data.messages : []}
           />

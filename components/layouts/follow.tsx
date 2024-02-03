@@ -29,7 +29,7 @@ const FollowLayout = ({
       headerContent={<SmallProfileHeader profile={profile.data} />}
       className="h-screen"
     >
-      <div className="my-6 h-screen border-[1px] border-seperator">
+      <div className="my-6 h-dvh border-[1px] border-seperator">
         <Modes
           setMode={setProfileMode}
           mode={currentMode}

@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: React.ReactElement 
         router.replace("/auth");
     };
     return (
-      <div className="relative my-auto bg-black p-5">
+      <div className="relative my-auto bg-black p-5 h-dvh sm:h-auto">
         <BackButton/>
         {children}
       </div>

@@ -47,7 +47,7 @@ const ProfileLayout = ({
       headerContent={<SmallProfileHeader profile={profile} />}
       className="h-screen"
     >
-      <Card className="mt-6 w-full mb-6 h-screen">
+      <Card className="mt-6 w-full mb-6 h-dvh">
         <ProfileData profile={profile} />
         {modes.length !== 0 && (
           <Modes setMode={setProfileMode} mode={currentMode} modes={modes} />

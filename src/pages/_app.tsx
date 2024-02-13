@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { trpc } from "~/utils/trpc";
 import { useRouter } from "next/router";
+import { Analytics } from '@vercel/analytics/react';
 
 const client = new QueryClient({
   defaultOptions:{
@@ -17,15 +18,21 @@ const client = new QueryClient({
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   return (
-    <QueryClientProvider client={client}>
-      <Layout>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>PitchedInn</title>
-        </Head>
-        <Component {...pageProps} key={router.asPath}/>
-      </Layout>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={client}>
+        <Layout>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+            <title>PitchedInn</title>
+          </Head>
+          <Component {...pageProps} key={router.asPath} />
+        </Layout>
+      </QueryClientProvider>
+      <Analytics />
+    </>
   );
 };
 
